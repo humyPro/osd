@@ -2,21 +2,23 @@
   border: 0;
   margin: 0;
 }
+body {
+  height: 100%;
+  width: 100%;
+}
 .normal-layout {
   display: flex;
   align-items: flex-start;
   justify-content: flex-start;
-  height: 100%;
-  width: 100%;
 }
 
 .main-content {
   padding: 25px;
   display: flex;
   flex-direction: column;
-  height: 100%;
-  width: 100%;
   align-items: flex-start;
+  overflow-y: auto;
+  height: 90vh;
 }
 
 .form-content {
@@ -31,4 +33,9 @@
 }
 .el-form--inline .el-form-item {
   margin-right: 0px !important;
+}
+
+.save-button {
+  margin-left: auto;
+  margin-right: 40px;
 }
