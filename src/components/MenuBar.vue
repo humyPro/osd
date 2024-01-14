@@ -4,12 +4,10 @@
       <el-menu
         default-active="1"
         class="el-menu-vertical-demo menu-bar"
-        background-color="#545c64"
-        text-color="#fff"
         @open="handleOpen"
         @close="handleClose"
       >
-        <el-menu-item :index="menu.path" v-for="menu in menus">
+        <el-menu-item :index="menu.path" v-for="menu in menus" :key="menu.label">
           <el-icon><component :is="menu.icon"></component></el-icon>
           <span>{{ menu.label }}</span>
         </el-menu-item>
@@ -18,7 +16,7 @@
   </el-row>
 </template>
 <script lang="ts">
-import { House, Operation, UploadFilled, Coin, Link, Setting, More } from '@element-plus/icons-vue'
+import { House, UploadFilled, Coin, Link, Setting, More } from '@element-plus/icons-vue'
 import { markRaw } from 'vue'
 export default {
   data() {

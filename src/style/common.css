@@ -1,0 +1,34 @@
+* {
+  border: 0;
+  margin: 0;
+}
+.normal-layout {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  height: 100%;
+  width: 100%;
+}
+
+.main-content {
+  padding: 25px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  align-items: flex-start;
+}
+
+.form-content {
+  border: 2px dashed var(--el-border-color);
+  padding: 10px 15px;
+  width: 600px;
+  margin-bottom: 10px;
+}
+
+.custom-form-item {
+  width: 180px !important;
+}
+.el-form--inline .el-form-item {
+  margin-right: 0px !important;
+}

@@ -2,28 +2,105 @@
   <div class="normal-layout">
     <MenuBar />
     <div class="main-content">
-      <el-form :inline="false" :model="formInline" class="demo-form-inline">
-        <el-form-item label="Approved by">
-          <el-input v-model="formInline.user" placeholder="Approved by" clearable />
-        </el-form-item>
-        <el-form-item label="Activity zone">
-          <el-select v-model="formInline.region" placeholder="Activity zone" clearable>
-            <el-option label="Zone one" value="shanghai" />
-            <el-option label="Zone two" value="beijing" />
-          </el-select>
-        </el-form-item>
-        <el-form-item label="Activity time">
-          <el-date-picker
-            v-model="formInline.date"
-            type="date"
-            placeholder="Pick a date"
-            clearable
-          />
-        </el-form-item>
-        <el-form-item>
-          <el-button type="primary" @click="onSubmit">Query</el-button>
-        </el-form-item>
-      </el-form>
+      <div class="form-content">
+        <div class="title" style="margin-bottom: 10px">
+          <FormTitle title="编码通道1参数设置" />
+        </div>
+        <el-form
+          :inline="true"
+          :model="formInline"
+          class="inline-form"
+          label-position="right"
+          label-width="100px"
+        >
+          <el-form-item label="编码类型">
+            <el-select class="custom-form-item" v-model="formInline.region" placeholder="">
+              <el-option label="H265" value="H264" />
+              <el-option label="H265" value="H265" />
+            </el-select>
+          </el-form-item>
+          <el-form-item label="分辨率">
+            <el-select class="custom-form-item" v-model="formInline.region" placeholder="">
+              <el-option label="1080*960" value="1080*960" />
+            </el-select>
+          </el-form-item>
+          <el-form-item label="帧率">
+            <el-input class="custom-form-item" placeholder="5-60" />
+          </el-form-item>
+          <el-form-item label="关键帧间隔">
+            <el-input class="custom-form-item" placeholder="30-180之间，30的倍数" />
+          </el-form-item>
+          <el-form-item label="码率(kbps)">
+            <el-input class="custom-form-item" placeholder="160-20000" />
+          </el-form-item>
+        </el-form>
+      </div>
+      <div class="form-content">
+        <div class="title" style="margin-bottom: 10px">
+          <FormTitle title="编码通道2参数设置" />
+        </div>
+        <el-form
+          :inline="true"
+          :model="formInline"
+          class="inline-form"
+          label-position="right"
+          label-width="100px"
+        >
+          <el-form-item label="编码类型">
+            <el-select class="custom-form-item" v-model="formInline.region" placeholder="">
+              <el-option label="H265" value="H264" />
+              <el-option label="H265" value="H265" />
+            </el-select>
+          </el-form-item>
+          <el-form-item label="分辨率">
+            <el-select class="custom-form-item" v-model="formInline.region" placeholder="">
+              <el-option label="1080*960" value="1080*960" />
+            </el-select>
+          </el-form-item>
+          <el-form-item label="帧率">
+            <el-input class="custom-form-item" placeholder="5-60" />
+          </el-form-item>
+          <el-form-item label="关键帧间隔">
+            <el-input class="custom-form-item" placeholder="30-180之间，30的倍数" />
+          </el-form-item>
+          <el-form-item label="码率(kbps)">
+            <el-input class="custom-form-item" placeholder="160-20000" />
+          </el-form-item>
+        </el-form>
+      </div>
+      <div class="form-content">
+        <div class="title" style="margin-bottom: 10px">
+          <FormTitle title="编码通道3参数设置" />
+        </div>
+        <el-form
+          :inline="true"
+          :model="formInline"
+          class="inline-form"
+          label-position="right"
+          label-width="100px"
+        >
+          <el-form-item label="编码类型">
+            <el-select class="custom-form-item" v-model="formInline.region" placeholder="">
+              <el-option label="H265" value="H264" />
+              <el-option label="H265" value="H265" />
+            </el-select>
+          </el-form-item>
+          <el-form-item label="分辨率">
+            <el-select class="custom-form-item" v-model="formInline.region" placeholder="">
+              <el-option label="1080*960" value="1080*960" />
+            </el-select>
+          </el-form-item>
+          <el-form-item label="帧率">
+            <el-input class="custom-form-item" placeholder="5-60" />
+          </el-form-item>
+          <el-form-item label="关键帧间隔">
+            <el-input class="custom-form-item" placeholder="30-180之间，30的倍数" />
+          </el-form-item>
+          <el-form-item label="码率(kbps)">
+            <el-input class="custom-form-item" placeholder="160-20000" />
+          </el-form-item>
+        </el-form>
+      </div>
     </div>
   </div>
 </template>
@@ -41,4 +118,9 @@ const onSubmit = () => {
   console.log('submit!')
 }
 </script>
-<style scoped></style>
+<style scoped>
+.inline-form {
+  display: flex;
+  flex-wrap: wrap;
+}
+</style>
