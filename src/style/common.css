@@ -6,6 +6,9 @@ body {
   height: 100%;
   width: 100%;
 }
+.bordered {
+  border: 2px dashed var(--el-border-color);
+}
 .normal-layout {
   display: flex;
   align-items: flex-start;
@@ -20,12 +23,15 @@ body {
   overflow-y: auto;
   height: 90vh;
 }
-
-.form-content {
-  border: 2px dashed var(--el-border-color);
+.forms-box {
+  display: flex;
+  padding: 5px;
+}
+.form-box {
   padding: 10px 15px;
   width: 600px;
-  margin-bottom: 10px;
+  display: flex;
+  flex-direction: column;
 }
 
 .custom-form-item {

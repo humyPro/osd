@@ -1,13 +1,17 @@
 <template>
   <div class="dot">
     <div></div>
-    <el-text size="large" type="primary">{{ title }}</el-text>
+    <el-text size="large" :type="textType">{{ title }}</el-text>
   </div>
 </template>
 <script lang="ts">
 export default {
   props: {
-    title: String
+    title: String,
+    textType: {
+      type: String as any,
+      default: 'default'
+    }
   }
 }
 </script>

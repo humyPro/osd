@@ -2,10 +2,11 @@
   <el-row class="tac">
     <el-col :span="24">
       <el-menu
-        default-active="1"
+        :default-active="$route.path"
         class="el-menu-vertical-demo menu-bar"
         @open="handleOpen"
         @close="handleClose"
+        :router="true"
       >
         <el-menu-item :index="menu.path" v-for="menu in menus" :key="menu.label">
           <el-icon><component :is="menu.icon"></component></el-icon>
@@ -16,16 +17,22 @@
   </el-row>
 </template>
 <script lang="ts">
-import { House, UploadFilled, Coin, Link, Setting, More } from '@element-plus/icons-vue'
+import { House, Tickets, UploadFilled, Coin, Link, Setting, More } from '@element-plus/icons-vue'
 import { markRaw } from 'vue'
 export default {
   data() {
     return {
+      activeIndex: '/home',
       menus: [
         {
           label: '首页',
           path: '/home',
           icon: markRaw(House)
+        },
+        {
+          label: '协议设置',
+          path: '/encoding',
+          icon: markRaw(Tickets)
         },
         {
           label: '推流设置',
@@ -57,10 +64,7 @@ export default {
   },
   methods: {
     handleClose(key: string, keyPath: string[]) {},
-    handleOpen(key: string, keyPath: string[]) {
-      console.log(key, keyPath)
-      this.$router.push(key)
-    }
+    handleOpen(key: string, keyPath: string[]) {}
   }
 }
 </script>
