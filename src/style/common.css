@@ -54,7 +54,7 @@ body {
 }
 .fixed-button {
   position: absolute;
-  bottom: 30px;
+  bottom: 10px;
 }
 
 .dot-left:before {
@@ -67,4 +67,19 @@ body {
   background-color: #009966;
   top: 12px;
   left: -4px;
+}
+
+.single-forms {
+  flex-direction: column;
+}
+.single-forms .form-box {
+  margin-left: auto;
+  margin-bottom: 10px;
+}
+
+.form-right-button {
+  width: 100%;
+}
+.form-right-button .el-form-item__content {
+  justify-content: flex-end;
 }
