@@ -66,7 +66,7 @@
             <el-button class="save-button" type="primary">保存</el-button>
           </el-form>
         </div>
-        <div class="form-right bordered">
+        <div class="form-box bordered form-right">
           <div class="title" style="margin-bottom: 10px">
             <FormTitle :title="'编码通道' + channel.index + '播放地址'" />
             <template v-for="url in channel.urls" :key="url">
@@ -87,7 +87,7 @@
             :inline="true"
             :model="formInline"
             class="inline-form"
-            label-position="right"
+            label-position="left"
             label-width="100px"
           >
             <el-form-item label="音频编码">
@@ -113,7 +113,7 @@
             <el-button class="save-button" type="primary">保存</el-button>
           </el-form>
         </div>
-        <div class="form-right bordered">
+        <div class="form-box bordered form-right">
           <div class="qrcode-image">
             <el-image style="width: 100px; height: 100px" :src="QRCode" fit="fill">
               <template #error>
@@ -139,7 +139,9 @@ export default {
   },
   data() {
     return {
-      formInline: {},
+      formInline: {
+        region: ''
+      },
       channels: [
         {
           index: 1,
@@ -169,13 +171,9 @@ export default {
   display: flex;
   flex-wrap: wrap;
 }
-
 .form-right {
-  width: 400px;
-  padding: 10px 15px;
-  margin-left: 10px;
+  width: 300xp;
 }
-
 .qrcode-image {
   width: 100%;
   height: 100%;

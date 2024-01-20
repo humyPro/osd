@@ -1,13 +1,7 @@
 <template>
   <el-row class="tac">
     <el-col :span="24">
-      <el-menu
-        :default-active="$route.path"
-        class="el-menu-vertical-demo menu-bar"
-        @open="handleOpen"
-        @close="handleClose"
-        :router="true"
-      >
+      <el-menu :default-active="$route.path" class="el-menu-vertical-demo menu-bar" :router="true">
         <el-menu-item :index="menu.path" v-for="menu in menus" :key="menu.label">
           <el-icon><component :is="menu.icon"></component></el-icon>
           <span>{{ menu.label }}</span>
@@ -61,10 +55,6 @@ export default {
         }
       ]
     }
-  },
-  methods: {
-    handleClose(key: string, keyPath: string[]) {},
-    handleOpen(key: string, keyPath: string[]) {}
   }
 }
 </script>
