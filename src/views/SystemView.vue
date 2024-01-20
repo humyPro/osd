@@ -1,6 +1,182 @@
 <template>
   <div class="normal-layout">
     <MenuBar />
-    <h3>系统设置页面开发中</h3>
+    <div class="main-content">
+      <div class="forms-box">
+        <div class="form-box bordered" style="width: 400px">
+          <FormTitle title="系统时间设置"></FormTitle>
+          <el-form
+            :inline="true"
+            :model="formInline"
+            class="inline-form"
+            label-position="left"
+            label-width="100px"
+          >
+            <div>
+              <el-form-item label="时间服务器">
+                <el-input placeholder="0xFFFFFF" />
+              </el-form-item>
+            </div>
+            <div>
+              <el-form-item label="时区选择" class="custom-select">
+                <el-select v-model="formInline.region" placeholder="">
+                  <el-option
+                    v-for="(i, index) in Array(24)"
+                    :key="index.toString()"
+                    :label="utcStr(index)"
+                    :value="index - 12"
+                  />
+                </el-select>
+              </el-form-item>
+            </div>
+            <div>
+              <el-form-item label="偏移+分钟">
+                <el-input placeholder="0-59" />
+              </el-form-item>
+            </div>
+          </el-form>
+          <el-form-item class="form-right-button">
+            <el-button type="primary">保存</el-button>
+          </el-form-item>
+        </div>
+        <div class="form-box bordered" style="width: 400px">
+          <FormTitle title="系统信息"></FormTitle>
+          <el-form
+            :inline="true"
+            :model="formInline"
+            class="inline-form"
+            label-position="left"
+            label-width="100px"
+          >
+            <div>
+              <el-form-item label="系统升级">
+                <el-upload
+                  ref="upload"
+                  class="upload-demo"
+                  action="https://run.mocky.io/v3/9d059bf9-4660-45f2-925d-ce80ad6c4d15"
+                  :limit="1"
+                  :on-exceed="handleExceed"
+                  :auto-upload="false"
+                >
+                  <template #trigger>
+                    <el-button type="primary">select 选择文件</el-button>
+                  </template>
+                  <el-button
+                    style="margin-left: 20px; margin-top: -2px"
+                    type="success"
+                    @click="submitUpload"
+                  >
+                    更新
+                  </el-button>
+                </el-upload>
+              </el-form-item>
+            </div>
+            <div>
+              <el-form-item label="时区选择" class="custom-select">
+                <el-select v-model="formInline.region" placeholder="">
+                  <el-option
+                    v-for="(i, index) in Array(24)"
+                    :key="index.toString()"
+                    :label="utcStr(index)"
+                    :value="index - 12"
+                  />
+                </el-select>
+              </el-form-item>
+            </div>
+            <div>
+              <el-form-item label="偏移+分钟">
+                <el-input placeholder="0-59" />
+              </el-form-item>
+            </div>
+          </el-form>
+          <el-form-item class="form-right-button">
+            <el-button type="primary">保存</el-button>
+          </el-form-item>
+        </div>
+      </div>
+      <div class="forms-box">
+        <div class="form-box bordered" style="width: 400px">
+          <FormTitle title="系统信息"></FormTitle>
+          <el-form
+            :inline="true"
+            :model="formInline"
+            class="inline-form"
+            label-position="left"
+            label-width="100px"
+          >
+            <div>
+              <el-form-item label="系统升级">
+                <el-upload
+                  ref="upload"
+                  class="upload-demo"
+                  action="https://run.mocky.io/v3/9d059bf9-4660-45f2-925d-ce80ad6c4d15"
+                  :limit="1"
+                  :on-exceed="handleExceed"
+                  :auto-upload="false"
+                >
+                  <template #trigger>
+                    <el-button type="primary">select 选择文件</el-button>
+                  </template>
+                  <el-button
+                    style="margin-left: 20px; margin-top: -2px"
+                    type="success"
+                    @click="submitUpload"
+                  >
+                    更新
+                  </el-button>
+                </el-upload>
+              </el-form-item>
+            </div>
+            <div>
+              <el-form-item label="时区选择" class="custom-select">
+                <el-select v-model="formInline.region" placeholder="">
+                  <el-option
+                    v-for="(i, index) in Array(24)"
+                    :key="index.toString()"
+                    :label="utcStr(index)"
+                    :value="index - 12"
+                  />
+                </el-select>
+              </el-form-item>
+            </div>
+            <div>
+              <el-form-item label="偏移+分钟">
+                <el-input placeholder="0-59" />
+              </el-form-item>
+            </div>
+          </el-form>
+          <el-form-item class="form-right-button">
+            <el-button type="primary">保存</el-button>
+          </el-form-item>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
+<script setup lang="ts">
+import { ref } from 'vue'
+import { genFileId } from 'element-plus'
+import type { UploadInstance, UploadProps, UploadRawFile } from 'element-plus'
+
+const upload = ref<UploadInstance>()
+const formInline = ref({
+  region: ''
+})
+
+const handleExceed: UploadProps['onExceed'] = (files) => {
+  upload.value!.clearFiles()
+  const file = files[0] as UploadRawFile
+  file.uid = genFileId()
+  upload.value!.handleStart(file)
+}
+
+const submitUpload = () => {
+  upload.value!.submit()
+}
+
+const utcStr = (index: number) => {
+  const t = index - 12
+  const symbol = t === 0 ? ' ' : t < 0 ? '-' : '+'
+  return `UTC ${symbol}${Math.abs(t).toString().padStart(2, '0')}:00`
+}
+</script>

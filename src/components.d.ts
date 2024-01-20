@@ -30,6 +30,7 @@ declare module 'vue' {
     ElSwitch: typeof import('element-plus/es')['ElSwitch']
     ElText: typeof import('element-plus/es')['ElText']
     ElTooltip: typeof import('element-plus/es')['ElTooltip']
+    ElUpload: typeof import('element-plus/es')['ElUpload']
     FormTitle: typeof import('./components/FormTitle.vue')['default']
     IEpAddHouse: typeof import('~icons/ep/add-house')['default']
     IEpEdit: typeof import('~icons/ep/edit')['default']
