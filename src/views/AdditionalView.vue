@@ -5,15 +5,9 @@
       <div class="forms-box">
         <div class="form-box bordered">
           <FormTitle title="GB2812设置"></FormTitle>
-          <el-form
-            :inline="true"
-            :model="formInline"
-            class="inline-form"
-            label-position="left"
-            label-width="110px"
-          >
+          <el-form :model="formInline" label-position="left">
             <div>
-              <el-form-item label="GB28181" label-width="120px">
+              <el-form-item label="GB28181">
                 <el-switch v-model="active" />
               </el-form-item>
             </div>
@@ -55,13 +49,7 @@
         </div>
         <div class="form-box bordered">
           <FormTitle title="OSD设置"></FormTitle>
-          <el-form
-            :inline="true"
-            :model="formInline"
-            class="inline-form"
-            label-position="left"
-            label-width="110px"
-          >
+          <el-form :model="formInline" label-position="left">
             <div>
               <el-form-item label="LOGO上传">
                 <el-upload
@@ -125,12 +113,12 @@
                 <el-switch v-model="active" />
               </el-form-item>
             </div>
-            <el-form-item label="步进速度" class="custom-select" style="width: 302px">
+            <el-form-item label="步进速度" class="custom-select">
               <el-select v-model="formInline.region" placeholder="">
                 <el-option label="1" value="1" />
               </el-select>
             </el-form-item>
-            <el-form-item label="滚动方向" class="custom-select" style="width: 302px">
+            <el-form-item label="滚动方向" class="custom-select">
               <el-select v-model="formInline.region" placeholder="">
                 <el-option label="左" value="左" />
               </el-select>
@@ -145,13 +133,7 @@
         </div>
         <div class="form-box bordered">
           <FormTitle title="时间OSD设置"></FormTitle>
-          <el-form
-            :inline="true"
-            :model="formInline"
-            class="inline-form"
-            label-position="left"
-            label-width="110px"
-          >
+          <el-form :model="formInline" label-position="left">
             <div>
               <el-form-item label="时间显示">
                 <el-switch v-model="active" />
@@ -179,13 +161,7 @@
         </div>
         <div class="form-box bordered">
           <FormTitle title="UDP设置"></FormTitle>
-          <el-form
-            :inline="true"
-            :model="formInline"
-            class="inline-form"
-            label-position="left"
-            label-width="110px"
-          >
+          <el-form :model="formInline" label-position="left">
             <div>
               <el-form-item label="UPD">
                 <el-switch v-model="active" />
@@ -220,13 +196,7 @@
         </div>
         <div class="form-box bordered">
           <FormTitle title="串口透传"></FormTitle>
-          <el-form
-            :inline="true"
-            :model="formInline"
-            class="inline-form"
-            label-position="left"
-            label-width="110px"
-          >
+          <el-form :model="formInline" label-position="left">
             <div>
               <el-form-item label="串口透传">
                 <el-switch v-model="active" />
@@ -248,13 +218,7 @@
         </div>
         <div class="form-box bordered">
           <FormTitle title="录制参数"></FormTitle>
-          <el-form
-            :inline="true"
-            :model="formInline"
-            class="inline-form"
-            label-position="left"
-            label-width="110px"
-          >
+          <el-form :model="formInline" label-position="left">
             <div>
               <el-form-item label="录制">
                 <el-switch v-model="active" />
@@ -303,13 +267,7 @@
         </div>
         <div class="form-box bordered">
           <FormTitle title="FTP上传"></FormTitle>
-          <el-form
-            :inline="true"
-            :model="formInline"
-            class="inline-form"
-            label-position="left"
-            label-width="110px"
-          >
+          <el-form :model="formInline" label-position="left">
             <div>
               <el-form-item label="FTP">
                 <el-switch v-model="active" />
@@ -375,8 +333,5 @@ const color = ref('#409EFF')
 .forms-box {
   flex-wrap: wrap;
   flex-direction: row;
-}
-.form-box {
-  width: 300px;
 }
 </style>

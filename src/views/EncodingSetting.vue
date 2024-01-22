@@ -4,13 +4,7 @@
     <div class="main-content encoding-forms">
       <div class="forms-box" v-for="(ndlConfig, index) in encodingConfigs" :key="index.toString()">
         <div class="form-box bordered">
-          <el-form
-            :inline="true"
-            :model="formInline"
-            class="inline-form"
-            label-position="left"
-            label-width="100px"
-          >
+          <el-form :model="formInline" label-position="left">
             <el-form-item label="HTTP1" class="dot-left">
               <el-switch v-model="active" />
             </el-form-item>
@@ -41,13 +35,7 @@
           </el-form>
         </div>
         <div class="form-box bordered">
-          <el-form
-            :inline="true"
-            :model="formInline"
-            class="inline-form"
-            label-position="left"
-            label-width="100px"
-          >
+          <el-form :model="formInline" label-position="left">
             <el-form-item label="RTR1" class="dot-left">
               <el-switch v-model="active" />
             </el-form-item>
@@ -57,13 +45,7 @@
           </el-form>
         </div>
         <div class="form-box bordered">
-          <el-form
-            :inline="true"
-            :model="formInline"
-            class="inline-form"
-            label-position="left"
-            label-width="100px"
-          >
+          <el-form :model="formInline" label-position="left">
             <el-form-item label="RTSP1" class="dot-left">
               <el-switch v-model="active" />
             </el-form-item>
@@ -114,13 +96,7 @@
           </el-form>
         </div>
         <div class="form-box bordered">
-          <el-form
-            :inline="true"
-            :model="formInline"
-            class="inline-form"
-            label-position="left"
-            label-width="100px"
-          >
+          <el-form :model="formInline" label-position="left">
             <el-form-item label="SRT1" class="dot-left">
               <el-switch v-model="active" />
             </el-form-item>
@@ -153,13 +129,7 @@
           </el-form>
         </div>
         <div class="form-box bordered">
-          <el-form
-            :inline="true"
-            :model="formInline"
-            class="inline-form"
-            label-position="left"
-            label-width="100px"
-          >
+          <el-form :model="formInline" label-position="left">
             <el-form-item label="HSL" class="dot-left">
               <el-switch v-model="active" />
             </el-form-item>
@@ -169,13 +139,7 @@
           </el-form>
         </div>
         <div class="form-box bordered">
-          <el-form
-            :inline="true"
-            :model="formInline"
-            class="inline-form"
-            label-position="left"
-            label-width="100px"
-          >
+          <el-form :model="formInline" label-position="left">
             <el-form-item label="ONVIF认证" class="dot-left">
               <el-switch v-model="active" />
             </el-form-item>
@@ -225,10 +189,5 @@ export default {
 .encoding-forms .forms-box {
   display: flex;
   flex-direction: column;
-}
-
-.encoding-forms .forms-box .form-box {
-  margin-bottom: 10px;
-  width: 300px;
 }
 </style>

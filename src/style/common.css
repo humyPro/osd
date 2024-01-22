@@ -38,31 +38,37 @@ body {
 }
 .form-box {
   padding: 10px 15px;
-  width: 600px;
-  display: flex;
-  flex-direction: column;
   margin-right: 10px;
   margin-bottom: 10px;
 }
 
-.custom-form-item {
-  width: 180px !important;
+.el-select {
+  width: 200px !important;
 }
-.el-form--inline .el-form-item {
-  margin-right: 0px !important;
+.el-form-item {
+  width: 300px !important;
+  margin-right: 30px !important;
+}
+.el-form-item .el-form-item__label {
+  min-width: 100px !important;
+}
+.el-form--inline .el-form-item__content {
+  width: 200px !important;
 }
 
-.custom-select {
-  width: 292px;
-}
-
-.save-button {
-  margin-left: auto;
-  margin-right: 40px;
+.el-form .save-button {
+  /* 减去其他元素的右边距和自身的长度 */
+  margin-left: calc(100% - 30px - 60px);
 }
 .fixed-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   position: absolute;
   bottom: 10px;
+}
+.fixed-button button {
+  width: 180px;
 }
 .form-right-button {
   width: 100%;

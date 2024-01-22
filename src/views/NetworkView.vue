@@ -3,15 +3,9 @@
     <MenuBar />
     <div class="main-content">
       <div class="forms-box single-forms">
-        <div class="form-box bordered" style="width: 300px">
+        <div class="form-box bordered">
           <FormTitle title="有线网络参数"></FormTitle>
-          <el-form
-            :inline="true"
-            :model="formInline"
-            class="inline-form"
-            label-position="left"
-            label-width="100px"
-          >
+          <el-form :model="formInline" label-position="left">
             <el-form-item label="IP地址" class="custom-select">
               <el-input />
             </el-form-item>
@@ -24,7 +18,7 @@
             <el-form-item label="DNS1" class="custom-select">
               <el-input />
             </el-form-item>
-            <el-form-item label="DHCP" label-width="120px">
+            <el-form-item label="DHCP">
               <el-switch v-model="active" />
             </el-form-item>
             <el-form-item class="form-right-button">

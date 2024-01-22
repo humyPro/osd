@@ -11,7 +11,16 @@
   </el-row>
 </template>
 <script lang="ts">
-import { House, Tickets, UploadFilled, Coin, Link, Setting, More } from '@element-plus/icons-vue'
+import {
+  House,
+  Tickets,
+  UploadFilled,
+  VideoPlay,
+  Coin,
+  Link,
+  Setting,
+  More
+} from '@element-plus/icons-vue'
 import { markRaw } from 'vue'
 export default {
   data() {
@@ -19,9 +28,14 @@ export default {
       activeIndex: '/home',
       menus: [
         {
-          label: '首页',
+          label: '编码设置',
           path: '/home',
           icon: markRaw(House)
+        },
+        {
+          label: '视频设置',
+          path: '/video',
+          icon: markRaw(VideoPlay)
         },
         {
           label: '协议设置',

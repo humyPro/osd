@@ -3,15 +3,9 @@
     <MenuBar />
     <div class="main-content">
       <div class="forms-box">
-        <div class="form-box bordered" style="width: 400px">
+        <div class="form-box bordered">
           <FormTitle title="系统时间设置"></FormTitle>
-          <el-form
-            :inline="true"
-            :model="formInline"
-            class="inline-form"
-            label-position="left"
-            label-width="100px"
-          >
+          <el-form :model="formInline" label-position="left">
             <div>
               <el-form-item label="时间服务器">
                 <el-input placeholder="0xFFFFFF" />
@@ -39,15 +33,9 @@
             </el-form-item>
           </el-form>
         </div>
-        <div class="form-box bordered" style="width: 400px">
+        <div class="form-box bordered">
           <FormTitle title="系统信息"></FormTitle>
-          <el-form
-            :inline="true"
-            :model="formInline"
-            class="inline-form"
-            label-position="left"
-            label-width="100px"
-          >
+          <el-form :model="formInline" label-position="left">
             <div>
               <el-form-item label="系统升级">
                 <el-upload

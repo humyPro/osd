@@ -5,13 +5,7 @@
       <div class="forms-box single-forms">
         <div class="form-box bordered">
           <FormTitle title="采集编码"></FormTitle>
-          <el-form
-            :inline="true"
-            :model="formInline"
-            class="inline-form"
-            label-position="left"
-            label-width="100px"
-          >
+          <el-form :model="formInline" label-position="left">
             <el-form-item label="音频选择" class="custom-select">
               <el-select v-model="formInline.region" placeholder="">
                 <el-option label="HDMI" value="HDMI" />
@@ -24,15 +18,9 @@
           </el-form>
         </div>
         <div class="form-box bordered">
-          <el-form
-            :inline="true"
-            :model="formInline"
-            class="inline-form"
-            label-position="left"
-            label-width="100px"
-          >
+          <el-form :model="formInline" label-position="left">
             <div>
-              <el-form-item label="HDMI输出" class="dot-left" :style="{ width: '600px' }">
+              <el-form-item label="HDMI输出" class="dot-left">
                 <el-switch v-model="active" />
               </el-form-item>
             </div>
