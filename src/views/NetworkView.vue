@@ -15,12 +15,6 @@
             <el-form-item label="默认网关" class="custom-select">
               <el-input />
             </el-form-item>
-            <el-form-item label="DNS1" class="custom-select">
-              <el-input />
-            </el-form-item>
-            <el-form-item label="DHCP">
-              <el-switch v-model="active" />
-            </el-form-item>
             <el-form-item class="form-right-button">
               <el-button type="primary">保存</el-button>
             </el-form-item>

@@ -66,8 +66,7 @@ body {
   justify-content: center;
   position: absolute;
   bottom: 10px;
-}
-.fixed-button button {
+  align-self: center;
   width: 180px;
 }
 .form-right-button {

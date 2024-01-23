@@ -151,9 +151,7 @@
             </el-form-item>
           </el-form>
         </div>
-        <div class="form-box fixed-button">
-          <el-button type="primary">保存</el-button>
-        </div>
+        <el-button class="fixed-button" type="primary">保存</el-button>
       </div>
     </div>
   </div>
