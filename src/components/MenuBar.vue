@@ -11,41 +11,22 @@
   </el-row>
 </template>
 <script lang="ts">
-import {
-  House,
-  Tickets,
-  UploadFilled,
-  VideoPlay,
-  Coin,
-  Link,
-  Setting,
-  More
-} from '@element-plus/icons-vue'
+import { House, VideoPlay, Coin, Link, Setting } from '@element-plus/icons-vue'
 import { markRaw } from 'vue'
 export default {
   data() {
     return {
-      activeIndex: '/home',
+      activeIndex: '/encoding',
       menus: [
         {
           label: '编码设置',
-          path: '/home',
+          path: '/encoding',
           icon: markRaw(House)
         },
         {
           label: '视频设置',
           path: '/video',
           icon: markRaw(VideoPlay)
-        },
-        {
-          label: '协议设置',
-          path: '/encoding',
-          icon: markRaw(Tickets)
-        },
-        {
-          label: '推流设置',
-          path: '/rtmp',
-          icon: markRaw(UploadFilled)
         },
         {
           label: '资源设置',
@@ -61,11 +42,6 @@ export default {
           label: '系统设置',
           path: '/system',
           icon: markRaw(Setting)
-        },
-        {
-          label: '附加功能',
-          path: '/additional',
-          icon: markRaw(More)
         }
       ]
     }

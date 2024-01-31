@@ -82,19 +82,51 @@
           </el-form>
         </div>
       </div>
+      <div class="forms-box">
+        <el-button type="primary" @click="showMaintenance = true">系统维护</el-button>
+        <el-dialog v-model="showMaintenance" width="30%" :show-close="false" style="width: 360px">
+          <template #header>
+            <el-text>验证密码后显示系统维护页面</el-text>
+          </template>
+          <el-form class="custom-label-size" v-model="loginForm">
+            <el-form-item label="账号">
+              <el-input v-model="loginForm.account" />
+            </el-form-item>
+            <el-form-item label="密码">
+              <el-input v-model="loginForm.password" />
+            </el-form-item>
+          </el-form>
+          <template #footer>
+            <span class="dialog-footer">
+              <el-button @click="showMaintenance = false">取消</el-button>
+              <el-button type="primary" @click="confirmLogin"> 确认 </el-button>
+            </span>
+          </template>
+        </el-dialog>
+      </div>
     </div>
   </div>
 </template>
 <script setup lang="ts">
 import { ref } from 'vue'
 import { genFileId } from 'element-plus'
+import forms from '@/common/forms'
 import type { UploadInstance, UploadProps, UploadRawFile } from 'element-plus'
 
 const upload = ref<UploadInstance>()
 const formInline = ref({
   region: ''
 })
-
+const showMaintenance = ref(false)
+const loginForm = ref<{ account: string; password: string }>({ account: '', password: '' })
+const confirmLogin = () => {
+  alert(`account is ${loginForm.value.account}, password is ${loginForm.value.password}`)
+  if (loginForm.value.account === loginForm.value.password) {
+    showMaintenance.value = false
+  } else {
+    forms.shwoMessage('账号或密码错误', 'error')
+  }
+}
 const handleExceed: UploadProps['onExceed'] = (files) => {
   upload.value!.clearFiles()
   const file = files[0] as UploadRawFile
@@ -112,3 +144,4 @@ const utcStr = (index: number) => {
   return `UTC ${symbol}${Math.abs(t).toString().padStart(2, '0')}:00`
 }
 </script>
+<style scoped></style>

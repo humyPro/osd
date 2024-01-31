@@ -49,7 +49,7 @@ body {
   width: 300px !important;
   margin-right: 30px !important;
 }
-.el-form-item .el-form-item__label {
+.el-form:not(.custom-label-size) .el-form-item .el-form-item__label {
   min-width: 100px !important;
 }
 .el-form--inline .el-form-item__content {
