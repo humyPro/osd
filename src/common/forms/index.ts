@@ -1,6 +1,6 @@
 import { ElMessage } from 'element-plus'
 type MessageType = 'success'|'warning'|'message'|'error'
-const shwoMessage = (message:string, type:MessageType) => {
+const showMessage = (message:string, type:MessageType) => {
   ElMessage({
     type,
     message
@@ -8,5 +8,5 @@ const shwoMessage = (message:string, type:MessageType) => {
 }
 
 export default {
-  shwoMessage
+  showMessage: showMessage
 }

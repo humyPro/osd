@@ -124,7 +124,7 @@ const confirmLogin = () => {
   if (loginForm.value.account === loginForm.value.password) {
     showMaintenance.value = false
   } else {
-    forms.shwoMessage('账号或密码错误', 'error')
+    forms.showMessage('账号或密码错误', 'error')
   }
 }
 const handleExceed: UploadProps['onExceed'] = (files) => {
