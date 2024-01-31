@@ -83,46 +83,86 @@
         </div>
       </div>
       <div class="forms-box">
-        <el-button type="primary" @click="showMaintenance = true">系统维护</el-button>
-        <el-dialog v-model="showMaintenance" width="30%" :show-close="false" style="width: 360px">
-          <template #header>
-            <el-text>验证密码后显示系统维护页面</el-text>
-          </template>
-          <el-form class="custom-label-size" v-model="loginForm">
-            <el-form-item label="账号">
-              <el-input v-model="loginForm.account" />
-            </el-form-item>
-            <el-form-item label="密码">
-              <el-input v-model="loginForm.password" />
-            </el-form-item>
-          </el-form>
-          <template #footer>
-            <span class="dialog-footer">
-              <el-button @click="showMaintenance = false">取消</el-button>
-              <el-button type="primary" @click="confirmLogin"> 确认 </el-button>
-            </span>
-          </template>
-        </el-dialog>
+        <el-button type="primary" @click="showMaintenanceLogin = true">系统维护</el-button>
       </div>
     </div>
+    <el-dialog v-model="showMaintenanceLogin" width="30%" :show-close="false" style="width: 360px">
+      <template #header>
+        <el-text>验证密码后显示系统维护页面</el-text>
+      </template>
+      <el-form class="custom-label-size" v-model="loginForm">
+        <el-form-item label="账号">
+          <el-input v-model="loginForm.account" />
+        </el-form-item>
+        <el-form-item label="密码">
+          <el-input v-model="loginForm.password" />
+        </el-form-item>
+      </el-form>
+      <template #footer>
+        <span class="dialog-footer">
+          <el-button @click="showMaintenanceLogin = false">取消</el-button>
+          <el-button type="primary" @click="confirmLogin"> 确认 </el-button>
+        </span>
+      </template>
+    </el-dialog>
+    <el-dialog v-model="showMaintenanceForm" width="30%" :show-close="false" style="width: 360px">
+      <template #header>
+        <el-text size="large">系统维护</el-text>
+      </template>
+      <el-form class="custom-label-size" v-model="loginForm" label-width="80px">
+        <FormTitle title="产品信息"></FormTitle>
+        <el-form-item label="产品编码">
+          <el-text>123456</el-text>
+        </el-form-item>
+        <el-form-item label="产品SN码">
+          <el-text>123456</el-text>
+        </el-form-item>
+        <el-form-item label="备注">
+          <el-input type="textarea"></el-input>
+        </el-form-item>
+        <FormTitle title="产品配置"></FormTitle>
+        <el-form-item label="TV1型号">
+          <el-input placeholder="X1/X2/X3/X4/无"></el-input>
+        </el-form-item>
+        <el-form-item label="TV2型号">
+          <el-input placeholder="X1/X2/X3/X4/无"></el-input>
+        </el-form-item>
+        <el-form-item label="IR1型号">
+          <el-input placeholder="X1/X2/X3/X4/无"></el-input>
+        </el-form-item>
+        <el-form-item label="LA型号">
+          <el-input placeholder="X1/X2/X3/X4/无"></el-input>
+        </el-form-item>
+        <el-form-item label="用户协议">
+          <el-input placeholder="X1/X2/X3/X4/无"></el-input>
+        </el-form-item>
+      </el-form>
+      <template #footer>
+        <span class="dialog-footer">
+          <el-button @click="showMaintenanceForm = false">取消</el-button>
+          <el-button type="primary" @click="confirmLogin"> 确认 </el-button>
+        </span>
+      </template>
+    </el-dialog>
   </div>
 </template>
 <script setup lang="ts">
 import { ref } from 'vue'
 import { genFileId } from 'element-plus'
-import forms from '@/common/forms'
 import type { UploadInstance, UploadProps, UploadRawFile } from 'element-plus'
+import forms from '@/common/forms'
 
 const upload = ref<UploadInstance>()
 const formInline = ref({
   region: ''
 })
-const showMaintenance = ref(false)
+const showMaintenanceLogin = ref(false)
+const showMaintenanceForm = ref(false)
 const loginForm = ref<{ account: string; password: string }>({ account: '', password: '' })
 const confirmLogin = () => {
-  alert(`account is ${loginForm.value.account}, password is ${loginForm.value.password}`)
   if (loginForm.value.account === loginForm.value.password) {
-    showMaintenance.value = false
+    showMaintenanceLogin.value = false
+    showMaintenanceForm.value = true
   } else {
     forms.showMessage('账号或密码错误', 'error')
   }
