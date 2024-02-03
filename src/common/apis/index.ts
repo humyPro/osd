@@ -81,5 +81,6 @@ const getEncodingForm: () => Promise<EncodingForm> = () => {
 }
 
 export default {
-  getEncodingForm
+  getEncodingForm,
+  xmlToJson
 }

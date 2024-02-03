@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '@/views/HomeView.vue'
+import EncodingView from '@/views/EncodingView.vue'
 import SourceView from '@/views/SourceView.vue'
 import NetworkView from '@/views/NetworkView.vue'
 import SystemView from '@/views/SystemView.vue'
@@ -10,16 +10,17 @@ const router = createRouter({
     {
       path: '/',
       redirect: '/encoding'
-    }, 
+    },
     {
       path: '/encoding',
       name: '编码设置',
-      component: HomeView
-    }, {
+      component: EncodingView
+    },
+    {
       path: '/video',
       name: '视频设置',
       component: VideoViewVue
-    }, 
+    },
     {
       name: '资源设置',
       path: '/source',

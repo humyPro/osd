@@ -113,42 +113,17 @@
     </div>
   </div>
 </template>
-<script lang="ts">
+<script lang="ts" setup>
+import apis from '@/common/apis'
+import type { EncodingForm } from '@/common/apis/modelTypes'
 import MenuBar from '@/components/MenuBar.vue'
 import { Picture as IconPicture } from '@element-plus/icons-vue'
-export default {
-  components: {
-    MenuBar,
-    IconPicture
-  },
-  data() {
-    return {
-      formInline: {
-        region: ''
-      },
-      channels: [
-        {
-          index: 1,
-          urls: [
-            'http://123.456aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-            'http://123.456',
-            'http://123.456'
-          ]
-        },
-        {
-          index: 2
-        },
-        {
-          index: 3
-        }
-      ],
-      QRCode: ''
-    }
-  },
-  methods: {
-    onSubmit() {}
-  }
-}
+const channels = ref<(EncodingForm & { index: number })[]>()
+onMounted(() => {
+  apis.getEncodingForm().then((res) => {
+    channels.value = [{ ...res, index: 1 }]
+  })
+})
 </script>
 <style scoped>
 .qrcode-image {

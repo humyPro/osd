@@ -2,6 +2,7 @@
   "compilerOptions": {
     "noImplicitAny": false
   },
+  "ts-node": {"esm": true},
   "files": [],
   "references": [
     {
