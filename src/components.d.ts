@@ -41,5 +41,6 @@ declare module 'vue' {
     MenuBar: typeof import('./components/MenuBar.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    TriangleIcon: typeof import('./components/icons/TriangleIcon.vue')['default']
   }
 }

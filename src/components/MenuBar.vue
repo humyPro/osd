@@ -11,7 +11,7 @@
   </el-row>
 </template>
 <script lang="ts">
-import { House, VideoPlay, Coin, Link, Setting } from '@element-plus/icons-vue'
+import { House, VideoPlay, Coin, Link, Setting, HelpFilled } from '@element-plus/icons-vue'
 import { markRaw } from 'vue'
 export default {
   data() {
@@ -32,6 +32,11 @@ export default {
           label: '资源设置',
           path: '/source',
           icon: markRaw(Coin)
+        },
+        {
+          label: '云台控制',
+          path: '/control',
+          icon: markRaw(HelpFilled)
         },
         {
           label: '网络设置',

@@ -3,7 +3,8 @@ import EncodingView from '@/views/EncodingView.vue'
 import SourceView from '@/views/SourceView.vue'
 import NetworkView from '@/views/NetworkView.vue'
 import SystemView from '@/views/SystemView.vue'
-import VideoViewVue from '@/views/VideoView.vue'
+import VideoView from '@/views/VideoView.vue'
+import ControlView from '@/views/ControlView.vue'
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -19,12 +20,17 @@ const router = createRouter({
     {
       path: '/video',
       name: '视频设置',
-      component: VideoViewVue
+      component: VideoView
     },
     {
       name: '资源设置',
       path: '/source',
       component: SourceView
+    },
+    {
+      name: '云台控制',
+      path: '/control',
+      component: ControlView
     },
     {
       name: '网络设置',
