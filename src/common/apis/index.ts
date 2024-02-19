@@ -1,6 +1,5 @@
 import type { EncodingForm } from './modelTypes'
-import confis from '../configs'
-
+import requestUrl from './requestUrl'
 type RequestType<T> = {
   url: string // 请求地址
   method: 'get' | 'post' | 'put' | 'delete'
@@ -15,8 +14,12 @@ type RequestType<T> = {
 const request = async <T>(params: RequestType<T>): Promise<T> => {
   const { url, method, timeout, respParser } = params
   const init: RequestInit = {
-    credentials: 'same-origin',
-    method
+    // credentials: 'include',
+    method,
+    headers: {
+      'Content-type': 'application/json'
+    },
+    mode: 'cors'
   }
   if (timeout) {
     let abort: (() => void) | null = null
@@ -36,12 +39,19 @@ const request = async <T>(params: RequestType<T>): Promise<T> => {
       return res as Promise<T>
     })
   }
-  return fetch(url, init).then((response) => {
-    if (respParser) {
-      return respParser(response)
-    }
-    return response.json() as Promise<T>
-  })
+  return fetch(url, init)
+    .then((response) => {
+      if (!response.ok) {
+        return Promise.reject(response)
+      }
+      if (respParser) {
+        return respParser(response)
+      }
+      return response.json() as Promise<T>
+    })
+    .catch((e) => {
+      return Promise.reject(e)
+    })
 }
 /**
  * XML转换为json
@@ -72,7 +82,7 @@ const xmlToJson = (xmlString: string) => {
 
 const getEncodingForm: () => Promise<EncodingForm> = () => {
   return request({
-    url: `${confis.serverHost}/api`,
+    url: `${requestUrl.baseUrl}${requestUrl.getEncodingInfo}`,
     method: 'get',
     respParser: (response: Response) => {
       return response.json() as Promise<EncodingForm>

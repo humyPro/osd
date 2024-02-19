@@ -118,15 +118,15 @@ import apis from '@/common/apis'
 import type { EncodingForm } from '@/common/apis/modelTypes'
 import MenuBar from '@/components/MenuBar.vue'
 import { Picture as IconPicture } from '@element-plus/icons-vue'
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 type ChannleType = EncodingForm & { index: number }
-const channels = ref<ChannleType[]>([{} as ChannleType, {} as ChannleType, {} as ChannleType])
+const channels = ref<ChannleType[]>()
 const formInline = ref({})
-// onMounted(() => {
-//   apis.getEncodingForm().then((res) => {
-//     channels.value = [{ ...res, index: 1 }]
-//   })
-// })
+onMounted(() => {
+  apis.getEncodingForm().then((res) => {
+    channels.value = [{ ...res, index: 1 }]
+  })
+})
 </script>
 <style scoped>
 .qrcode-image {

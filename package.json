@@ -4,6 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "mock": "node mock/mockServer.js",
     "dev": "vite",
     "build": "run-p type-check \"build-only {@}\" --",
     "preview": "vite preview",
@@ -15,7 +16,7 @@
   "dependencies": {
     "@element-plus/icons-vue": "^2.3.1",
     "element-plus": "^2.5.1",
-        "vue": "^3.3.11",
+    "vue": "^3.3.11",
     "vue-router": "^4.2.5"
   },
   "devDependencies": {
