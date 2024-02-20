@@ -200,9 +200,7 @@ const audioRules = reactive<FormRules<AuditPropType>>({
   accFormat: [{ validator: forms.checkSelect('ACC格式'), trigger: 'change' }],
   auditBit: [{ validator: forms.checkSelect('音频比特率'), trigger: 'change' }]
 })
-const setChannelFormRef = (index: number) => (el: FormInstance) => {
-  channelRefs.value[index] = el
-}
+
 const submitChannelForm = (index: number) => {
   const formRef = channelRefs.value[index]
   if (!formRef) {

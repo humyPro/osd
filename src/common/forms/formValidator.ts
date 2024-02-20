@@ -25,7 +25,25 @@ const checkSelect = (name?: string) => (rule: any, value: any, callback: any) =>
     return callback(new Error(name ? `请选择${name}` : '请选择'))
   }
 }
+const ipRegexp = /^((?:(?:25[0-5]|2[0-4]\d|[01]?\d?\d)\.){3}(?:25[0-5]|2[0-4]\d|[01]?\d?\d))$/
+const checkIp = (rule: any, value: any, callback: any) => {
+  if (!value) {
+    return callback(new Error(`请输入IP`))
+  }
+  if (!ipRegexp.test(value)) {
+    callback(new Error('请输入正确的IP'))
+  } else {
+    callback()
+  }
+}
+const checkString = (name?: string) => (rule: any, value: any, callback: any) => {
+  if (!value) {
+    return callback(new Error(name ? `请输人${name}` : '请输人'))
+  }
+}
 export default {
   checkNumber,
-  checkSelect
+  checkSelect,
+  checkIp,
+  checkString
 }
