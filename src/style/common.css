@@ -34,7 +34,6 @@ body {
 .forms-box {
   display: flex;
   padding: 5px;
-  flex-wrap: wrap;
 }
 .form-box {
   padding: 10px 15px;
