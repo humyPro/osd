@@ -150,7 +150,7 @@
 import { ref } from 'vue'
 import { genFileId } from 'element-plus'
 import type { UploadInstance, UploadProps, UploadRawFile } from 'element-plus'
-import forms from '@/common/forms'
+import util from '@/common/util'
 
 const upload = ref<UploadInstance>()
 const formInline = ref({
@@ -164,7 +164,7 @@ const confirmLogin = () => {
     showMaintenanceLogin.value = false
     showMaintenanceForm.value = true
   } else {
-    forms.showMessage('账号或密码错误', 'error')
+    util.showMessage('账号或密码错误', 'error')
   }
 }
 const handleExceed: UploadProps['onExceed'] = (files) => {
@@ -185,3 +185,4 @@ const utcStr = (index: number) => {
 }
 </script>
 <style scoped></style>
+@/common/util
