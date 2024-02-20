@@ -30,13 +30,17 @@
               </el-select>
             </el-form-item>
             <el-form-item label="帧率" prop="vencFramerate">
-              <el-input placeholder="[5-60]" v-model.number="channel.vencFramerate" />
+              <el-input type="number" placeholder="[5-60]" v-model.number="channel.vencFramerate" />
             </el-form-item>
             <el-form-item label="关键帧间隔" prop="vencGop">
-              <el-input placeholder="[10-300]" v-model.number="channel.vencGop" />
+              <el-input type="number" placeholder="[10-300]" v-model.number="channel.vencGop" />
             </el-form-item>
             <el-form-item label="码率(kbps)" prop="vencBitrate">
-              <el-input placeholder="200-20000" v-model.number="channel.vencBitrate" />
+              <el-input
+                type="number"
+                placeholder="200-20000"
+                v-model.number="channel.vencBitrate"
+              />
             </el-form-item>
             <el-form-item label="动态码率" prop="vencRcMode">
               <el-select v-model="channel.vencRcMode" placeholder="">
@@ -45,7 +49,7 @@
               </el-select>
             </el-form-item>
             <el-form-item label="MinQp" prop="vencMinQp">
-              <el-input placeholder="[1-51]" v-model.number="channel.vencMinQp" />
+              <el-input placeholder="[1-51]" type="number" v-model.number="channel.vencMinQp" />
             </el-form-item>
             <el-form-item
               label="MaxQp"
@@ -57,7 +61,7 @@
                 }
               ]"
             >
-              <el-input placeholder="[MinQp,51]" v-model.number="channel.vencMaxQp" />
+              <el-input placeholder="[MinQp,51]" type="number" v-model.number="channel.vencMaxQp" />
             </el-form-item>
             <el-form-item
               label="MinIQp"
@@ -73,7 +77,11 @@
                 }
               ]"
             >
-              <el-input placeholder="[MinQp,MaxQp]" v-model.number="channel.vencMinIqp" />
+              <el-input
+                placeholder="[MinQp,MaxQp]"
+                type="number"
+                v-model.number="channel.vencMinIqp"
+              />
             </el-form-item>
             <el-form-item label="Profile" prop="vencProfile">
               <el-select v-model="channel.vencProfile" placeholder="">
