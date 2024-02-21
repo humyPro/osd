@@ -171,7 +171,8 @@
     </div>
     <el-dialog v-model="showMaintenanceLogin" width="30%" :show-close="false" style="width: 360px">
       <template #header>
-        <el-text>验证密码后显示系统维护页面</el-text>
+        <el-text>验证密码后显示系统维护页面</el-text><br />
+        <el-text>测试tips:密码与账号相同则验证通过</el-text>
       </template>
       <el-form
         class="custom-label-size"
@@ -311,12 +312,12 @@ const confirmLogin = () => {
     if (!valid) {
       return
     }
-    util.showMessage('认证成功', 'success')
     if (loginForm.value.account === loginForm.value.password) {
+      util.showMessage('认证成功')
       showMaintenanceLogin.value = false
       showMaintenanceForm.value = true
     } else {
-      util.showMessage('账号或密码错误')
+      util.showMessage('账号或密码错误', 'error')
     }
   })
 }
