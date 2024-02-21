@@ -4,13 +4,20 @@ import NetworkView from '@/views/NetworkView.vue'
 import SystemView from '@/views/SystemView.vue'
 import VideoView from '@/views/VideoView.vue'
 import ControlView from '@/views/ControlView.vue'
+import NotFoundView from '@/views/NotFoundView.vue'
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
+      path: '/:pathMatch(.*)*',
+      name: 'NotFound',
+      component: NotFoundView
+    },
+    {
       path: '/',
       redirect: '/encoding'
     },
+
     {
       path: '/encoding',
       name: '编码设置',
