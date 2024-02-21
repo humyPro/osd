@@ -1,6 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import EncodingView from '@/views/EncodingView.vue'
-import SourceView from '@/views/SourceView.vue'
 import NetworkView from '@/views/NetworkView.vue'
 import SystemView from '@/views/SystemView.vue'
 import VideoView from '@/views/VideoView.vue'
@@ -21,11 +20,6 @@ const router = createRouter({
       path: '/video',
       name: '视频设置',
       component: VideoView
-    },
-    {
-      name: '资源设置',
-      path: '/source',
-      component: SourceView
     },
     {
       name: '云台控制',
