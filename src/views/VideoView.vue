@@ -35,7 +35,7 @@
                 />
               </el-form-item>
               <el-form-item label="目的IP" prop="udpH26XInfo.targetIp">
-                <el-input placeholder="ip" v-model="video.udpH26XInfo.targetIp" />
+                <el-input placeholder="ip" v-model.trim="video.udpH26XInfo.targetIp" />
               </el-form-item>
               <el-form-item label="目的端口" prop="udpH26XInfo.targetPort">
                 <el-input
@@ -71,7 +71,7 @@
                 />
               </el-form-item>
               <el-form-item label="目的IP" prop="udpTsInfo.targetIp">
-                <el-input placeholder="ip" v-model="video.udpTsInfo.targetIp" />
+                <el-input placeholder="ip" v-model.trim="video.udpTsInfo.targetIp" />
               </el-form-item>
               <el-form-item label="目的端口" prop="udpTsInfo.targetPort">
                 <el-input
@@ -109,7 +109,7 @@
                 <el-input
                   maxlength="255"
                   placeholder="[格式：/stream0,重启生效]"
-                  v-model="video.rtspInfo.streamName"
+                  v-model.trim="video.rtspInfo.streamName"
                 />
               </el-form-item>
               <el-form-item label="用户数" prop="rtspInfo.userNumber">
@@ -133,7 +133,7 @@
             </el-form-item>
             <template v-if="video.rtmpEnable">
               <el-form-item label="推流地址" prop="rtmpInfo.streamAddress">
-                <el-input maxlength="255" v-model="video.rtmpInfo.streamAddress" />
+                <el-input maxlength="255" v-model.trim="video.rtmpInfo.streamAddress" />
               </el-form-item>
             </template>
             <el-divider />
@@ -142,7 +142,7 @@
             </el-form-item>
             <template v-if="video.gb28181Enable">
               <el-form-item label="SIP服务器地址" prop="gb28181Info.sipServerAddres">
-                <el-input v-model="video.gb28181Info.sipServerAddres" />
+                <el-input v-model.trim="video.gb28181Info.sipServerAddres" />
               </el-form-item>
               <el-form-item label="SIP服务器端口" prop="gb28181Info.sipServerPort">
                 <el-input
@@ -152,7 +152,7 @@
                 />
               </el-form-item>
               <el-form-item label="SIP服务器ID" prop="gb28181Info.sipServerId">
-                <el-input maxlength="255" v-model="video.gb28181Info.sipServerId" />
+                <el-input maxlength="255" v-model.trim="video.gb28181Info.sipServerId" />
               </el-form-item>
               <el-form-item label="注册有效期" prop="gb28181Info.registerTerm">
                 <el-input type="number" v-model.number="video.gb28181Info.registerTerm" />
@@ -168,13 +168,13 @@
                 />
               </el-form-item>
               <el-form-item label="SIP认证ID" prop="gb28181Info.sipAuthId">
-                <el-input maxlength="255" v-model="video.gb28181Info.sipAuthId" />
+                <el-input maxlength="255" v-model.trim="video.gb28181Info.sipAuthId" />
               </el-form-item>
               <el-form-item label="SIP认证密码" prop="gb28181Info.sipAuthPassword">
                 <el-input
                   maxlength="255"
                   type="password"
-                  v-model="video.gb28181Info.sipAuthPassword"
+                  v-model.trim="video.gb28181Info.sipAuthPassword"
                 />
               </el-form-item>
             </template>
@@ -220,7 +220,7 @@ const videoRefs = ref<FormInstance[]>([])
 const udpFormRules = {
   model: { validator: forms.checkSelect('模式'), trigger: 'change' },
   localPort: { validator: forms.checkNumber(0, 65535, '本机端口'), trigger: 'blur' },
-  targetIp: { validator: forms.checkIp, trigger: 'blur' },
+  targetIp: { validator: forms.checkIp(), trigger: 'blur' },
   targetPort: { validator: forms.checkNumber(0, 65535, '目的端口'), trigger: 'blur' },
   sendLength: {
     validator: forms.checkNumber(0, 99999999999, '发送长度'),
