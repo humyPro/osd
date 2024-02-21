@@ -10,7 +10,7 @@ export default {
     title: String,
     textType: {
       type: String as any,
-      default: 'default'
+      default: 'primary'
     }
   }
 }

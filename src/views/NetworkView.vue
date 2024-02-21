@@ -20,9 +20,9 @@
             <el-form-item label="默认网关" class="custom-select" prop="gateway">
               <el-input v-model.trim="networkForm.gateway" />
             </el-form-item>
-            <el-form-item class="form-right-button">
-              <el-button @click="submitNetworkForm" type="primary">保存</el-button>
-            </el-form-item>
+            <el-button class="save-button" @click="submitNetworkForm" type="primary">
+              保存
+            </el-button>
           </el-form>
         </div>
       </div>

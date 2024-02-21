@@ -24,6 +24,7 @@ const checkSelect = (name?: string) => (rule: any, value: any, callback: any) =>
   if (value == null || value == undefined) {
     return callback(new Error(name ? `请选择${name}` : '请选择'))
   }
+  callback()
 }
 const ipRegexp = /^((?:(?:25[0-5]|2[0-4]\d|[01]?\d?\d)\.){3}(?:25[0-5]|2[0-4]\d|[01]?\d?\d))$/
 const checkIp =
@@ -39,9 +40,10 @@ const checkIp =
     }
   }
 const checkString = (name?: string) => (rule: any, value: any, callback: any) => {
-  if (value == null || value == undefined) {
+  if (value == null || value == undefined || value.length == 0) {
     return callback(new Error(name ? `请输人${name}` : '请输人'))
   }
+  callback()
 }
 export default {
   checkNumber,
