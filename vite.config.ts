@@ -9,12 +9,18 @@ import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 import IconsResolver from 'unplugin-icons/resolver'
 import Icons from 'unplugin-icons/vite'
 import path from 'path'
+import legacy from '@vitejs/plugin-legacy'
 const pathSrc = path.resolve(__dirname, 'src')
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
     vue(),
     vueJsx(),
+    legacy({
+      targets: ['defaults', 'not IE 11'],
+      additionalLegacyPolyfills: ['regenerator-runtime/runtime'], // 面向IE11时需要此插件
+      modernPolyfills: true
+    }),
     AutoImport({
       // Auto import functions from Vue, e.g. ref, reactive, toRef...
       // 自动导入 Vue 相关函数，如：ref, reactive, toRef 等
@@ -61,5 +67,14 @@ export default defineConfig({
   server: {
     host: '0.0.0.0',
     hmr: true
+  },
+  build: {
+    minify: 'terser',
+    terserOptions: {
+      compress: {
+        drop_console: true,
+        drop_debugger: true
+      }
+    }
   }
 })

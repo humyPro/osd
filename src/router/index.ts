@@ -6,6 +6,7 @@ import VideoView from '@/views/VideoView.vue'
 import ControlView from '@/views/ControlView.vue'
 import NotFoundView from '@/views/NotFoundView.vue'
 import LoginView from '@/views/LoginView.vue'
+import util from '@/common/util'
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -50,6 +51,17 @@ const router = createRouter({
       component: SystemView
     }
   ]
+})
+
+router.beforeEach(async (to, from) => {
+  if (
+    // 检查用户是否已登录 'jta123k', 't1jhasd89dkj-u1h31k29asdkja'
+    util.getStorage('jta123k') !== util.getToken() &&
+    to.name !== '登录'
+  ) {
+    // 将用户重定向到登录页面
+    return { name: '登录' }
+  }
 })
 
 export default router

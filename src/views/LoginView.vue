@@ -6,12 +6,12 @@
         <el-form ref="loginFormRef" :model="loginForm" :rules="loginFormRules">
           <el-text>用户名</el-text>
           <el-form-item prop="account">
-            <el-input v-model="loginForm.account" />
+            <el-input maxlength="36" v-model="loginForm.account" />
           </el-form-item>
 
           <el-text>密码</el-text>
           <el-form-item prop="password">
-            <el-input v-model="loginForm.password" />
+            <el-input maxlength="36" type="password" v-model="loginForm.password" />
           </el-form-item>
         </el-form>
       </div>
@@ -50,14 +50,17 @@ const login = () => {
   loginButtonLodding.value = true
   ;(loginFormRef.value as FormInstance).validate((valid) => {
     if (valid) {
-      if (loginForm.value.account === loginForm.value.password) {
+      if (loginForm.value.account === 'root' && loginForm.value.password === 'qwer@1234') {
         setTimeout(() => {
           util.showMessage('登录成功')
+          const token = util.guid()
+          util.saveStorage('jta123k', token)
+          util.setToken(token)
           router.push('/encoding')
           loginButtonLodding.value = false
         }, 1000)
       } else {
-        util.showMessage('账号密码错误,tips:测试阶段账号和密码相同则可登录成功', 'error')
+        util.showMessage('账号密码错误', 'error')
         loginButtonLodding.value = false
       }
     } else {
