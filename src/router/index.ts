@@ -5,6 +5,7 @@ import SystemView from '@/views/SystemView.vue'
 import VideoView from '@/views/VideoView.vue'
 import ControlView from '@/views/ControlView.vue'
 import NotFoundView from '@/views/NotFoundView.vue'
+import LoginView from '@/views/LoginView.vue'
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -15,7 +16,12 @@ const router = createRouter({
     },
     {
       path: '/',
-      redirect: '/encoding'
+      redirect: '/login'
+    },
+    {
+      path: '/login',
+      name: '登录',
+      component: LoginView
     },
 
     {
