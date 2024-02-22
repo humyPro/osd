@@ -12,7 +12,7 @@
             label-position="left"
             :inline="false"
             :rules="videoFormRuls"
-            :ref="(el) => (videoRefs[index] = el as FormInstance)"
+            :ref="(el: unknown) => (videoRefs[index] = el as FormInstance)"
           >
             <el-form-item label="UDP H26X" class="dot-left" prop="udpH26XEnable">
               <el-switch v-model="video.udpH26XEnable" />

@@ -13,7 +13,7 @@
             label-position="left"
             style="width: 660px"
             :rules="channelRules"
-            :ref="(el) => (channelRefs[index] = el as FormInstance)"
+            :ref="(el: unknown) => (channelRefs[index] = el as FormInstance)"
           >
             <el-form-item label="编码类型" prop="enType">
               <el-select v-model="channel.enType" placeholder="">
