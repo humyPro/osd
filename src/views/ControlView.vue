@@ -47,9 +47,9 @@
         </div>
         <div class="form-box bordered">
           <FormTitle title="镜头控制"></FormTitle>
-          <el-form :model="formInline" label-position="left">
+          <el-form :model="deviceSelected" label-position="left">
             <el-form-item label="设备选择">
-              <el-select v-model="formInline.region" placeholder="">
+              <el-select v-model="deviceSelected">
                 <el-option label="TV1" value="TV1" />
                 <el-option label="TV2" value="TV2" />
                 <el-option label="IR" value="IR" />
@@ -77,7 +77,7 @@
 <script lang="ts" setup>
 import { ref } from 'vue'
 const ytBtnChecked = ref(new Array(8))
-const formInline = ref({})
+const deviceSelected = ref()
 </script>
 <style scoped>
 .buttons > div {
