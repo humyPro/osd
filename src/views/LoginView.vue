@@ -21,7 +21,7 @@
         </el-form>
       </div>
       <el-button
-        :loading="loginButtonLodding"
+        :loading="loginButtonLoading"
         @click="login"
         type="primary"
         style="width: 100%; margin-top: 30px"
@@ -47,12 +47,12 @@ const loginFormRules = reactive<FormRules<LoginFormType>>({
   account: [{ validator: forms.checkString('用户名'), trigger: 'blur' }],
   password: [{ validator: forms.checkString('密码'), trigger: 'blur' }]
 })
-const loginButtonLodding = ref(false)
+const loginButtonLoading = ref(false)
 const login = () => {
   if (!loginFormRef.value) {
     return
   }
-  loginButtonLodding.value = true
+  loginButtonLoading.value = true
   ;(loginFormRef.value as FormInstance).validate((valid) => {
     if (valid) {
       if (loginForm.value.account === 'root' && loginForm.value.password === 'qwer@1234') {
@@ -62,14 +62,14 @@ const login = () => {
           util.saveStorage('jta123k', token)
           util.setToken(token)
           router.push('/encoding')
-          loginButtonLodding.value = false
+          loginButtonLoading.value = false
         }, 1000)
       } else {
         util.showMessage('账号密码错误', 'error')
-        loginButtonLodding.value = false
+        loginButtonLoading.value = false
       }
     } else {
-      loginButtonLodding.value = false
+      loginButtonLoading.value = false
     }
   })
 }
