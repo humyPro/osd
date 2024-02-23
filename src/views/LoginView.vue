@@ -6,12 +6,17 @@
         <el-form ref="loginFormRef" :model="loginForm" :rules="loginFormRules">
           <el-text>用户名</el-text>
           <el-form-item prop="account">
-            <el-input maxlength="36" v-model="loginForm.account" />
+            <el-input maxlength="36" v-model="loginForm.account" @keyup.enter="login" />
           </el-form-item>
 
           <el-text>密码</el-text>
           <el-form-item prop="password">
-            <el-input maxlength="36" type="password" v-model="loginForm.password" />
+            <el-input
+              maxlength="36"
+              type="password"
+              v-model="loginForm.password"
+              @keyup.enter="login"
+            />
           </el-form-item>
         </el-form>
       </div>

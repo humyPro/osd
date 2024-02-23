@@ -182,10 +182,10 @@
         :rules="loginFormRules"
       >
         <el-form-item label="账号" label-width="50px" prop="account">
-          <el-input v-model.trim="loginForm.account" />
+          <el-input v-model.trim="loginForm.account" @keyup.enter="confirmLogin" />
         </el-form-item>
         <el-form-item label="密码" label-width="50px" prop="password">
-          <el-input v-model="loginForm.password" />
+          <el-input v-model="loginForm.password" @keyup.enter="confirmLogin" />
         </el-form-item>
       </el-form>
       <template #footer>

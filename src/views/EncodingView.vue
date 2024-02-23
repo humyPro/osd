@@ -174,7 +174,7 @@ type AuditPropType = {
   accFormat: string
   auditBit: string
 }
-const channels = ref<ChannleType[]>([])
+const channels = ref<ChannleType[]>([{} as ChannleType, {} as ChannleType, {} as ChannleType])
 const channelRefs = ref<FormInstance[]>([])
 const audioFormRef = ref<FormInstance>()
 const audioProp = ref<AuditPropType>({} as AuditPropType)
