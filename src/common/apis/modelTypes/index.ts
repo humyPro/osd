@@ -31,7 +31,7 @@ type RTMPForm = {
   streamAddress: string //推流地址
 }
 type GB28181Form = {
-  sipServerAddres: string //SIP服务器地址
+  sipServerAddress: string //SIP服务器地址
   sipServerPort: number //SIP服务器地址
   sipServerId: string //SIP服务器ID
   registerTerm: number //注册有效期

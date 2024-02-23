@@ -167,14 +167,14 @@ import MenuBar from '@/components/MenuBar.vue'
 import { Picture as IconPicture } from '@element-plus/icons-vue'
 import { ref, onMounted, reactive } from 'vue'
 import type { FormInstance, FormRules } from 'element-plus'
-type ChannleType = EncodingForm
+type ChannelType = EncodingForm
 type AuditPropType = {
   encoding: string
   layout: string
   accFormat: string
   auditBit: string
 }
-const channels = ref<ChannleType[]>([{} as ChannleType, {} as ChannleType, {} as ChannleType])
+const channels = ref<ChannelType[]>([{} as ChannelType, {} as ChannelType, {} as ChannelType])
 const channelRefs = ref<FormInstance[]>([])
 const audioFormRef = ref<FormInstance>()
 const audioProp = ref<AuditPropType>({} as AuditPropType)

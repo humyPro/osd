@@ -11,7 +11,7 @@
             :model="video"
             label-position="left"
             :inline="false"
-            :rules="videoFormRuls"
+            :rules="videoFormRules"
             :ref="(el: unknown) => (videoRefs[index] = el as FormInstance)"
           >
             <el-form-item label="UDP H26X" class="dot-left" prop="udpH26XEnable">
@@ -141,8 +141,8 @@
               <el-switch v-model="video.gb28181Enable" />
             </el-form-item>
             <template v-if="video.gb28181Enable">
-              <el-form-item label="SIP服务器地址" prop="gb28181Info.sipServerAddres">
-                <el-input v-model.trim="video.gb28181Info.sipServerAddres" />
+              <el-form-item label="SIP服务器地址" prop="gb28181Info.sipServerAddress">
+                <el-input v-model.trim="video.gb28181Info.sipServerAddress" />
               </el-form-item>
               <el-form-item label="SIP服务器端口" prop="gb28181Info.sipServerPort">
                 <el-input
@@ -231,8 +231,7 @@ const udpFormRules = {
     trigger: 'blur'
   }
 }
-type s = keyof typeof videoFormRuls
-const videoFormRuls = reactive<FormRules<typeof defaultForm>>({
+const videoFormRules = reactive<FormRules<typeof defaultForm>>({
   'udpH26XInfo.model': udpFormRules.model,
   'udpH26XInfo.localPort': udpFormRules.localPort,
   'udpH26XInfo.targetIp': udpFormRules.targetIp,
@@ -255,7 +254,10 @@ const videoFormRuls = reactive<FormRules<typeof defaultForm>>({
     trigger: 'blur'
   },
   'rtmpInfo.streamAddress': { validator: forms.checkString('推流地址'), trigger: 'blur' },
-  'gb28181Info.sipServerAddres': { validator: forms.checkString('SIP服务器地址'), trigger: 'blur' },
+  'gb28181Info.sipServerAddress': {
+    validator: forms.checkString('SIP服务器地址'),
+    trigger: 'blur'
+  },
   'gb28181Info.sipServerPort': {
     validator: forms.checkNumber(0, 65535, 'SIP服务器端口'),
     trigger: 'blur'
