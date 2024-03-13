@@ -18,7 +18,8 @@ body {
   width: 100%;
 }
 .bordered {
-  border: 2px dashed var(--el-border-color);
+  border: 1px solid var(--el-border-color);
+  border-radius: 4px;
 }
 .normal-layout {
   display: flex;
@@ -41,10 +42,14 @@ body {
   padding: 5px;
   flex-wrap: wrap;
 }
+.menu-box {
+  background-color: #303133;
+}
 .form-box {
   padding: 10px 15px;
   margin-right: 10px;
   margin-bottom: 10px;
+  background-color: #303133;
 }
 
 .el-select {
