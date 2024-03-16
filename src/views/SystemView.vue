@@ -166,7 +166,55 @@
         </div>
       </div>
       <div class="forms-box">
-        <el-button type="primary" @click="showMaintenanceLogin = true">系统维护</el-button>
+        <div class="form-box bordered">
+          <el-collapse
+            v-model="systemConfigModel"
+            @change="handSystemFormExpand"
+            style="border: none"
+          >
+            <el-collapse-item name="1" title="系统维护">
+              <template #title>
+                <div style="width: 309px; display: flex; align-items: flex-start">
+                  <el-text type="primary" size="large">系统维护</el-text>
+                </div>
+              </template>
+              <div v-if="showMaintenanceForm">
+                <el-form class="custom-label-size" v-model="loginForm" label-width="80px">
+                  <FormTitle title="产品信息"></FormTitle>
+                  <el-form-item label="产品编码">
+                    <el-text>123456</el-text>
+                  </el-form-item>
+                  <el-form-item label="产品SN码">
+                    <el-text>123456</el-text>
+                  </el-form-item>
+                  <el-form-item label="备注">
+                    <el-input type="textarea"></el-input>
+                  </el-form-item>
+                  <FormTitle title="产品配置"></FormTitle>
+                  <el-form-item label="TV1型号">
+                    <el-input placeholder="X1/X2/X3/X4/无"></el-input>
+                  </el-form-item>
+                  <el-form-item label="TV2型号">
+                    <el-input placeholder="X1/X2/X3/X4/无"></el-input>
+                  </el-form-item>
+                  <el-form-item label="IR1型号">
+                    <el-input placeholder="X1/X2/X3/X4/无"></el-input>
+                  </el-form-item>
+                  <el-form-item label="LA型号">
+                    <el-input placeholder="X1/X2/X3/X4/无"></el-input>
+                  </el-form-item>
+                  <el-form-item label="用户协议">
+                    <el-input placeholder="X1/X2/X3/X4/无"></el-input>
+                  </el-form-item>
+                  <el-form-item>
+                    <el-button @click="showMaintenanceForm = false">取消</el-button>
+                    <el-button type="primary" @click="confirmLogin"> 确认 </el-button>
+                  </el-form-item>
+                </el-form>
+              </div>
+            </el-collapse-item>
+          </el-collapse>
+        </div>
       </div>
     </div>
     <el-dialog v-model="showMaintenanceLogin" width="30%" :show-close="false" style="width: 360px">
@@ -191,45 +239,6 @@
       <template #footer>
         <span class="dialog-footer">
           <el-button @click="showMaintenanceLogin = false">取消</el-button>
-          <el-button type="primary" @click="confirmLogin"> 确认 </el-button>
-        </span>
-      </template>
-    </el-dialog>
-    <el-dialog v-model="showMaintenanceForm" width="30%" :show-close="false" style="width: 360px">
-      <template #header>
-        <el-text size="large">系统维护</el-text>
-      </template>
-      <el-form class="custom-label-size" v-model="loginForm" label-width="80px">
-        <FormTitle title="产品信息"></FormTitle>
-        <el-form-item label="产品编码">
-          <el-text>123456</el-text>
-        </el-form-item>
-        <el-form-item label="产品SN码">
-          <el-text>123456</el-text>
-        </el-form-item>
-        <el-form-item label="备注">
-          <el-input type="textarea"></el-input>
-        </el-form-item>
-        <FormTitle title="产品配置"></FormTitle>
-        <el-form-item label="TV1型号">
-          <el-input placeholder="X1/X2/X3/X4/无"></el-input>
-        </el-form-item>
-        <el-form-item label="TV2型号">
-          <el-input placeholder="X1/X2/X3/X4/无"></el-input>
-        </el-form-item>
-        <el-form-item label="IR1型号">
-          <el-input placeholder="X1/X2/X3/X4/无"></el-input>
-        </el-form-item>
-        <el-form-item label="LA型号">
-          <el-input placeholder="X1/X2/X3/X4/无"></el-input>
-        </el-form-item>
-        <el-form-item label="用户协议">
-          <el-input placeholder="X1/X2/X3/X4/无"></el-input>
-        </el-form-item>
-      </el-form>
-      <template #footer>
-        <span class="dialog-footer">
-          <el-button @click="showMaintenanceForm = false">取消</el-button>
           <el-button type="primary" @click="confirmLogin"> 确认 </el-button>
         </span>
       </template>
@@ -273,6 +282,7 @@ type StorageType = {
 }
 type LoginFormType = { account: string; password: string }
 const upload = ref<UploadInstance>()
+const systemConfigModel = ref([] as string[])
 
 const systemInfo = ref<SystemInfoType>({} as SystemInfoType)
 const userCommConfigForm = ref<UserCommConfigType>({} as UserCommConfigType)
@@ -304,6 +314,12 @@ const loginFormRules = reactive<FormRules<LoginFormType>>({
   account: [{ validator: forms.checkString('账号'), trigger: 'blur' }],
   password: [{ validator: forms.checkString('密码'), trigger: 'blur' }]
 })
+const handSystemFormExpand = () => {
+  if (!showMaintenanceForm.value) {
+    showMaintenanceLogin.value = true
+    systemConfigModel.value = []
+  }
+}
 const confirmLogin = () => {
   if (!loginFormRef.value) {
     return
@@ -316,6 +332,7 @@ const confirmLogin = () => {
       util.showMessage('认证成功')
       showMaintenanceLogin.value = false
       showMaintenanceForm.value = true
+      systemConfigModel.value = ['1']
     } else {
       util.showMessage('账号或密码错误', 'error')
     }

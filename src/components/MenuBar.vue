@@ -11,7 +11,7 @@
   </el-row>
 </template>
 <script lang="ts">
-import { House, VideoPlay, Link, Setting, HelpFilled } from '@element-plus/icons-vue'
+import { ScaleToOriginal, VideoPlay, Link, Setting, HelpFilled } from '@element-plus/icons-vue'
 import { markRaw } from 'vue'
 export default {
   data() {
@@ -21,7 +21,7 @@ export default {
         {
           label: '编码设置',
           path: '/encoding',
-          icon: markRaw(House)
+          icon: markRaw(ScaleToOriginal)
         },
         {
           label: '视频设置',
