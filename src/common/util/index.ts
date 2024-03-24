@@ -1,5 +1,4 @@
 import { ElMessage } from 'element-plus'
-import xml2js from 'xml2js'
 type MessageType = 'success' | 'warning' | 'error' | 'info'
 const showMessage = (message: string, type: MessageType = 'success') => {
   ElMessage({
