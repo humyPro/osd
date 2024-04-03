@@ -1,0 +1,66 @@
+{
+  "deviceStatus": {
+    "url": {
+      "ts": ["ts disable", "ts disable", "ts disable"],
+      "rtsp": [
+        "rtsp://192.168.1.100:554/stream0",
+        "rtsp://192.168.1.100:554/stream1",
+        "rtsp://192.168.1.100:554/stream2"
+      ],
+      "rtp": ["rtp disable", "rtp disable"]
+    },
+    "encode": {
+      "venc": [
+        {
+          "enType": 96,
+          "vencAspectRation": 0,
+          "vencBitrate": 0,
+          "vencFramerate": 0,
+          "vencGop": 0,
+          "vencWidth": 0,
+          "vencHeight": 0,
+          "vencProfile": 0,
+          "vencRcMode": 0,
+          "vencMaxQp": 32,
+          "vencMinIQp": 5,
+          "vencMinQp": 5
+        },
+        {
+          "enType": 96,
+          "vencAspectRation": 0,
+          "vencBitrate": 2000,
+          "vencFramerate": 30,
+          "vencGop": 150,
+          "vencWidth": 1920,
+          "vencHeight": 1080,
+          "vencProfile": 0,
+          "vencRcMode": 0,
+          "vencMaxQp": 32,
+          "vencMinIQp": 5,
+          "vencMinQp": 5
+        },
+        {
+          "enType": 96,
+          "vencAspectRation": 0,
+          "vencBitrate": 2000,
+          "vencFramerate": 30,
+          "vencGop": 150,
+          "vencWidth": 1920,
+          "vencHeight": 1080,
+          "vencProfile": 0,
+          "vencRcMode": 0,
+          "vencMaxQp": 32,
+          "vencMinIQp": 5,
+          "vencMinQp": 5
+        }
+      ]
+    },
+    "audio": { "audioType": 1, "aencBitrate": 128000, "audioChannel": 0, "isHeAac": 1 },
+    "video": {
+      "hdmiVideoSize": "1920 * 1080P",
+      "hdmiVideoFps": 30,
+      "vencSize": [null, "9999 * 9999", "640 * 512"],
+      "vencFps": [null, 100, 5]
+    }
+  }
+}

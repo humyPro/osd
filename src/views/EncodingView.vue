@@ -2,7 +2,7 @@
   <div class="normal-layout">
     <MenuBar />
     <div class="main-content">
-      <div class="forms-box" v-for="(channel, index) in channels" :key="index">
+      <div class="forms-box" v-for="(channel, index) in channelInfo.encode.venc" :key="index">
         <div class="form-box bordered">
           <div class="title" style="margin-bottom: 10px">
             <FormTitle :title="'编码通道' + index + '参数设置'" text-type="primary" />
@@ -17,8 +17,8 @@
           >
             <el-form-item label="编码类型" prop="enType">
               <el-select v-model="channel.enType" placeholder="">
-                <el-option label="H264" value="H264" />
-                <el-option label="H265" value="H265" />
+                <el-option label="96" value="H264" />
+                <el-option label="265" value="H265" />
               </el-select>
             </el-form-item>
             <el-form-item label="分辨率" prop="vencAspectRation">
@@ -44,8 +44,8 @@
             </el-form-item>
             <el-form-item label="动态码率" prop="vencRcMode">
               <el-select v-model="channel.vencRcMode" placeholder="">
-                <el-option label="CBR" value="CBR" />
-                <el-option label="VBR" value="VBR" />
+                <el-option label="CBR" value="0" />
+                <el-option label="VBR" value="1" />
               </el-select>
             </el-form-item>
             <el-form-item label="MinQp" prop="vencMinQp">
@@ -80,14 +80,14 @@
               <el-input
                 placeholder="[MinQp,MaxQp]"
                 type="number"
-                v-model.number="channel.vencMinIqp"
+                v-model.number="channel.vencMinIQp"
               />
             </el-form-item>
             <el-form-item label="Profile" prop="vencProfile">
               <el-select v-model="channel.vencProfile" placeholder="">
-                <el-option label="baseline" value="baseline" />
-                <el-option label="main" value="main" />
-                <el-option label="high" value="high" />
+                <el-option label="baseline" value="0" />
+                <el-option label="main" value="1" />
+                <el-option label="high" value="2" />
               </el-select>
             </el-form-item>
             <el-button class="save-button" type="primary" @click="submitChannelForm(index)"
@@ -122,22 +122,35 @@
           >
             <el-form-item label="音频编码" prop="encoding">
               <el-select v-model="audioProp.encoding" placeholder="">
-                <el-option label="ACC" value="ACC" />
+                <el-option label="ACC" value="1" />
+                <el-option label="MP3" value="2" />
               </el-select>
             </el-form-item>
             <el-form-item label="声道布局" prop="layout">
               <el-select v-model="audioProp.layout" placeholder="">
-                <el-option label="立体声" value="立体声" />
+                <el-option label="立体声" value="0" />
+                <el-option label="左声道" value="1" />
+                <el-option label="右声道" value="2" />
               </el-select>
             </el-form-item>
             <el-form-item label="ACC格式" prop="accFormat">
               <el-select v-model="audioProp.accFormat" placeholder="">
-                <el-option label="LC-ACC" value="LC-ACC" />
+                <el-option label="LC-ACC" value="0" />
+                <el-option label="HE-ACC" value="1" />
               </el-select>
             </el-form-item>
             <el-form-item label="音频比特率" prop="auditBit">
               <el-select v-model="audioProp.auditBit" placeholder="">
                 <el-option label="24000" value="24000" />
+                <el-option label="32000" value="32000" />
+                <el-option label="48000" value="48000" />
+                <el-option label="64000" value="64000" />
+                <el-option label="96000" value="96000" />
+                <el-option label="128000" value="128000" />
+                <el-option label="160000" value="160000" />
+                <el-option label="192000" value="192000" />
+                <el-option label="256000" value="256000" />
+                <el-option label="320000" value="320000" />
               </el-select>
             </el-form-item>
             <el-button class="save-button" type="primary" @click="submitAudioForm">保存</el-button>
@@ -162,7 +175,7 @@
 <script lang="ts" setup>
 import apis from '@/common/apis'
 import forms from '@/common/forms'
-import type { EncodingForm } from '@/common/apis/modelTypes'
+import type { AudioForm, EncodingForm } from '@/common/apis/modelTypes'
 import MenuBar from '@/components/MenuBar.vue'
 import { Picture as IconPicture } from '@element-plus/icons-vue'
 import { ref, onMounted, reactive } from 'vue'
@@ -174,14 +187,18 @@ type AuditPropType = {
   accFormat: string
   auditBit: string
 }
-const channels = ref<ChannelType[]>([{} as ChannelType, {} as ChannelType, {} as ChannelType])
+const channelInfo = ref<ChannelType>({
+  url: { rtsp: [] },
+  encode: { venc: [] },
+  audio: {} as AudioForm
+} as ChannelType)
 const channelRefs = ref<FormInstance[]>([])
 const audioFormRef = ref<FormInstance>()
 const audioProp = ref<AuditPropType>({} as AuditPropType)
 const qrCode = ref<string>()
 onMounted(() => {
   apis.getEncodingForm().then((res) => {
-    channels.value = [res, { ...res }]
+    channelInfo.value = res
   })
 })
 const channelRules = reactive<FormRules>({

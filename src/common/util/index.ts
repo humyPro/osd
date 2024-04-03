@@ -27,6 +27,13 @@ const getStorage = (key: string) => {
   return localStorage.getItem(key)
 }
 
+const castToCamelCase = (name: string) => {
+  return name.replace(/_(\w)/g, (s, f) => f.toUpperCase())
+}
+const parseToInt = (value: string) => {
+  return /^\d+$/.test(value) ? parseInt(value) : value
+}
+
 const xmlToJson = <T>(xml: string) => {
   const parser = new DOMParser()
   const result = {} as any
@@ -48,12 +55,12 @@ const xmlToJson = <T>(xml: string) => {
           }
           if (match) {
             // 符合fieldName_fieldIndex样式的元素转换为数组形式
-            const realPropName = match[1]
+            const realPropName = castToCamelCase(match[1])
             const index = match[2]
             subJson[realPropName] = subJson[realPropName] || []
-            subJson[realPropName][index] = value
+            subJson[realPropName][index] = parseToInt(value)
           } else {
-            subJson[propName] = value
+            subJson[castToCamelCase(propName)] = parseToInt(value)
           }
         }
         return subJson
@@ -63,7 +70,8 @@ const xmlToJson = <T>(xml: string) => {
     }
     return null
   }
-  result[nodeName] = parseElement(xmlDoc.documentElement)
+  result[castToCamelCase(nodeName)] = parseElement(xmlDoc.documentElement)
+  console.log(JSON.stringify(result))
   return result as T
 }
 

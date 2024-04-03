@@ -1,15 +1,31 @@
-type EncodingForm = {
-  enType: string
-  vencAspectRation: string
+type VencForm = {
+  enType: number
+  vencAspectRation: number
   vencBitrate: number
   vencFramerate: number
   vencGop: number
-  vencProfile: string
-  vencRcMode: string
+  vencWidth: number
+  vencHeight: number
+  vencProfile: number
+  vencRcMode: number
   vencMaxQp: number
-  vencMinIqp: number
+  vencMinIQp: number
   vencMinQp: number
-  urls: string[]
+}
+type AudioForm = {
+  audioType: number
+  aencBitrate: number
+  audioChannel: number
+  isHeAac: number
+}
+type EncodingForm = {
+  url: {
+    rtsp: string[]
+  }
+  encode: {
+    venc: VencForm[]
+  }
+  audio: AudioForm
 }
 
 type UDPForm = {
@@ -52,4 +68,13 @@ type VideoForm = {
   gb28181Enable: boolean //是否启用GB28181
   gb28181Info: GB28181Form
 }
-export type { EncodingForm, UDPForm, VideoForm, RTSPForm, RTMPForm, GB28181Form }
+export type {
+  EncodingForm,
+  VencForm,
+  AudioForm,
+  UDPForm,
+  VideoForm,
+  RTSPForm,
+  RTMPForm,
+  GB28181Form
+}
