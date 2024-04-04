@@ -1,7 +1,8 @@
+const isUndefineOrNullOrEmpty = (v: unknown) => v === undefined || v === null || v === ''
 const checkNumber =
   (min: number | (() => number), max: number | (() => number), name?: string) =>
   (rule: any, value: any, callback: any) => {
-    if (!value) {
+    if (isUndefineOrNullOrEmpty(value)) {
       return callback(new Error(name ? `请输入${name}` : '请输入'))
     }
     const localMax = max instanceof Function ? max() : max
@@ -21,7 +22,7 @@ const checkNumber =
   }
 
 const checkSelect = (name?: string) => (rule: any, value: any, callback: any) => {
-  if (value == null || value == undefined) {
+  if (isUndefineOrNullOrEmpty(value)) {
     return callback(new Error(name ? `请选择${name}` : '请选择'))
   }
   callback()
@@ -30,7 +31,7 @@ const ipRegexp = /^((?:(?:25[0-5]|2[0-4]\d|[01]?\d?\d)\.){3}(?:25[0-5]|2[0-4]\d|
 const checkIp =
   (name = 'IP') =>
   (rule: any, value: any, callback: any) => {
-    if (!value) {
+    if (isUndefineOrNullOrEmpty(value)) {
       return callback(new Error(`请输入${name}`))
     }
     if (!ipRegexp.test(value)) {
@@ -40,7 +41,7 @@ const checkIp =
     }
   }
 const checkString = (name?: string) => (rule: any, value: any, callback: any) => {
-  if (value == null || value == undefined || value.length == 0) {
+  if (isUndefineOrNullOrEmpty(value)) {
     return callback(new Error(name ? `请输人${name}` : '请输人'))
   }
   callback()

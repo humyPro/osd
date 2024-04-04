@@ -11,6 +11,7 @@ type VencForm = {
   vencMaxQp: number
   vencMinIQp: number
   vencMinQp: number
+  resolutionRatio: string //分辨率 vencWidth x vencHeight
 }
 type AudioForm = {
   audioType: number

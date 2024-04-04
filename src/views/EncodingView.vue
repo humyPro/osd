@@ -17,12 +17,12 @@
           >
             <el-form-item label="编码类型" prop="enType">
               <el-select v-model="channel.enType" placeholder="">
-                <el-option label="96" value="H264" />
-                <el-option label="265" value="H265" />
+                <el-option label="H264" :value="96" />
+                <el-option label="H265" :value="265" />
               </el-select>
             </el-form-item>
-            <el-form-item label="分辨率" prop="vencAspectRation">
-              <el-select v-model="channel.vencAspectRation" placeholder="">
+            <el-form-item label="分辨率" prop="resolutionRatio">
+              <el-select v-model="channel.resolutionRatio" placeholder="">
                 <el-option label="640x480" value="640x480" />
                 <el-option label="1280x720" value="1280x720" />
                 <el-option label="1920x1080" value="2048x1152" />
@@ -44,8 +44,8 @@
             </el-form-item>
             <el-form-item label="动态码率" prop="vencRcMode">
               <el-select v-model="channel.vencRcMode" placeholder="">
-                <el-option label="CBR" value="0" />
-                <el-option label="VBR" value="1" />
+                <el-option label="CBR" :value="0" />
+                <el-option label="VBR" :value="1" />
               </el-select>
             </el-form-item>
             <el-form-item label="MinQp" prop="vencMinQp">
@@ -65,7 +65,7 @@
             </el-form-item>
             <el-form-item
               label="MinIQp"
-              prop="vencMinIqp"
+              prop="vencMinIQp"
               :rules="[
                 {
                   validator: forms.checkNumber(
@@ -85,9 +85,9 @@
             </el-form-item>
             <el-form-item label="Profile" prop="vencProfile">
               <el-select v-model="channel.vencProfile" placeholder="">
-                <el-option label="baseline" value="0" />
-                <el-option label="main" value="1" />
-                <el-option label="high" value="2" />
+                <el-option label="baseline" :value="0" />
+                <el-option label="main" :value="1" />
+                <el-option label="high" :value="2" />
               </el-select>
             </el-form-item>
             <el-button class="save-button" type="primary" @click="submitChannelForm(index)"
@@ -98,12 +98,9 @@
         <div class="form-box bordered form-right" style="width: 660px">
           <div class="title" style="margin-bottom: 10px">
             <FormTitle :title="'编码通道' + index + '播放地址'" />
-            <template v-for="url in channel.urls" :key="url">
-              <el-tooltip :content="url" placement="top" effect="light">
-                <el-text class="mx-1" truncated>{{ url }}</el-text>
-              </el-tooltip>
-              <p></p>
-            </template>
+            <el-tooltip :content="channelInfo.url.rtsp[index]" placement="top" effect="light">
+              <el-text class="mx-1" truncated>{{ channelInfo.url.rtsp[index] }}</el-text>
+            </el-tooltip>
           </div>
         </div>
       </div>
@@ -122,35 +119,35 @@
           >
             <el-form-item label="音频编码" prop="encoding">
               <el-select v-model="audioProp.encoding" placeholder="">
-                <el-option label="ACC" value="1" />
-                <el-option label="MP3" value="2" />
+                <el-option label="ACC" :value="1" />
+                <el-option label="MP3" :value="2" />
               </el-select>
             </el-form-item>
             <el-form-item label="声道布局" prop="layout">
               <el-select v-model="audioProp.layout" placeholder="">
-                <el-option label="立体声" value="0" />
-                <el-option label="左声道" value="1" />
-                <el-option label="右声道" value="2" />
+                <el-option label="立体声" :value="0" />
+                <el-option label="左声道" :value="1" />
+                <el-option label="右声道" :value="2" />
               </el-select>
             </el-form-item>
             <el-form-item label="ACC格式" prop="accFormat">
               <el-select v-model="audioProp.accFormat" placeholder="">
-                <el-option label="LC-ACC" value="0" />
-                <el-option label="HE-ACC" value="1" />
+                <el-option label="LC-ACC" :value="0" />
+                <el-option label="HE-ACC" :value="1" />
               </el-select>
             </el-form-item>
             <el-form-item label="音频比特率" prop="auditBit">
               <el-select v-model="audioProp.auditBit" placeholder="">
-                <el-option label="24000" value="24000" />
-                <el-option label="32000" value="32000" />
-                <el-option label="48000" value="48000" />
-                <el-option label="64000" value="64000" />
-                <el-option label="96000" value="96000" />
-                <el-option label="128000" value="128000" />
-                <el-option label="160000" value="160000" />
-                <el-option label="192000" value="192000" />
-                <el-option label="256000" value="256000" />
-                <el-option label="320000" value="320000" />
+                <el-option label="24000" :value="24000" />
+                <el-option label="32000" :value="32000" />
+                <el-option label="48000" :value="48000" />
+                <el-option label="64000" :value="64000" />
+                <el-option label="96000" :value="96000" />
+                <el-option label="128000" :value="128000" />
+                <el-option label="160000" :value="160000" />
+                <el-option label="192000" :value="192000" />
+                <el-option label="256000" :value="256000" />
+                <el-option label="320000" :value="320000" />
               </el-select>
             </el-form-item>
             <el-button class="save-button" type="primary" @click="submitAudioForm">保存</el-button>
@@ -199,11 +196,14 @@ const qrCode = ref<string>()
 onMounted(() => {
   apis.getEncodingForm().then((res) => {
     channelInfo.value = res
+    channelInfo.value.encode.venc.forEach(
+      (v) => (v.resolutionRatio = `${v.vencWidth}x${v.vencHeight}`)
+    )
   })
 })
 const channelRules = reactive<FormRules>({
   enType: [{ validator: forms.checkSelect('编码类型'), trigger: 'change' }],
-  vencAspectRation: [{ validator: forms.checkSelect('分辨率'), trigger: 'change' }],
+  resolutionRatio: [{ validator: forms.checkSelect('分辨率'), trigger: 'change' }],
   vencRcMode: [{ validator: forms.checkSelect('动态码率'), trigger: 'change' }],
   vencProfile: [{ validator: forms.checkSelect('Profile'), trigger: 'change' }],
   vencFramerate: [{ validator: forms.checkNumber(5, 60, '帧率'), trigger: 'blur' }],
