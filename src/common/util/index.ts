@@ -30,10 +30,12 @@ const getStorage = (key: string) => {
 const castToCamelCase = (name: string) => {
   return name.replace(/_(\w)/g, (s, f) => f.toUpperCase())
 }
+const castFromCamelCase = (name: string) => {
+  return name.replace(/([A-Z])/g, (s, f) => '_' + f.toLowerCase())
+}
 const parseToInt = (value: string) => {
   return /^\d+$/.test(value) ? parseInt(value) : value
 }
-
 const xmlToJson = <T>(xml: string) => {
   const parser = new DOMParser()
   const result = {} as any
@@ -82,5 +84,8 @@ export default {
   setToken,
   getToken,
   guid,
-  xmlToJson
+  xmlToJson,
+  castFromCamelCase,
+  castToCamelCase,
+  parseToInt
 }

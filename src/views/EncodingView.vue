@@ -225,7 +225,8 @@ const submitChannelForm = (index: number) => {
   }
   formRef.validate((valid) => {
     if (valid) {
-      alert('表单提交成功')
+      const formValue = channelInfo.value.encode.venc[index]
+      apis.submitEncodingForm(index, formValue)
     } else {
       alert('表单校验失败')
     }
