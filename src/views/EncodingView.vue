@@ -1,7 +1,7 @@
 <template>
   <div class="normal-layout">
     <MenuBar />
-    <div class="main-content">
+    <div class="main-content" v-loading="loadEncodingForm">
       <div class="forms-box" v-for="(channel, index) in channelInfo.encode.venc" :key="index">
         <div class="form-box bordered">
           <div class="title" style="margin-bottom: 10px">
@@ -90,7 +90,11 @@
                 <el-option label="high" :value="2" />
               </el-select>
             </el-form-item>
-            <el-button class="save-button" type="primary" @click="submitChannelForm(index)"
+            <el-button
+              class="save-button"
+              :loading="encodingFormLoading[index]"
+              type="primary"
+              @click="submitChannelForm(index)"
               >保存</el-button
             >
           </el-form>
@@ -150,7 +154,13 @@
                 <el-option label="320000" :value="320000" />
               </el-select>
             </el-form-item>
-            <el-button class="save-button" type="primary" @click="submitAudioForm">保存</el-button>
+            <el-button
+              class="save-button"
+              type="primary"
+              :loading="auditFormLoading"
+              @click="submitAudioForm"
+              >保存</el-button
+            >
           </el-form>
         </div>
         <div class="form-box bordered form-right" style="width: 660px">
@@ -172,11 +182,12 @@
 <script lang="ts" setup>
 import apis from '@/common/apis'
 import forms from '@/common/forms'
-import type { AudioForm, EncodingForm } from '@/common/apis/modelTypes'
+import type { AudioForm, EncodingForm, VencForm } from '@/common/apis/modelTypes'
 import MenuBar from '@/components/MenuBar.vue'
 import { Picture as IconPicture } from '@element-plus/icons-vue'
 import { ref, onMounted, reactive } from 'vue'
 import type { FormInstance, FormRules } from 'element-plus'
+import util from '@/common/util'
 type ChannelType = EncodingForm
 type AuditPropType = {
   encoding: string
@@ -186,20 +197,27 @@ type AuditPropType = {
 }
 const channelInfo = ref<ChannelType>({
   url: { rtsp: [] },
-  encode: { venc: [] },
+  encode: { venc: [{} as VencForm, {} as VencForm, {} as VencForm] },
   audio: {} as AudioForm
 } as ChannelType)
 const channelRefs = ref<FormInstance[]>([])
 const audioFormRef = ref<FormInstance>()
 const audioProp = ref<AuditPropType>({} as AuditPropType)
 const qrCode = ref<string>()
+const loadEncodingForm = ref(false)
+const encodingFormLoading = ref([] as boolean[])
+const auditFormLoading = ref(false)
 onMounted(() => {
-  apis.getEncodingForm().then((res) => {
-    channelInfo.value = res
-    channelInfo.value.encode.venc.forEach(
-      (v) => (v.resolutionRatio = `${v.vencWidth}x${v.vencHeight}`)
-    )
-  })
+  loadEncodingForm.value = true
+  apis
+    .getEncodingForm()
+    .then((res) => {
+      channelInfo.value = res
+      channelInfo.value.encode.venc.forEach(
+        (v) => (v.resolutionRatio = `${v.vencWidth}x${v.vencHeight}`)
+      )
+    })
+    .finally(() => (loadEncodingForm.value = false))
 })
 const channelRules = reactive<FormRules>({
   enType: [{ validator: forms.checkSelect('编码类型'), trigger: 'change' }],
@@ -223,10 +241,20 @@ const submitChannelForm = (index: number) => {
   if (!formRef) {
     return
   }
+  encodingFormLoading.value[index] = true
   formRef.validate((valid) => {
     if (valid) {
       const formValue = channelInfo.value.encode.venc[index]
-      apis.submitEncodingForm(index, formValue)
+      apis
+        .submitEncodingForm(index, formValue)
+        .then(() => util.showMessage('提交数据成功', 'success'))
+        .finally(() => {
+          encodingFormLoading.value[index] = false
+        })
+        .catch(() => {
+          encodingFormLoading.value[index] = false
+          util.showMessage('提交数据失败', 'error')
+        })
     } else {
       alert('表单校验失败')
     }
@@ -236,13 +264,18 @@ const submitAudioForm = () => {
   if (!audioFormRef.value) {
     return
   }
-  audioFormRef.value.validate((valid) => {
-    if (valid) {
-      alert('表单提交成功')
-    } else {
-      alert('表单校验失败')
-    }
-  })
+  auditFormLoading.value = true
+  audioFormRef.value
+    .validate((valid) => {
+      if (valid) {
+        alert('表单提交成功')
+      } else {
+        alert('表单校验失败')
+      }
+    })
+    .finally(() => {
+      auditFormLoading.value = false
+    })
 }
 </script>
 <style scoped>

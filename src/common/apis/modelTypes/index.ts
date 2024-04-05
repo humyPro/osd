@@ -28,7 +28,11 @@ type EncodingForm = {
   }
   audio: AudioForm
 }
-
+type NetworkForm = {
+  ip: string
+  mask: string
+  gateway: string
+}
 type UDPForm = {
   model: string //模式
   localPort: number //本机端口
@@ -77,5 +81,6 @@ export type {
   VideoForm,
   RTSPForm,
   RTMPForm,
-  GB28181Form
+  GB28181Form,
+  NetworkForm
 }

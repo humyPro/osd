@@ -28,27 +28,42 @@ const router = createRouter({
     {
       path: '/encoding',
       name: '编码设置',
-      component: EncodingView
+      component: EncodingView,
+      meta: {
+        KeepAlive: true
+      }
     },
     {
       path: '/video',
       name: '视频设置',
-      component: VideoView
+      component: VideoView,
+      meta: {
+        KeepAlive: true
+      }
     },
     {
       name: '云台控制',
       path: '/control',
-      component: ControlView
+      component: ControlView,
+      meta: {
+        KeepAlive: true
+      }
     },
     {
       name: '网络设置',
       path: '/network',
-      component: NetworkView
+      component: NetworkView,
+      meta: {
+        KeepAlive: true
+      }
     },
     {
       name: '系统设置',
       path: '/system',
-      component: SystemView
+      component: SystemView,
+      meta: {
+        KeepAlive: true
+      }
     }
   ]
 })

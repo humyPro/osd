@@ -72,7 +72,8 @@ body {
 
 .el-form .save-button {
   /* 减去其他元素的右边距和自身的长度 */
-  margin-left: calc(100% - 30px - 60px);
+  margin-left: calc(100% - 30px - 80px);
+  width: 80px;
 }
 .fixed-button {
   display: flex;

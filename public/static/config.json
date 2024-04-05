@@ -1,5 +1,6 @@
 {
   "baseUrl": "http://127.0.0.1:5137",
-  "getEncodingUrl": "/encodingInfo",
-  "submitEncodingFormUrl": "/set_codec"
+  "getEncodingUrl": "/get_status?type=device_status",
+  "submitEncodingFormUrl": "/set_codec",
+  "getNetworkInfoUrl": "/get_codec?type=network"
 }

@@ -3,7 +3,7 @@
     <MenuBar />
     <div class="main-content">
       <div class="forms-box single-forms">
-        <div class="form-box bordered">
+        <div class="form-box bordered" v-loading="pageLoading">
           <FormTitle title="有线网络参数"></FormTitle>
           <el-form
             :rules="networkFormRules"
@@ -30,20 +30,28 @@
   </div>
 </template>
 <script lang="ts" setup>
+import apis from '@/common/apis'
+import type { NetworkForm } from '@/common/apis/modelTypes'
 import forms from '@/common/forms'
 import type { FormInstance, FormRules } from 'element-plus'
 import { ref, reactive } from 'vue'
-type NetworkType = {
-  ip: string
-  mask: string
-  gateway: string
-}
-const networkForm = ref<NetworkType>({} as NetworkType)
+
+const networkForm = ref<NetworkForm>({} as NetworkForm)
 const networkFormRef = ref()
-const networkFormRules = reactive<FormRules<NetworkType>>({
+const pageLoading = ref(true)
+const networkFormRules = reactive<FormRules<NetworkForm>>({
   ip: [{ validator: forms.checkIp('IP地址'), trigger: 'blur' }],
   mask: [{ validator: forms.checkIp('子网掩码'), trigger: 'blur' }],
   gateway: [{ validator: forms.checkIp('默认网关'), trigger: 'blur' }]
+})
+
+onMounted(() => {
+  apis
+    .getNetworkInfo()
+    .then((res) => {
+      networkForm.value = res
+    })
+    .finally(() => (pageLoading.value = false))
 })
 const submitNetworkForm = () => {
   if (!networkFormRef.value) {
