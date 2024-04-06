@@ -10,6 +10,7 @@ import IconsResolver from 'unplugin-icons/resolver'
 import Icons from 'unplugin-icons/vite'
 import path from 'path'
 import legacy from '@vitejs/plugin-legacy'
+import topLevelAwait from 'vite-plugin-top-level-await'
 const pathSrc = path.resolve(__dirname, 'src')
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -57,6 +58,13 @@ export default defineConfig({
 
     Icons({
       autoInstall: true
+    }),
+    // 解决顶层模块直接使用await的问题
+    topLevelAwait({
+      // The export name of top-level await promise for each chunk module
+      promiseExportName: '__tla',
+      // The function to generate import names of top-level await promise in each chunk module
+      promiseImportName: (i) => `__tla_${i}`
     })
   ],
   resolve: {

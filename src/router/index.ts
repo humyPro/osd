@@ -30,7 +30,7 @@ const router = createRouter({
       name: '编码设置',
       component: EncodingView,
       meta: {
-        KeepAlive: true
+        keepAlive: true
       }
     },
     {
@@ -38,7 +38,7 @@ const router = createRouter({
       name: '视频设置',
       component: VideoView,
       meta: {
-        KeepAlive: true
+        keepAlive: true
       }
     },
     {
@@ -46,7 +46,7 @@ const router = createRouter({
       path: '/control',
       component: ControlView,
       meta: {
-        KeepAlive: true
+        keepAlive: true
       }
     },
     {
@@ -54,7 +54,7 @@ const router = createRouter({
       path: '/network',
       component: NetworkView,
       meta: {
-        KeepAlive: true
+        keepAlive: true
       }
     },
     {
@@ -62,13 +62,13 @@ const router = createRouter({
       path: '/system',
       component: SystemView,
       meta: {
-        KeepAlive: true
+        keepAlive: true
       }
     }
   ]
 })
 
-router.beforeEach(async (to, from) => {
+router.beforeEach(async (to) => {
   if (
     // 检查用户是否已登录 'jta123k', 't1jhasd89dkj-u1h31k29asdkja'
     util.getStorage('jta123k') !== util.getToken() &&
