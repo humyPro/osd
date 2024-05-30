@@ -1,6 +1,6 @@
 import { request } from '@/common/apis/common'
-import configFile from '@/../public/static/config.json'
-type ConfigType = typeof configFile
+import configJson from '@/../public/static/config.json'
+type ConfigType = typeof configJson
 
 const res = await request<ConfigType>({ url: '/static/config.json', method: 'get' })
 
