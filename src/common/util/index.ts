@@ -73,7 +73,6 @@ const xmlToJson = <T>(xml: string) => {
     return null
   }
   result[castToCamelCase(nodeName)] = parseElement(xmlDoc.documentElement)
-  console.log(JSON.stringify(result))
   return result as T
 }
 
