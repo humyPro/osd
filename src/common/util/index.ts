@@ -38,9 +38,7 @@ const parseToInt = (value: string) => {
 }
 const xmlToJson = <T>(xml: string) => {
   const parser = new DOMParser()
-  const result = {} as any
   const xmlDoc = parser.parseFromString(xml, 'text/xml')
-  const nodeName = xmlDoc.documentElement.nodeName
   const parseElement = function (element: HTMLElement | ChildNode) {
     if (element.nodeType === 1) {
       if (element.hasChildNodes()) {
@@ -48,6 +46,9 @@ const xmlToJson = <T>(xml: string) => {
         for (let i = 0; i < element.childNodes.length; i++) {
           const child = element.childNodes[i]
           const propName = child.nodeName
+          if (propName.startsWith('#')) {
+            continue
+          }
           const match = propName.match(/^(\w[\w\d]*)_(\d+)$/)
           let value
           if (child.childNodes.length === 1 && child.childNodes[0].nodeType === 3) {
@@ -72,8 +73,23 @@ const xmlToJson = <T>(xml: string) => {
     }
     return null
   }
-  result[castToCamelCase(nodeName)] = parseElement(xmlDoc.documentElement)
+  const result = parseElement(xmlDoc.documentElement)
   return result as T
+}
+
+const jsonToXml = (json: Record<string, any>, keyParse = (k: string) => k) => {
+  let xml = ''
+  for (const key in json) {
+    const value = json[key]
+    if (typeof value === 'object') {
+      xml += `<${keyParse(key)}>`
+      xml += jsonToXml(value, keyParse)
+      xml += `</${keyParse(key)}>`
+    } else {
+      xml += `<${keyParse(key)}>${json[key]}</${keyParse(key)}>\n`
+    }
+  }
+  return xml
 }
 
 export default {
@@ -84,6 +100,7 @@ export default {
   getToken,
   guid,
   xmlToJson,
+  jsonToXml,
   castFromCamelCase,
   castToCamelCase,
   parseToInt
