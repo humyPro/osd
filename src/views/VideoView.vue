@@ -20,9 +20,9 @@
             <template v-if="video.udpH26x.h26xEn">
               <el-form-item label="模式" prop="udpH26x.h26xMode">
                 <el-select v-model="video.udpH26x.h26xMode" placeholder="">
-                  <el-option label="单播" value="单播" />
-                  <el-option label="组播" value="组播" />
-                  <el-option label="广播" value="广播" />
+                  <el-option label="单播" :value="0" />
+                  <el-option label="组播" :value="1" />
+                  <el-option label="广播" :value="2" />
                 </el-select>
               </el-form-item>
               <el-form-item label="本机端口" prop="udpH26x.h26xSrcPort">
@@ -58,9 +58,9 @@
             <template v-if="video.udpTs.tsEn">
               <el-form-item label="模式" prop="udpTs.tsMode">
                 <el-select v-model="video.udpTs.tsMode" placeholder="">
-                  <el-option label="单播" value="单播" />
-                  <el-option label="组播" value="组播" />
-                  <el-option label="广播" value="广播" />
+                  <el-option label="单播" :value="0" />
+                  <el-option label="组播" :value="1" />
+                  <el-option label="广播" :value="2" />
                 </el-select>
               </el-form-item>
               <el-form-item label="本机端口" prop="udpTs.tsSrcPort">
@@ -101,8 +101,8 @@
               </el-form-item>
               <el-form-item label="传输模式" prop="rtsp.transModel">
                 <el-select v-model="video.rtsp.transModel" placeholder="">
-                  <el-option label="UDP" value="UDP" />
-                  <el-option label="TCP" value="TCP" />
+                  <el-option label="UDP" :value="0" />
+                  <el-option label="TCP" :value="1" />
                 </el-select>
               </el-form-item>
               <el-form-item label="流名称" prop="rtsp.streamName">
@@ -166,8 +166,8 @@
               <el-form-item label="SIP认证ID" prop="gb28181.gbAuthId">
                 <el-input maxlength="255" v-model.trim="video.gb28181.gbAuthId" />
               </el-form-item>
-              <el-form-item label="SIP认证密码" prop="gb28181.gbPassword">
-                <el-input maxlength="255" type="password" v-model.trim="video.gb28181.gbPassword" />
+              <el-form-item label="SIP认证密码" prop="gb28181.gbPasswd">
+                <el-input maxlength="255" type="password" v-model.trim="video.gb28181.gbPasswd" />
               </el-form-item>
             </template>
             <el-button
@@ -198,15 +198,17 @@ import forms from '@/common/forms'
 import { ref, reactive } from 'vue'
 import type { FormInstance, FormRules } from 'element-plus'
 import util from '@/common/util'
-const defaultForm = {
-  udpH26x: {} as UdpH26xForm,
-  udpTs: {} as UdpTsForm,
-  rtsp: {} as RTSPForm,
-  rtmp: {} as RTMPForm,
-  gb28181: {} as GB28181Form
+const defaultForm = () => {
+  return {
+    udpH26x: {} as UdpH26xForm,
+    udpTs: {} as UdpTsForm,
+    rtsp: {} as RTSPForm,
+    rtmp: {} as RTMPForm,
+    gb28181: {} as GB28181Form
+  }
 }
 
-const videos = ref<VideoForm[]>([{ ...defaultForm }, { ...defaultForm }, { ...defaultForm }])
+const videos = ref<VideoForm[]>([defaultForm(), defaultForm(), defaultForm()])
 const videoRefs = ref<FormInstance[]>([])
 const loading = ref(false)
 const formLoading = ref([] as boolean[])
@@ -275,7 +277,7 @@ const videoFormRules = reactive<FormRules<VideoForm>>({
     trigger: 'blur'
   },
   'gb28181.gbAuthId': { validator: forms.checkString('SIP认证ID'), trigger: 'blur' },
-  'gb28181.gbPassword': { validator: forms.checkString('SIP认证密码'), trigger: 'blur' }
+  'gb28181.gbPasswd': { validator: forms.checkString('SIP认证密码'), trigger: 'blur' }
 })
 const submitVideoForm = (index: number) => {
   const formRef = videoRefs.value[index]
@@ -301,7 +303,7 @@ const submitVideoForm = (index: number) => {
           formLoading.value[index] = false
         })
     } else {
-      alert('表单校验失败')
+      util.showMessage('表单校验失败', 'warning')
     }
   })
 }

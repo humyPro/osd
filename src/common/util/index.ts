@@ -78,7 +78,7 @@ const xmlToJson = <T>(xml: string) => {
 }
 
 const jsonToXml = (json: Record<string, any>, keyParse = (k: string) => k) => {
-  let xml = ''
+  let xml = '<?xml version="1.0" encoding="utf-8"?>\n'
   for (const key in json) {
     const value = json[key]
     if (typeof value === 'object') {

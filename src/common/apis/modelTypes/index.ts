@@ -60,7 +60,7 @@ type GB28181Form = {
   heartBeat: number //心跳周期
   localSipPort: number //本地SIP端口
   gbAuthId: string //SIP认证ID
-  gbPassword: string //SIP认证密码
+  gbPasswd: string //SIP认证密码
 }
 type UdpH26xForm = {
   h26xEn: number

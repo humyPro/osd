@@ -33,7 +33,7 @@ const getEncodingForm: () => Promise<EncodingForm> = () => {
   return request({
     url: `${config.baseUrl}${config.getEncodingUrl}`,
     method: 'post',
-    body:`<?xml version="1.0" encoding="utf-8"?><device_status></device_status>`,
+    body: `<?xml version="1.0" encoding="utf-8"?><device_status></device_status>`,
     respParser: async (response: Response) => {
       const txt = await response.text()
       return utils.xmlToJson<EncodingForm>(txt)
@@ -44,7 +44,7 @@ const getEncodingForm: () => Promise<EncodingForm> = () => {
 const submitEncodingForm = (index: number, form: VencForm) => {
   const resolutionRatio = form.resolutionRatio
   if (resolutionRatio) {
-    const [height, width] = resolutionRatio.split('x')
+    const [width, height] = resolutionRatio.split('x')
     height && (form.vencHeight = parseInt(height))
     width && (form.vencWidth = parseInt(width))
   }
@@ -67,7 +67,7 @@ const getNetworkInfo: () => Promise<NetworkForm> = () => {
   return request({
     url: `${config.baseUrl}${config.getNetworkInfoUrl}`,
     method: 'post',
-    body:`<?xml version="1.0" encoding="utf-8"?><network></network>`
+    body: `<?xml version="1.0" encoding="utf-8"?><network></network>`
   })
 }
 
@@ -80,7 +80,7 @@ const getVideoInfo = () => {
   return request({
     url: `${config.baseUrl}${config.getVideoInfoUrl}`,
     method: 'post',
-    body:`<?xml version="1.0" encoding="utf-8"?><video></video>`,
+    body: `<?xml version="1.0" encoding="utf-8"?><video></video>`,
     respParser: async (response: Response) => {
       const txt = await response.text()
       return utils.xmlToJson<videoInfo>(txt).video
@@ -91,7 +91,7 @@ const submitVideoInfo = (data: { video: { index: number } & VideoForm }) => {
   return request<Result>({
     url: `${config.baseUrl}${config.submitVideoFormUrl}`,
     method: 'post',
-    body: utils.jsonToXml(data),
+    body: utils.jsonToXml(data, utils.castFromCamelCase),
     respParser: resultParser
   })
 }

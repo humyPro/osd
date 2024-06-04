@@ -1,5 +1,5 @@
 {
-  "baseUrl": "http://172.24.114.169:5173",
+  "baseUrl": "http://127.0.0.1:5173",
   "getEncodingUrl": "/get_status?type=device_status",
   "submitEncodingFormUrl": "/set_codec?type=venc",
   "getNetworkInfoUrl": "/get_codec?type=network",

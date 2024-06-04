@@ -256,7 +256,8 @@ const submitChannelForm = (index: number) => {
           util.showMessage('提交数据失败', 'error')
         })
     } else {
-      alert('表单校验失败')
+      encodingFormLoading.value[index] = false
+      util.showMessage('表单校验失败', 'warning')
     }
   })
 }
