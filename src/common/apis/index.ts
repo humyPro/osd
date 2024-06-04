@@ -32,7 +32,8 @@ const resultParser = async (res: Response) => {
 const getEncodingForm: () => Promise<EncodingForm> = () => {
   return request({
     url: `${config.baseUrl}${config.getEncodingUrl}`,
-    method: 'get',
+    method: 'post',
+    body:`<?xml version="1.0" encoding="utf-8"?><device_status></device_status>`,
     respParser: async (response: Response) => {
       const txt = await response.text()
       return utils.xmlToJson<EncodingForm>(txt)
@@ -65,7 +66,8 @@ const submitEncodingForm = (index: number, form: VencForm) => {
 const getNetworkInfo: () => Promise<NetworkForm> = () => {
   return request({
     url: `${config.baseUrl}${config.getNetworkInfoUrl}`,
-    method: 'get'
+    method: 'post',
+    body:`<?xml version="1.0" encoding="utf-8"?><network></network>`
   })
 }
 
@@ -77,7 +79,8 @@ const getVideoInfo = () => {
   }
   return request({
     url: `${config.baseUrl}${config.getVideoInfoUrl}`,
-    method: 'get',
+    method: 'post',
+    body:`<?xml version="1.0" encoding="utf-8"?><video></video>`,
     respParser: async (response: Response) => {
       const txt = await response.text()
       return utils.xmlToJson<videoInfo>(txt).video
