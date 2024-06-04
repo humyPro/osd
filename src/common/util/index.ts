@@ -77,16 +77,19 @@ const xmlToJson = <T>(xml: string) => {
   return result as T
 }
 
-const jsonToXml = (json: Record<string, any>, keyParse = (k: string) => k) => {
-  let xml = '<?xml version="1.0" encoding="utf-8"?>\n'
+const jsonToXml = (
+  json: Record<string, any>,
+  keyParse = (k: string) => k,
+  xml: string = '<?xml version="1.0" encoding="utf-8"?>'
+) => {
   for (const key in json) {
     const value = json[key]
     if (typeof value === 'object') {
       xml += `<${keyParse(key)}>`
-      xml += jsonToXml(value, keyParse)
+      xml += jsonToXml(value, keyParse, '')
       xml += `</${keyParse(key)}>`
     } else {
-      xml += `<${keyParse(key)}>${json[key]}</${keyParse(key)}>\n`
+      xml += `<${keyParse(key)}>${json[key]}</${keyParse(key)}>`
     }
   }
   return xml
