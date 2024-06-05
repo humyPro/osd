@@ -15,7 +15,7 @@
             :ref="(el: unknown) => (videoRefs[index] = el as FormInstance)"
           >
             <el-form-item label="UDP H26X" class="dot-left" prop="udpH26x.h26xEn">
-              <el-switch v-model="video.udpH26x.h26xEn" />
+              <el-switch v-model="video.udpH26x.h26xEn" :active-value="1" :inactive-value="0" />
             </el-form-item>
             <template v-if="video.udpH26x.h26xEn">
               <el-form-item label="模式" prop="udpH26x.h26xMode">
@@ -53,7 +53,7 @@
             </template>
             <el-divider />
             <el-form-item label="UDP TS" class="dot-left">
-              <el-switch v-model="video.udpTs.tsEn" />
+              <el-switch v-model="video.udpTs.tsEn" :active-value="1" :inactive-value="0" />
             </el-form-item>
             <template v-if="video.udpTs.tsEn">
               <el-form-item label="模式" prop="udpTs.tsMode">
@@ -89,7 +89,7 @@
             </template>
             <el-divider />
             <el-form-item label="RTSP" class="dot-left">
-              <el-switch v-model="video.rtsp.rtspEn" />
+              <el-switch v-model="video.rtsp.rtspEn" :active-value="1" :inactive-value="0" />
             </el-form-item>
             <template v-if="video.rtsp.rtspEn">
               <el-form-item label="服务端口" prop="rtsp.rtspPort">
@@ -99,8 +99,8 @@
                   placeholder="[0-65535]"
                 />
               </el-form-item>
-              <el-form-item label="传输模式" prop="rtsp.transModel">
-                <el-select v-model="video.rtsp.transModel" placeholder="">
+              <el-form-item label="传输模式" prop="rtsp.transMode">
+                <el-select v-model="video.rtsp.transMode" placeholder="">
                   <el-option label="UDP" :value="0" />
                   <el-option label="TCP" :value="1" />
                 </el-select>
@@ -125,7 +125,7 @@
             </template>
             <el-divider />
             <el-form-item label="RTMP" class="dot-left">
-              <el-switch v-model="video.rtmp.rtmpEn" />
+              <el-switch v-model="video.rtmp.rtmpEn" :active-value="1" :inactive-value="0" />
             </el-form-item>
             <template v-if="video.rtmp.rtmpEn">
               <el-form-item label="推流地址" prop="rtmp.rtmpUrl">
@@ -134,24 +134,24 @@
             </template>
             <el-divider />
             <el-form-item label="GB28181" class="dot-left">
-              <el-switch v-model="video.gb28181.gbEn" />
+              <el-switch v-model="video.gb28181.gbEn" :active-value="1" :inactive-value="0" />
             </el-form-item>
             <template v-if="video.gb28181.gbEn">
               <el-form-item label="SIP服务器地址" prop="gb28181.gbServerIp">
                 <el-input v-model.trim="video.gb28181.gbServerIp" />
               </el-form-item>
-              <el-form-item label="SIP服务器端口" prop="gb28181.gpServerPort">
+              <el-form-item label="SIP服务器端口" prop="gb28181.gbServerPort">
                 <el-input
                   type="number"
-                  v-model.number="video.gb28181.gpServerPort"
+                  v-model.number="video.gb28181.gbServerPort"
                   placeholder="[0-65535]"
                 />
               </el-form-item>
               <el-form-item label="SIP服务器ID" prop="gb28181.gbServerId">
                 <el-input maxlength="255" v-model.trim="video.gb28181.gbServerId" />
               </el-form-item>
-              <el-form-item label="注册有效期" prop="gb28181.gpPeriod">
-                <el-input type="number" v-model.number="video.gb28181.gpPeriod" />
+              <el-form-item label="注册有效期" prop="gb28181.gbPeriod">
+                <el-input type="number" v-model.number="video.gb28181.gbPeriod" />
               </el-form-item>
               <el-form-item label="心跳周期" prop="gb28181.heartBeat">
                 <el-input type="number" v-model.number="video.gb28181.heartBeat" />
@@ -247,7 +247,7 @@ const videoFormRules = reactive<FormRules<VideoForm>>({
   'udpTs.tsSendLen': udpFormRules.sendLength,
   'udpTs.tsSendInterval': udpFormRules.sendPeriod, //
   'rtsp.rtspPort': { validator: forms.checkNumber(0, 65535, '服务端口'), trigger: 'blur' },
-  'rtsp.transModel': { validator: forms.checkSelect('传输模式'), trigger: 'change' },
+  'rtsp.transMode': { validator: forms.checkSelect('传输模式'), trigger: 'change' },
   'rtsp.streamName': { validator: forms.checkString('流名称'), trigger: 'blur' },
   'rtsp.userSize': { validator: forms.checkNumber(1, 5, '用户数'), trigger: 'blur' },
   'rtsp.keepAlive': {
@@ -259,12 +259,12 @@ const videoFormRules = reactive<FormRules<VideoForm>>({
     validator: forms.checkString('SIP服务器地址'),
     trigger: 'blur'
   },
-  'gb28181.gpServerPort': {
+  'gb28181.gbServerPort': {
     validator: forms.checkNumber(0, 65535, 'SIP服务器端口'),
     trigger: 'blur'
   },
   'gb28181.gbServerId': { validator: forms.checkString('SIP服务器ID'), trigger: 'blur' },
-  'gb28181.gpPeriod': {
+  'gb28181.gbPeriod': {
     validator: forms.checkNumber(0, 65535, '注册有效期'),
     trigger: 'blur'
   },

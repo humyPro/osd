@@ -46,7 +46,11 @@
             ref="userCommConfigRef"
           >
             <el-form-item label="UDP" prop="udpEnable">
-              <el-switch v-model="userCommConfigForm.udpEnable" />
+              <el-switch
+                v-model="userCommConfigForm.udpEnable"
+                :active-value="1"
+                :inactive-value="0"
+              />
             </el-form-item>
             <el-form-item label="本机端口" prop="localPort">
               <el-input type="number" v-model.number="userCommConfigForm.localPort" />
@@ -60,7 +64,11 @@
             <el-divider />
 
             <el-form-item label="UART" prop="udpH26XEnable">
-              <el-switch v-model="userCommConfigForm.uartEnabel" />
+              <el-switch
+                v-model="userCommConfigForm.uartEnabel"
+                :active-value="1"
+                :inactive-value="0"
+              />
             </el-form-item>
             <el-form-item type="number" label="波特率" prop="baudRate">
               <el-input v-model.number="userCommConfigForm.baudRate" />
@@ -88,7 +96,11 @@
             <el-divider />
 
             <el-form-item label="检测数据">
-              <el-switch v-model="userCommConfigForm.dataCheckEnable" />
+              <el-switch
+                v-model="userCommConfigForm.dataCheckEnable"
+                :active-value="1"
+                :inactive-value="0"
+              />
             </el-form-item>
             <el-button type="primary" class="save-button" @click="confirmUserCommConfig"
               >保存</el-button
@@ -145,19 +157,19 @@
             </el-form-item>
             <el-form-item label="通道0">
               <div class="channel-content">
-                <el-switch v-model="storageForm.channel1" />
+                <el-switch v-model="storageForm.channel1" :active-value="1" :inactive-value="0" />
                 <el-button :icon="CameraFilled" circle />
               </div>
             </el-form-item>
             <el-form-item label="通道1">
               <div class="channel-content">
-                <el-switch v-model="storageForm.channel2" />
+                <el-switch v-model="storageForm.channel2" :active-value="1" :inactive-value="0" />
                 <el-button :icon="CameraFilled" circle />
               </div>
             </el-form-item>
             <el-form-item label="通道2">
               <div class="channel-content">
-                <el-switch v-model="storageForm.channel3" />
+                <el-switch v-model="storageForm.channel3" :active-value="1" :inactive-value="0" />
                 <el-button :icon="CameraFilled" circle />
               </div>
             </el-form-item>

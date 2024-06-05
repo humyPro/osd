@@ -42,7 +42,7 @@ type NetworkForm = {
 type RTSPForm = {
   rtspEn: number
   rtspPort: number //服务器端口
-  transModel: 0 | 1 //'UDP' | 'TCP' //传输模式
+  transMode: 0 | 1 //'UDP' | 'TCP' //传输模式
   streamName: string //流名称
   userSize: number //用户数
   keepAlive: number //保活时间
@@ -54,9 +54,9 @@ type RTMPForm = {
 type GB28181Form = {
   gbEn: number
   gbServerIp: string //SIP服务器地址
-  gpServerPort: number //SIP服务器地址
+  gbServerPort: number //SIP服务器地址
   gbServerId: string //SIP服务器ID
-  gpPeriod: number //注册有效期
+  gbPeriod: number //注册有效期
   heartBeat: number //心跳周期
   localSipPort: number //本地SIP端口
   gbAuthId: string //SIP认证ID
