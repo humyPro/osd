@@ -65,11 +65,8 @@ export const request = async <T>(params: RequestType<T>): Promise<T> => {
       return response.json() as Promise<T>
     })
     .catch((e) => {
-      return Promise.reject(e)
-    })
-    .catch((e) => {
       console.log(e)
       util.showMessage('网络异常，无法连接到服务器', 'error')
-      throw e
+      return Promise.reject(e)
     })
 }

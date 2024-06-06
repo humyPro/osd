@@ -247,7 +247,7 @@ const submitChannelForm = (index: number) => {
       const formValue = channelInfo.value.encode.venc[index]
       apis
         .submitEncodingForm(index, formValue)
-        .then(() => util.showMessage('提交数据成功', 'success'))
+        .then((res) => util.resultHandler(res))
         .finally(() => {
           encodingFormLoading.value[index] = false
         })

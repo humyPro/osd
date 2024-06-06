@@ -295,7 +295,7 @@ const submitVideoForm = (index: number) => {
             ...formValue
           }
         })
-        .then(() => util.showMessage('提交数据成功', 'success'))
+        .then((res) => util.resultHandler(res))
         .catch(() => {
           util.showMessage('提交数据失败', 'error')
         })

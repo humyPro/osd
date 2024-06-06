@@ -1,6 +1,7 @@
 type Result = {
   retCode: number
   describe: string
+  data: unknown
 }
 
 type VencForm = {

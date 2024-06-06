@@ -1,10 +1,23 @@
 import { ElMessage } from 'element-plus'
+import type { Result } from '../apis/modelTypes'
 type MessageType = 'success' | 'warning' | 'error' | 'info'
 const showMessage = (message: string, type: MessageType = 'success') => {
   ElMessage({
     type,
     message
   })
+}
+
+const resultHandler = (
+  result: Result,
+  errorMsg?: string,
+  dataHander?: (data: unknown, code: number, msg: string) => {}
+) => {
+  if (result.retCode == 0) {
+    dataHander && dataHander(result.data, result.retCode, result.describe)
+  } else {
+    showMessage(errorMsg || result.describe, 'error')
+  }
 }
 
 const guid = () => {
@@ -106,5 +119,6 @@ export default {
   jsonToXml,
   castFromCamelCase,
   castToCamelCase,
-  parseToInt
+  parseToInt,
+  resultHandler
 }
