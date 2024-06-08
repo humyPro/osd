@@ -110,6 +110,16 @@ type UserCommunicationForm = {
   uart: userCommUartForm
   checkData: number
 }
+type SotrageForm = {
+  recordType: number
+  recordMode: number
+  recordDuration: number
+  diskTotalSize: number
+  diskFreeSize: number
+  ch0RecordEn: number
+  ch1RecordEn: number
+  ch2RecordEn: number
+}
 export type {
   Result,
   EncodingForm,
@@ -125,5 +135,6 @@ export type {
   VersionInfo,
   UserCommunicationForm,
   userCommUdpForm,
-  userCommUartForm
+  userCommUartForm,
+  SotrageForm
 }

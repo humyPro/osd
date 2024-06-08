@@ -85,22 +85,22 @@
             ref="storageRef"
             :rules="storageRules"
           >
-            <el-form-item label="录像格式" prop="videoFormat">
-              <el-select v-model="storageForm.videoFormat">
+            <el-form-item label="录像格式" prop="recordType">
+              <el-select v-model="storageForm.recordType">
                 <el-option label="H26X" value="H26X" />
                 <el-option label="MP4" value="MP4" />
                 <el-option label="AVI" value="AVI" />
                 <el-option label="FLV" value="AFLVVI" />
               </el-select>
             </el-form-item>
-            <el-form-item label="录像模式" prop="videoModel">
-              <el-radio-group v-model="storageForm.videoModel">
+            <el-form-item label="录像模式" prop="recordMode">
+              <el-radio-group v-model="storageForm.recordMode">
                 <el-radio label="1">循环</el-radio>
                 <el-radio label="2">非循环</el-radio>
               </el-radio-group>
             </el-form-item>
-            <el-form-item label="文件时长" prop="fileDuration">
-              <el-select v-model="storageForm.fileDuration">
+            <el-form-item label="文件时长" prop="recordDuration">
+              <el-select v-model="storageForm.recordDuration">
                 <el-option label="1分钟" :value="1" />
                 <el-option label="3分钟" :value="3" />
                 <el-option label="5分钟" :value="5" />
@@ -111,13 +111,15 @@
               </el-select>
             </el-form-item>
             <el-form-item label="剩余容量">
-              <el-text>{{ storageForm.freeSize }}MB</el-text>
+              <el-text>{{ storageForm.diskFreeSize }}MB</el-text>
+            </el-form-item>
+            <el-form-item label="磁盘容量">
+              <el-text>{{ storageForm.diskTotalSize }}MB</el-text>
             </el-form-item>
             <el-form-item label=" ">
               <el-popconfirm
                 title="确定要格式化吗?"
                 @confirm="confirmFormat"
-                @cancel="loading.formatBtnLoading = false"
                 confirm-button-text="确定"
                 cancel-button-text="取消"
               >
@@ -128,19 +130,31 @@
             </el-form-item>
             <el-form-item label="通道0">
               <div class="channel-content">
-                <el-switch v-model="storageForm.channel1" :active-value="1" :inactive-value="0" />
+                <el-switch
+                  v-model="storageForm.ch0RecordEn"
+                  :active-value="1"
+                  :inactive-value="0"
+                />
                 <el-button :icon="CameraFilled" circle />
               </div>
             </el-form-item>
             <el-form-item label="通道1">
               <div class="channel-content">
-                <el-switch v-model="storageForm.channel2" :active-value="1" :inactive-value="0" />
+                <el-switch
+                  v-model="storageForm.ch1RecordEn"
+                  :active-value="1"
+                  :inactive-value="0"
+                />
                 <el-button :icon="CameraFilled" circle />
               </div>
             </el-form-item>
             <el-form-item label="通道2">
               <div class="channel-content">
-                <el-switch v-model="storageForm.channel3" :active-value="1" :inactive-value="0" />
+                <el-switch
+                  v-model="storageForm.ch2RecordEn"
+                  :active-value="1"
+                  :inactive-value="0"
+                />
                 <el-button :icon="CameraFilled" circle />
               </div>
             </el-form-item>
@@ -160,13 +174,7 @@
               <el-text>{{ systemInfo.version || 'unknown' }}</el-text>
             </el-form-item>
             <el-form-item label="系统升级" v-if="false">
-              <el-upload
-                ref="upload"
-                class="upload-demo"
-                action="https://run.mocky.io/v3/9d059bf9-4660-45f2-925d-ce80ad6c4d15"
-                :limit="1"
-                :auto-upload="false"
-              >
+              <el-upload ref="upload" class="upload-demo" action="" :limit="1" :auto-upload="false">
                 <template #trigger>
                   <el-button type="primary" :loading="loading.selectFileBtnLoding"
                     >选择文件</el-button
@@ -282,20 +290,13 @@ import { CameraFilled } from '@element-plus/icons-vue'
 import forms from '@/common/forms'
 import apis from '@/common/apis'
 import type {
+  SotrageForm,
   userCommUartForm,
   userCommUdpForm,
   UserCommunicationForm
 } from '@/common/apis/modelTypes'
 type SystemInfoType = { version: string }
-type StorageType = {
-  videoFormat: string
-  videoModel: number
-  fileDuration: number
-  freeSize: number
-  channel1: boolean
-  channel2: boolean
-  channel3: boolean
-}
+
 type LoginFormType = { account: string; password: string }
 const upload = ref<UploadInstance>()
 const systemConfigModel = ref([] as string[])
@@ -306,7 +307,7 @@ const userCommConfigForm = ref<UserCommunicationForm>({
   uart: {} as userCommUartForm,
   checkData: 0
 } as UserCommunicationForm)
-const storageForm = ref<StorageType>({} as StorageType)
+const storageForm = ref<SotrageForm>({} as SotrageForm)
 const showMaintenanceLogin = ref(false)
 const showMaintenanceForm = ref(false)
 const loginForm = ref<LoginFormType>({} as LoginFormType)
@@ -335,10 +336,10 @@ const userCommConfigRules = reactive<FormRules<UserCommunicationForm>>({
   'uart.stopBit': [{ validator: forms.checkNumber(0, 10, '停止位'), trigger: 'blur' }],
   'uart.parityBit': [{ validator: forms.checkNumber(0, 10, '校验位'), trigger: 'blur' }]
 })
-const storageRules = reactive<FormRules<StorageType>>({
-  videoFormat: [{ validator: forms.checkSelect('录像格式'), trigger: 'change' }],
-  videoModel: [{ validator: forms.checkSelect('录像模式'), trigger: 'change' }],
-  fileDuration: [{ validator: forms.checkSelect('文件时长'), trigger: 'change' }]
+const storageRules = reactive<FormRules<SotrageForm>>({
+  recordType: [{ validator: forms.checkSelect('录像格式'), trigger: 'change' }],
+  recordMode: [{ validator: forms.checkSelect('录像模式'), trigger: 'change' }],
+  recordDuration: [{ validator: forms.checkSelect('文件时长'), trigger: 'change' }]
 })
 const loginFormRules = reactive<FormRules<LoginFormType>>({
   account: [{ validator: forms.checkString('账号'), trigger: 'blur' }],
@@ -387,6 +388,11 @@ const submitUpload = () => {
   upload.value!.submit()
 }
 const confirmFormat = () => {
+  loading.value.formatBtnLoading = true
+  apis
+    .formatDisk()
+    .then((res) => util.resultHandler(res, '格式化硬盘失败'))
+    .finally(() => (loading.value.formatBtnLoading = false))
   // todo format
 }
 const confirmUserCommConfig = () => {
@@ -413,9 +419,13 @@ const confirmStorage = () => {
   }
   ;(storageRef.value as FormInstance).validate((valid) => {
     if (valid) {
-      alert('表单提交成功')
+      loading.value.submitStorageInfoBtnLoading = true
+      apis
+        .submitStorageForm(storageForm.value)
+        .then((res) => util.resultHandler(res, '提交配置信息失败'))
+        .finally(() => (loading.value.submitStorageInfoBtnLoading = false))
     } else {
-      alert('表单校验失败')
+      util.showMessage('表单校验失败', 'error')
     }
   })
 }
@@ -436,6 +446,10 @@ onMounted(() => {
     .finally(() => {
       loading.value.userConmunicationSectionLoading = false
     })
+  apis
+    .getStorageInfo()
+    .then((res) => (storageForm.value = res))
+    .finally(() => (loading.value.storageSectionLoading = false))
 })
 </script>
 <style scoped>

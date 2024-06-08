@@ -2,6 +2,7 @@ import {
   type EncodingForm,
   type NetworkForm,
   type Result,
+  type SotrageForm,
   type UserCommunicationForm,
   type VencForm,
   type VideoForm
@@ -156,6 +157,37 @@ const submitUserCommunicationForm = (form: UserCommunicationForm) => {
   })
 }
 
+const getStorageInfo = () => {
+  return request({
+    url: `${config.baseUrl}${config.getRecordInfoUrl}`,
+    method: 'post',
+    body: `<?xml version="1.0" encoding="utf-8"?><get_record></get_record>`,
+    respParser: async (response: Response) => {
+      const txt = await response.text()
+      return utils.xmlToJson<SotrageForm>(txt)
+    }
+  })
+}
+
+const submitStorageForm = (form: SotrageForm) => {
+  return request<Result>({
+    url: `${config.baseUrl}${config.submitRecordFormUrl}`,
+    method: 'post',
+    body: utils.jsonToXml({ record: form }, utils.castFromCamelCase),
+    respParser: resultParser
+  })
+}
+
+const formatDisk = () => {
+  //格式化
+  return request<Result>({
+    url: `${config.baseUrl}${config.sdCardClearUrl}`,
+    method: 'post',
+    body: `<?xml version="1.0" encoding="utf-8"?><format></format>`,
+    respParser: resultParser
+  })
+}
+
 const test = () => {
   const str = `<?xml version="1.0" encoding="utf-8"?>
   <video>
@@ -223,5 +255,8 @@ export default {
   getVersionInfo,
   systemSetting,
   getUserCommunicationInfo,
-  submitUserCommunicationForm
+  submitUserCommunicationForm,
+  getStorageInfo,
+  submitStorageForm,
+  formatDisk
 }
