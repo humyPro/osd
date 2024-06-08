@@ -24,7 +24,7 @@ type aResult = {
 }
 const resultParser = async (res: Response) => {
   let txt = await res.text()
-  txt = `<a>${txt.replaceAll('<?xml version="1.0" encoding="utf-8"?>', '')}</a>`
+  txt = `<a>${txt.replace('<?xml version="1.0" encoding="utf-8"?>', '')}</a>`
   const resJson = utils.xmlToJson<aResult>(txt)
   return resJson.a
 }
@@ -53,25 +53,37 @@ const submitEncodingForm = (index: number, form: VencForm) => {
       ['venc_' + index]: form
     }
   }
-  const queryFromForm = utils.jsonToXml(requestData, utils.castFromCamelCase)
+  const data = utils.jsonToXml(requestData, utils.castFromCamelCase)
 
   return request<Result>({
     url: `${config.baseUrl}${config.submitEncodingFormUrl}`,
     method: 'post',
-    body: queryFromForm,
+    body: data,
     respParser: resultParser
   })
 }
 
-const getNetworkInfo: () => Promise<NetworkForm> = () => {
+const getNetworkInfo = () => {
   return request({
     url: `${config.baseUrl}${config.getNetworkInfoUrl}`,
     method: 'post',
-    body: `<?xml version="1.0" encoding="utf-8"?><network></network>`
+    body: `<?xml version="1.0" encoding="utf-8"?><network></network>`,
+    respParser: async (response: Response) => {
+      const txt = await response.text()
+      return utils.xmlToJson<NetworkForm>(txt)
+    }
   })
 }
 
-const submitNetworkForm = () => {}
+const submitNetworkForm = (form: NetworkForm) => {
+  const data = utils.jsonToXml(form, utils.castFromCamelCase)
+  return request<Result>({
+    url: `${config.baseUrl}${config.submitEncodingFormUrl}`,
+    method: 'post',
+    body: data,
+    respParser: resultParser
+  })
+}
 
 const getVideoInfo = () => {
   type videoInfo = {
@@ -156,6 +168,7 @@ export default {
   getEncodingForm,
   submitEncodingForm,
   getNetworkInfo,
+  submitNetworkForm,
   getVideoInfo,
   submitVideoInfo
 }

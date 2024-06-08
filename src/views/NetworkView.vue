@@ -33,12 +33,14 @@
 import apis from '@/common/apis'
 import type { NetworkForm } from '@/common/apis/modelTypes'
 import forms from '@/common/forms'
+import util from '@/common/util'
 import type { FormInstance, FormRules } from 'element-plus'
 import { ref, reactive } from 'vue'
 
 const networkForm = ref<NetworkForm>({} as NetworkForm)
 const networkFormRef = ref()
 const pageLoading = ref(true)
+const saveButtonLoading = ref(false)
 const networkFormRules = reactive<FormRules<NetworkForm>>({
   ip: [{ validator: forms.checkIp('IP地址'), trigger: 'blur' }],
   mask: [{ validator: forms.checkIp('子网掩码'), trigger: 'blur' }],
@@ -57,11 +59,16 @@ const submitNetworkForm = () => {
   if (!networkFormRef.value) {
     return
   }
+  saveButtonLoading.value = true
   ;(networkFormRef.value as FormInstance).validate((valid) => {
     if (valid) {
-      alert('表单提交成功')
+      apis
+        .submitNetworkForm(networkForm.value)
+        .then((res) => util.resultHandler(res, '提交数据失败'))
+        .finally(() => (saveButtonLoading.value = false))
     } else {
-      alert('表单校验失败')
+      util.showMessage('表单校验失败', 'error')
+      saveButtonLoading.value = false
     }
   })
 }
