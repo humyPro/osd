@@ -3,11 +3,11 @@
     <MenuBar />
     <div class="main-content">
       <div class="forms-box">
-        <div class="form-box bordered">
+        <div class="form-box bordered" v-loading="loading.systemSectionLoading">
           <FormTitle title="系统信息"></FormTitle>
-          <el-form :model="systemInfo" label-position="left" :rules="systemInfoRules">
-            <el-form-item label="系统版本" prop="systemVersion">
-              <el-input v-model.trim="systemInfo.systemVersion" />
+          <el-form :model="systemInfo" label-position="left">
+            <el-form-item label="系统版本">
+              <el-text>{{ systemInfo.version || 'unknown' }}</el-text>
             </el-form-item>
             <el-form-item label="系统升级">
               <el-upload
@@ -19,12 +19,15 @@
                 :auto-upload="false"
               >
                 <template #trigger>
-                  <el-button type="primary">选择文件</el-button>
+                  <el-button type="primary" :loading="loading.selectFileBtnLoding"
+                    >选择文件</el-button
+                  >
                 </template>
                 <el-button
                   style="margin-left: 20px; margin-top: -2px"
                   type="success"
                   @click="submitUpload"
+                  :loading="loading.updateSystemBtnLoading"
                 >
                   更新
                 </el-button>
@@ -32,12 +35,14 @@
             </el-form-item>
             <el-divider />
             <div style="width: 100%; display: flex; justify-content: space-around">
-              <el-button type="danger">恢复出厂设置</el-button>
-              <el-button type="danger">重启</el-button>
+              <el-button type="danger" :loading="loading.resetSystemBtnLoading"
+                >恢复出厂设置</el-button
+              >
+              <el-button type="danger" :loading="loading.restartBtnLoding">重启</el-button>
             </div>
           </el-form>
         </div>
-        <div class="form-box bordered">
+        <div class="form-box bordered" v-loading="loading.userConmunicationSectionLoading">
           <FormTitle title="用户通信配置"></FormTitle>
           <el-form
             :model="userCommConfigForm"
@@ -102,12 +107,16 @@
                 :inactive-value="0"
               />
             </el-form-item>
-            <el-button type="primary" class="save-button" @click="confirmUserCommConfig"
+            <el-button
+              type="primary"
+              class="save-button"
+              @click="confirmUserCommConfig"
+              :loading="loading.submitUserCommunicationBtnLoding"
               >保存</el-button
             >
           </el-form>
         </div>
-        <div class="form-box bordered">
+        <div class="form-box bordered" v-loading="loading.storageSectionLoading">
           <FormTitle title="存储"></FormTitle>
           <el-form
             :model="storageForm"
@@ -147,11 +156,12 @@
               <el-popconfirm
                 title="确定要格式化吗?"
                 @confirm="confirmFormat"
+                @cancel="loading.formatBtnLoading = false"
                 confirm-button-text="确定"
                 cancel-button-text="取消"
               >
                 <template #reference>
-                  <el-button type="danger">格式化</el-button>
+                  <el-button type="danger" :loading="loading.formatBtnLoading">格式化</el-button>
                 </template>
               </el-popconfirm>
             </el-form-item>
@@ -173,7 +183,13 @@
                 <el-button :icon="CameraFilled" circle />
               </div>
             </el-form-item>
-            <el-button type="primary" class="save-button" @click="confirmStorage">保存</el-button>
+            <el-button
+              type="primary"
+              class="save-button"
+              @click="confirmStorage"
+              :loading="loading.submitStorageInfoBtnLoading"
+              >保存</el-button
+            >
           </el-form>
         </div>
       </div>
@@ -270,7 +286,8 @@ import type {
 import util from '@/common/util'
 import { CameraFilled } from '@element-plus/icons-vue'
 import forms from '@/common/forms'
-type SystemInfoType = { systemVersion: string }
+import apis from '@/common/apis'
+type SystemInfoType = { version: string }
 type UserCommConfigType = {
   udpEnable: boolean
   localPort: number
@@ -305,8 +322,18 @@ const loginForm = ref<LoginFormType>({} as LoginFormType)
 const userCommConfigRef = ref()
 const storageRef = ref()
 const loginFormRef = ref(null)
-const systemInfoRules = reactive<FormRules<SystemInfoType>>({
-  systemVersion: [{ validator: forms.checkString('系统版本'), trigger: 'blur' }]
+const loading = ref({
+  systemSectionLoading: false,
+  userConmunicationSectionLoading: false,
+  storageSectionLoading: false,
+  // button loading
+  selectFileBtnLoding: false,
+  updateSystemBtnLoading: false,
+  resetSystemBtnLoading: false,
+  restartBtnLoding: false,
+  submitUserCommunicationBtnLoding: false,
+  submitStorageInfoBtnLoading: false,
+  formatBtnLoading: false
 })
 const userCommConfigRules = reactive<FormRules<UserCommConfigType>>({
   localPort: [{ validator: forms.checkNumber(0, 65535, '本机端口'), trigger: 'blur' }],
@@ -387,6 +414,16 @@ const confirmStorage = () => {
     }
   })
 }
+
+onMounted(() => {
+  loading.value.systemSectionLoading = true
+  apis
+    .getVersionInfo()
+    .then((res) => (systemInfo.value = res))
+    .finally(() => {
+      loading.value.systemSectionLoading = false
+    })
+})
 </script>
 <style scoped>
 .channel-content {

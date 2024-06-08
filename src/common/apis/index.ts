@@ -8,6 +8,7 @@ import {
 import utils from '@/common/util'
 import { request } from './common'
 import store from '@/store/AppStore'
+const mock = true
 const config = store.config
 const castFormKey = (form: {}) => {
   return Object.entries(form).reduce(
@@ -107,6 +108,17 @@ const submitVideoInfo = (data: { video: { index: number } & VideoForm }) => {
     respParser: resultParser
   })
 }
+const getVersionInfo = () => {
+  return request({
+    url: `${config.baseUrl}${config.getVersionInfoUrl}`,
+    method: 'post',
+    body: `<?xml version="1.0" encoding="utf-8"?><get_version></get_version> `,
+    respParser: async (response: Response) => {
+      const txt = await response.text()
+      return utils.xmlToJson<VersionInfo>(txt)
+    }
+  })
+}
 const test = () => {
   const str = `<?xml version="1.0" encoding="utf-8"?>
   <video>
@@ -170,5 +182,6 @@ export default {
   getNetworkInfo,
   submitNetworkForm,
   getVideoInfo,
-  submitVideoInfo
+  submitVideoInfo,
+  getVersionInfo
 }

@@ -88,6 +88,9 @@ type VideoForm = {
   rtmp: RTMPForm
   gb28181: GB28181Form
 }
+type VersionInfo = {
+  version: string
+}
 export type {
   Result,
   EncodingForm,
@@ -99,5 +102,6 @@ export type {
   RTSPForm,
   RTMPForm,
   GB28181Form,
-  NetworkForm
+  NetworkForm,
+  VersionInfo
 }
