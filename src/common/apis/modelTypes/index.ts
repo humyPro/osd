@@ -105,7 +105,7 @@ type userCommUartForm = {
   stopBit: number
   parityBit: number // <!-- 0:无，1，奇校验；2，偶校 -->
 }
-type UserCommunication = {
+type UserCommunicationForm = {
   udp: userCommUdpForm
   uart: userCommUartForm
   checkData: number
@@ -123,7 +123,7 @@ export type {
   GB28181Form,
   NetworkForm,
   VersionInfo,
-  UserCommunication,
+  UserCommunicationForm,
   userCommUdpForm,
   userCommUartForm
 }

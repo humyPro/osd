@@ -62,13 +62,14 @@ const xmlToJson = <T>(xml: string) => {
           if (propName.startsWith('#')) {
             continue
           }
-          const match = propName.match(/^(\w[\w\d]*)_(\d+)$/)
           let value
           if (child.childNodes.length === 1 && child.childNodes[0].nodeType === 3) {
             value = child.childNodes[0].nodeValue
           } else {
             value = parseElement(child)
           }
+          const match = propName.match(/^(\w[\w\d]*)_(\d+)$/)
+
           if (match) {
             // 符合fieldName_fieldIndex样式的元素转换为数组形式
             const realPropName = castToCamelCase(match[1])
@@ -89,20 +90,25 @@ const xmlToJson = <T>(xml: string) => {
   const result = parseElement(xmlDoc.documentElement)
   return result as T
 }
-
+const toEmptyStrIf = (v: any) => {
+  return v === null || v === undefined ? '' : v
+}
 const jsonToXml = (
   json: Record<string, any>,
   keyParse = (k: string) => k,
   xml: string = '<?xml version="1.0" encoding="utf-8"?>'
 ) => {
+  if (typeof json !== 'object') {
+    return json
+  }
   for (const key in json) {
     const value = json[key]
     if (typeof value === 'object') {
       xml += `<${keyParse(key)}>`
-      xml += jsonToXml(value, keyParse, '')
+      xml += jsonToXml(toEmptyStrIf(value), keyParse, '')
       xml += `</${keyParse(key)}>`
     } else {
-      xml += `<${keyParse(key)}>${json[key]}</${keyParse(key)}>`
+      xml += `<${keyParse(key)}>${toEmptyStrIf(value)}</${keyParse(key)}>`
     }
   }
   return xml

@@ -11,59 +11,59 @@
             :rules="userCommConfigRules"
             ref="userCommConfigRef"
           >
-            <el-form-item label="UDP" prop="udpEnable">
+            <el-form-item label="UDP" prop="udp.udpEn">
               <el-switch
-                v-model="userCommConfigForm.udpEnable"
+                v-model="userCommConfigForm.udp.udpEn"
                 :active-value="1"
                 :inactive-value="0"
               />
             </el-form-item>
-            <el-form-item label="本机端口" prop="localPort">
-              <el-input type="number" v-model.number="userCommConfigForm.localPort" />
+            <el-form-item label="本机端口" prop="udp.udpLocalPort">
+              <el-input type="number" v-model.number="userCommConfigForm.udp.udpLocalPort" />
             </el-form-item>
-            <el-form-item label="目的地址" prop="targetAddr">
-              <el-input v-model.trim="userCommConfigForm.targetAddr" />
+            <el-form-item label="目的地址" prop="udp.udpDstIp">
+              <el-input v-model.trim="userCommConfigForm.udp.udpDstIp" />
             </el-form-item>
-            <el-form-item label="目的端口" prop="targetPort">
-              <el-input type="number" v-model.number="userCommConfigForm.targetPort" />
+            <el-form-item label="目的端口" prop="udp.udpDstPort">
+              <el-input type="number" v-model.number="userCommConfigForm.udp.udpDstPort" />
             </el-form-item>
             <el-divider />
 
-            <el-form-item label="UART" prop="udpH26XEnable">
+            <el-form-item label="UART" prop="uart.uartEn">
               <el-switch
-                v-model="userCommConfigForm.uartEnabel"
+                v-model="userCommConfigForm.uart.uartEn"
                 :active-value="1"
                 :inactive-value="0"
               />
             </el-form-item>
-            <el-form-item type="number" label="波特率" prop="baudRate">
-              <el-input v-model.number="userCommConfigForm.baudRate" />
+            <el-form-item type="number" label="波特率" prop="uart.baudrate">
+              <el-input v-model.number="userCommConfigForm.uart.baudrate" />
             </el-form-item>
-            <el-form-item label="数据位" prop="dataBit">
+            <el-form-item label="数据位" prop="uart.dataBit">
               <el-input
                 type="number"
                 placeholder="5/6/7/8"
-                v-model.number="userCommConfigForm.dataBit"
+                v-model.number="userCommConfigForm.uart.dataBit"
               />
             </el-form-item>
-            <el-form-item label="停止位" prop="stopBit">
+            <el-form-item label="停止位" prop="uart.stopBit">
               <el-input
                 type="number"
                 placeholder="1/1.5/2"
-                v-model.number="userCommConfigForm.stopBit"
+                v-model.number="userCommConfigForm.uart.stopBit"
               />
             </el-form-item>
-            <el-form-item label="校验位" prop="checkBit">
+            <el-form-item label="校验位" prop="uart.parityBit">
               <el-input
                 placeholder="奇校验/偶校验/无"
-                v-model.number="userCommConfigForm.checkBit"
+                v-model.number="userCommConfigForm.uart.parityBit"
               />
             </el-form-item>
             <el-divider />
 
             <el-form-item label="检测数据">
               <el-switch
-                v-model="userCommConfigForm.dataCheckEnable"
+                v-model="userCommConfigForm.checkData"
                 :active-value="1"
                 :inactive-value="0"
               />
@@ -281,20 +281,12 @@ import util from '@/common/util'
 import { CameraFilled } from '@element-plus/icons-vue'
 import forms from '@/common/forms'
 import apis from '@/common/apis'
-import { fa } from 'element-plus/es/locales.mjs'
+import type {
+  userCommUartForm,
+  userCommUdpForm,
+  UserCommunicationForm
+} from '@/common/apis/modelTypes'
 type SystemInfoType = { version: string }
-type UserCommConfigType = {
-  udpEnable: boolean
-  localPort: number
-  targetAddr: string
-  targetPort: number
-  uartEnabel: boolean
-  baudRate: number
-  dataBit: number
-  stopBit: number
-  checkBit: number
-  dataCheckEnable: boolean
-}
 type StorageType = {
   videoFormat: string
   videoModel: number
@@ -309,7 +301,11 @@ const upload = ref<UploadInstance>()
 const systemConfigModel = ref([] as string[])
 
 const systemInfo = ref<SystemInfoType>({} as SystemInfoType)
-const userCommConfigForm = ref<UserCommConfigType>({} as UserCommConfigType)
+const userCommConfigForm = ref<UserCommunicationForm>({
+  udp: {} as userCommUdpForm,
+  uart: {} as userCommUartForm,
+  checkData: 0
+} as UserCommunicationForm)
 const storageForm = ref<StorageType>({} as StorageType)
 const showMaintenanceLogin = ref(false)
 const showMaintenanceForm = ref(false)
@@ -330,14 +326,14 @@ const loading = ref({
   submitStorageInfoBtnLoading: false,
   formatBtnLoading: false
 })
-const userCommConfigRules = reactive<FormRules<UserCommConfigType>>({
-  localPort: [{ validator: forms.checkNumber(0, 65535, '本机端口'), trigger: 'blur' }],
-  targetAddr: [{ validator: forms.checkString('目的地址'), trigger: 'blur' }],
-  targetPort: [{ validator: forms.checkNumber(0, 65535, '目的端口'), trigger: 'blur' }],
-  baudRate: [{ validator: forms.checkNumber(0, 10000, '波特率'), trigger: 'blur' }],
-  dataBit: [{ validator: forms.checkNumber(0, 10, '数据位'), trigger: 'blur' }],
-  stopBit: [{ validator: forms.checkNumber(0, 10, '停止位'), trigger: 'blur' }],
-  checkBit: [{ validator: forms.checkNumber(0, 10, '校验位'), trigger: 'blur' }]
+const userCommConfigRules = reactive<FormRules<UserCommunicationForm>>({
+  'udp.udpLocalPort': [{ validator: forms.checkNumber(0, 65535, '本机端口'), trigger: 'blur' }],
+  'udp.udpDstIp': [{ validator: forms.checkIp('目的地址'), trigger: 'blur' }],
+  'udp.udpDstPort': [{ validator: forms.checkNumber(0, 65535, '目的端口'), trigger: 'blur' }],
+  'uart.baudrate': [{ validator: forms.checkNumber(0, 1000000, '波特率'), trigger: 'blur' }],
+  'uart.dataBit': [{ validator: forms.checkNumber(0, 10, '数据位'), trigger: 'blur' }],
+  'uart.stopBit': [{ validator: forms.checkNumber(0, 10, '停止位'), trigger: 'blur' }],
+  'uart.parityBit': [{ validator: forms.checkNumber(0, 10, '校验位'), trigger: 'blur' }]
 })
 const storageRules = reactive<FormRules<StorageType>>({
   videoFormat: [{ validator: forms.checkSelect('录像格式'), trigger: 'change' }],
@@ -399,9 +395,15 @@ const confirmUserCommConfig = () => {
   }
   ;(userCommConfigRef.value as FormInstance).validate((valid) => {
     if (valid) {
-      alert('表单提交成功')
+      loading.value.submitUserCommunicationBtnLoding = true
+      apis
+        .submitUserCommunicationForm(userCommConfigForm.value)
+        .then((res) => util.resultHandler(res, '提交用户通信配置信息失败'))
+        .finally(() => {
+          loading.value.submitUserCommunicationBtnLoding = false
+        })
     } else {
-      alert('表单校验失败')
+      util.showMessage('表单校验失败', 'error')
     }
   })
 }
@@ -420,11 +422,19 @@ const confirmStorage = () => {
 
 onMounted(() => {
   loading.value.systemSectionLoading = true
+  loading.value.userConmunicationSectionLoading = true
+  loading.value.storageSectionLoading = true
   apis
     .getVersionInfo()
     .then((res) => (systemInfo.value = res))
     .finally(() => {
       loading.value.systemSectionLoading = false
+    })
+  apis
+    .getUserCommunicationInfo()
+    .then((res) => (userCommConfigForm.value = res))
+    .finally(() => {
+      loading.value.userConmunicationSectionLoading = false
     })
 })
 </script>

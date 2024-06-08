@@ -9,7 +9,7 @@ const checkNumber =
     const localMin = min instanceof Function ? min() : min
 
     if (!Number.isInteger(value)) {
-      callback(new Error(name ? `${name}只能为数字` : '请输入数字'))
+      callback(new Error(name ? `${name}只能为整数` : '请输入数字'))
     } else {
       if (value > localMax) {
         callback(new Error(name ? `${name}的值不能超过${localMax}` : `最大值为${localMax}`))

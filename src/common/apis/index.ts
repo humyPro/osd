@@ -2,6 +2,7 @@ import {
   type EncodingForm,
   type NetworkForm,
   type Result,
+  type UserCommunicationForm,
   type VencForm,
   type VideoForm
 } from './modelTypes'
@@ -146,6 +147,15 @@ const getUserCommunicationInfo = () => {
   })
 }
 
+const submitUserCommunicationForm = (form: UserCommunicationForm) => {
+  return request<Result>({
+    url: `${config.baseUrl}${config.submitUserCommunicationFormUrl}`,
+    method: 'post',
+    body: utils.jsonToXml({ communication: form }, utils.castFromCamelCase),
+    respParser: resultParser
+  })
+}
+
 const test = () => {
   const str = `<?xml version="1.0" encoding="utf-8"?>
   <video>
@@ -212,5 +222,6 @@ export default {
   submitVideoInfo,
   getVersionInfo,
   systemSetting,
-  getUserCommunicationInfo
+  getUserCommunicationInfo,
+  submitUserCommunicationForm
 }
