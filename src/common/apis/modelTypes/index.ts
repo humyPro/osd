@@ -91,6 +91,25 @@ type VideoForm = {
 type VersionInfo = {
   version: string
 }
+
+type userCommUdpForm = {
+  udpEn: number
+  udpLocalPort: number
+  udpDstIp: string
+  udpDstPort: number
+}
+type userCommUartForm = {
+  uartEn: number
+  baudrate: number
+  dataBit: number
+  stopBit: number
+  parityBit: number // <!-- 0:无，1，奇校验；2，偶校 -->
+}
+type UserCommunication = {
+  udp: userCommUdpForm
+  uart: userCommUartForm
+  checkData: number
+}
 export type {
   Result,
   EncodingForm,
@@ -103,5 +122,8 @@ export type {
   RTMPForm,
   GB28181Form,
   NetworkForm,
-  VersionInfo
+  VersionInfo,
+  UserCommunication,
+  userCommUdpForm,
+  userCommUartForm
 }

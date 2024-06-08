@@ -3,45 +3,6 @@
     <MenuBar />
     <div class="main-content">
       <div class="forms-box">
-        <div class="form-box bordered" v-loading="loading.systemSectionLoading">
-          <FormTitle title="系统信息"></FormTitle>
-          <el-form :model="systemInfo" label-position="left">
-            <el-form-item label="系统版本">
-              <el-text>{{ systemInfo.version || 'unknown' }}</el-text>
-            </el-form-item>
-            <el-form-item label="系统升级">
-              <el-upload
-                ref="upload"
-                class="upload-demo"
-                action="https://run.mocky.io/v3/9d059bf9-4660-45f2-925d-ce80ad6c4d15"
-                :limit="1"
-                :on-exceed="handleExceed"
-                :auto-upload="false"
-              >
-                <template #trigger>
-                  <el-button type="primary" :loading="loading.selectFileBtnLoding"
-                    >选择文件</el-button
-                  >
-                </template>
-                <el-button
-                  style="margin-left: 20px; margin-top: -2px"
-                  type="success"
-                  @click="submitUpload"
-                  :loading="loading.updateSystemBtnLoading"
-                >
-                  更新
-                </el-button>
-              </el-upload>
-            </el-form-item>
-            <el-divider />
-            <div style="width: 100%; display: flex; justify-content: space-around">
-              <el-button type="danger" :loading="loading.resetSystemBtnLoading"
-                >恢复出厂设置</el-button
-              >
-              <el-button type="danger" :loading="loading.restartBtnLoding">重启</el-button>
-            </div>
-          </el-form>
-        </div>
         <div class="form-box bordered" v-loading="loading.userConmunicationSectionLoading">
           <FormTitle title="用户通信配置"></FormTitle>
           <el-form
@@ -192,6 +153,46 @@
             >
           </el-form>
         </div>
+        <div class="form-box bordered" v-loading="loading.systemSectionLoading">
+          <FormTitle title="系统信息"></FormTitle>
+          <el-form :model="systemInfo" label-position="left" class="system-form">
+            <el-form-item label="系统版本">
+              <el-text>{{ systemInfo.version || 'unknown' }}</el-text>
+            </el-form-item>
+            <el-form-item label="系统升级" v-if="false">
+              <el-upload
+                ref="upload"
+                class="upload-demo"
+                action="https://run.mocky.io/v3/9d059bf9-4660-45f2-925d-ce80ad6c4d15"
+                :limit="1"
+                :auto-upload="false"
+              >
+                <template #trigger>
+                  <el-button type="primary" :loading="loading.selectFileBtnLoding"
+                    >选择文件</el-button
+                  >
+                </template>
+                <el-button
+                  style="margin-left: 20px; margin-top: -2px"
+                  type="success"
+                  @click="submitUpload"
+                  :loading="loading.updateSystemBtnLoading"
+                >
+                  更新
+                </el-button>
+              </el-upload>
+            </el-form-item>
+            <el-divider />
+            <div style="width: 100%; display: flex; justify-content: space-around">
+              <el-button type="danger" :loading="loading.resetSystemBtnLoading" @click="resetSystem"
+                >恢复出厂设置</el-button
+              >
+              <el-button type="danger" :loading="loading.restartBtnLoding" @click="restartSystem"
+                >重启</el-button
+              >
+            </div>
+          </el-form>
+        </div>
       </div>
       <div class="forms-box">
         <div class="form-box bordered">
@@ -275,18 +276,12 @@
 </template>
 <script setup lang="ts">
 import { ref, reactive } from 'vue'
-import { genFileId } from 'element-plus'
-import type {
-  FormInstance,
-  FormRules,
-  UploadInstance,
-  UploadProps,
-  UploadRawFile
-} from 'element-plus'
+import type { FormInstance, FormRules, UploadInstance } from 'element-plus'
 import util from '@/common/util'
 import { CameraFilled } from '@element-plus/icons-vue'
 import forms from '@/common/forms'
 import apis from '@/common/apis'
+import { fa } from 'element-plus/es/locales.mjs'
 type SystemInfoType = { version: string }
 type UserCommConfigType = {
   udpEnable: boolean
@@ -377,11 +372,19 @@ const confirmLogin = () => {
     }
   })
 }
-const handleExceed: UploadProps['onExceed'] = (files) => {
-  upload.value!.clearFiles()
-  const file = files[0] as UploadRawFile
-  file.uid = genFileId()
-  upload.value!.handleStart(file)
+const resetSystem = () => {
+  loading.value.resetSystemBtnLoading = true
+  apis
+    .systemSetting(2)
+    .then((res) => util.resultHandler(res, '恢复出厂设置失败'))
+    .finally(() => (loading.value.resetSystemBtnLoading = false))
+}
+const restartSystem = () => {
+  loading.value.restartBtnLoding = true
+  apis
+    .systemSetting(1)
+    .then((res) => util.resultHandler(res, '重启系统失败'))
+    .finally(() => (loading.value.restartBtnLoding = false))
 }
 
 const submitUpload = () => {
@@ -430,5 +433,8 @@ onMounted(() => {
   width: 100%;
   display: flex;
   justify-content: space-between;
+}
+::v-deep .system-form .el-upload-list__item-name {
+  width: 200px;
 }
 </style>

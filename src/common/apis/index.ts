@@ -112,13 +112,40 @@ const getVersionInfo = () => {
   return request({
     url: `${config.baseUrl}${config.getVersionInfoUrl}`,
     method: 'post',
-    body: `<?xml version="1.0" encoding="utf-8"?><get_version></get_version> `,
+    body: `<?xml version="1.0" encoding="utf-8"?><get_version></get_version>`,
     respParser: async (response: Response) => {
       const txt = await response.text()
       return utils.xmlToJson<VersionInfo>(txt)
     }
   })
 }
+
+/**
+ *
+ * @param type 1: 重启，2: 恢复出厂
+ * @returns
+ */
+const systemSetting = (type: number) => {
+  return request({
+    url: `${config.baseUrl}${config.submitSystemSettingFormUrl}`,
+    method: 'post',
+    body: `<?xml version="1.0" encoding="utf-8"?><system_set>${type}</system_set>`,
+    respParser: resultParser
+  })
+}
+
+const getUserCommunicationInfo = () => {
+  return request({
+    url: `${config.baseUrl}${config.getUserCommunicationInfoUrl}`,
+    method: 'post',
+    body: `<?xml version="1.0" encoding="utf-8"?><communication></communication>`,
+    respParser: async (response: Response) => {
+      const txt = await response.text()
+      return utils.xmlToJson<UserCommunication>(txt)
+    }
+  })
+}
+
 const test = () => {
   const str = `<?xml version="1.0" encoding="utf-8"?>
   <video>
@@ -183,5 +210,7 @@ export default {
   submitNetworkForm,
   getVideoInfo,
   submitVideoInfo,
-  getVersionInfo
+  getVersionInfo,
+  systemSetting,
+  getUserCommunicationInfo
 }
