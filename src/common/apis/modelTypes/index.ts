@@ -110,7 +110,7 @@ type UserCommunicationForm = {
   uart: userCommUartForm
   checkData: number
 }
-type SotrageForm = {
+type StorageForm = {
   recordType: number
   recordMode: number
   recordDuration: number
@@ -136,5 +136,5 @@ export type {
   UserCommunicationForm,
   userCommUdpForm,
   userCommUartForm,
-  SotrageForm
+  StorageForm
 }

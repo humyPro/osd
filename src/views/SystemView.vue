@@ -290,7 +290,7 @@ import { CameraFilled } from '@element-plus/icons-vue'
 import forms from '@/common/forms'
 import apis from '@/common/apis'
 import type {
-  SotrageForm,
+  StorageForm,
   userCommUartForm,
   userCommUdpForm,
   UserCommunicationForm
@@ -307,7 +307,7 @@ const userCommConfigForm = ref<UserCommunicationForm>({
   uart: {} as userCommUartForm,
   checkData: 0
 } as UserCommunicationForm)
-const storageForm = ref<SotrageForm>({} as SotrageForm)
+const storageForm = ref<StorageForm>({} as StorageForm)
 const showMaintenanceLogin = ref(false)
 const showMaintenanceForm = ref(false)
 const loginForm = ref<LoginFormType>({} as LoginFormType)
@@ -336,7 +336,7 @@ const userCommConfigRules = reactive<FormRules<UserCommunicationForm>>({
   'uart.stopBit': [{ validator: forms.checkNumber(0, 10, '停止位'), trigger: 'blur' }],
   'uart.parityBit': [{ validator: forms.checkNumber(0, 10, '校验位'), trigger: 'blur' }]
 })
-const storageRules = reactive<FormRules<SotrageForm>>({
+const storageRules = reactive<FormRules<StorageForm>>({
   recordType: [{ validator: forms.checkSelect('录像格式'), trigger: 'change' }],
   recordMode: [{ validator: forms.checkSelect('录像模式'), trigger: 'change' }],
   recordDuration: [{ validator: forms.checkSelect('文件时长'), trigger: 'change' }]

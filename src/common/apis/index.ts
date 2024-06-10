@@ -2,7 +2,7 @@ import {
   type EncodingForm,
   type NetworkForm,
   type Result,
-  type SotrageForm,
+  type StorageForm,
   type UserCommunicationForm,
   type VencForm,
   type VideoForm
@@ -164,12 +164,12 @@ const getStorageInfo = () => {
     body: `<?xml version="1.0" encoding="utf-8"?><get_record></get_record>`,
     respParser: async (response: Response) => {
       const txt = await response.text()
-      return utils.xmlToJson<SotrageForm>(txt)
+      return utils.xmlToJson<StorageForm>(txt)
     }
   })
 }
 
-const submitStorageForm = (form: SotrageForm) => {
+const submitStorageForm = (form: StorageForm) => {
   return request<Result>({
     url: `${config.baseUrl}${config.submitRecordFormUrl}`,
     method: 'post',
