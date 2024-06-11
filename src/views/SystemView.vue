@@ -291,17 +291,17 @@ import forms from '@/common/forms'
 import apis from '@/common/apis'
 import type {
   StorageForm,
+  VersionInfo,
   userCommUartForm,
   userCommUdpForm,
   UserCommunicationForm
 } from '@/common/apis/modelTypes'
-type SystemInfoType = { version: string }
 
 type LoginFormType = { account: string; password: string }
 const upload = ref<UploadInstance>()
 const systemConfigModel = ref([] as string[])
 
-const systemInfo = ref<SystemInfoType>({} as SystemInfoType)
+const systemInfo = ref<VersionInfo>({} as VersionInfo)
 const userCommConfigForm = ref<UserCommunicationForm>({
   udp: {} as userCommUdpForm,
   uart: {} as userCommUartForm,

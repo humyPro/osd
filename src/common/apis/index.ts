@@ -5,7 +5,8 @@ import {
   type StorageForm,
   type UserCommunicationForm,
   type VencForm,
-  type VideoForm
+  type VideoForm,
+  type VersionInfo
 } from './modelTypes'
 import utils from '@/common/util'
 import { request } from './common'
@@ -143,7 +144,7 @@ const getUserCommunicationInfo = () => {
     body: `<?xml version="1.0" encoding="utf-8"?><communication></communication>`,
     respParser: async (response: Response) => {
       const txt = await response.text()
-      return utils.xmlToJson<UserCommunication>(txt)
+      return utils.xmlToJson<UserCommunicationForm>(txt)
     }
   })
 }
