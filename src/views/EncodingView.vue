@@ -251,7 +251,8 @@ const submitChannelForm = (index: number) => {
         .finally(() => {
           encodingFormLoading.value[index] = false
         })
-        .catch(() => {
+        .catch((e) => {
+	  console.error(e)
           encodingFormLoading.value[index] = false
           util.showMessage('提交数据失败', 'error')
         })

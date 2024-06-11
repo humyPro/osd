@@ -30,7 +30,7 @@ const resultParser = async (res: Response) => {
   let txt = await res.text()
   txt = `<a>${txt.replace('<?xml version="1.0" encoding="utf-8"?>', '')}</a>`
   const resJson = utils.xmlToJson<aResult>(txt)
-  return resJson.a
+  return resJson
 }
 
 const getEncodingForm: () => Promise<EncodingForm> = () => {
