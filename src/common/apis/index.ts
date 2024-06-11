@@ -23,13 +23,10 @@ const castFormKey = (form: {}) => {
   )
 }
 
-type aResult = {
-  a: Result
-}
 const resultParser = async (res: Response) => {
   let txt = await res.text()
   txt = `<a>${txt.replace('<?xml version="1.0" encoding="utf-8"?>', '')}</a>`
-  const resJson = utils.xmlToJson<aResult>(txt)
+  const resJson = utils.xmlToJson<Result>(txt)
   return resJson
 }
 
