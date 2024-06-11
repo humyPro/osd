@@ -292,8 +292,8 @@ import apis from '@/common/apis'
 import type {
   StorageForm,
   VersionInfo,
-  userCommUartForm,
-  userCommUdpForm,
+  UserCommUartForm,
+  UserCommUdpForm,
   UserCommunicationForm
 } from '@/common/apis/modelTypes'
 
@@ -303,8 +303,8 @@ const systemConfigModel = ref([] as string[])
 
 const systemInfo = ref<VersionInfo>({} as VersionInfo)
 const userCommConfigForm = ref<UserCommunicationForm>({
-  udp: {} as userCommUdpForm,
-  uart: {} as userCommUartForm,
+  udp: {} as UserCommUdpForm,
+  uart: {} as UserCommUartForm,
   checkData: 0
 } as UserCommunicationForm)
 const storageForm = ref<StorageForm>({} as StorageForm)

@@ -92,13 +92,13 @@ type VersionInfo = {
   version: string
 }
 
-type userCommUdpForm = {
+type UserCommUdpForm = {
   udpEn: number
   udpLocalPort: number
   udpDstIp: string
   udpDstPort: number
 }
-type userCommUartForm = {
+type UserCommUartForm = {
   uartEn: number
   baudrate: number
   dataBit: number
@@ -106,8 +106,8 @@ type userCommUartForm = {
   parityBit: number // <!-- 0:无，1，奇校验；2，偶校 -->
 }
 type UserCommunicationForm = {
-  udp: userCommUdpForm
-  uart: userCommUartForm
+  udp: UserCommUdpForm
+  uart: UserCommUartForm
   checkData: number
 }
 type StorageForm = {
@@ -134,7 +134,7 @@ export type {
   NetworkForm,
   VersionInfo,
   UserCommunicationForm,
-  userCommUdpForm,
-  userCommUartForm,
+  UserCommUdpForm,
+  UserCommUartForm,
   StorageForm
 }
