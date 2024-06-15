@@ -1,4 +1,5 @@
 import util from '../util'
+import '@/mock'
 
 export type RequestType<T> = {
   url: string // 请求地址

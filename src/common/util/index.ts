@@ -13,8 +13,12 @@ const resultHandler = (
   errorMsg?: string,
   dataHander?: (data: unknown, code: number, msg: string) => {}
 ) => {
-  if (result.retCode == 0) {
-    dataHander && dataHander(result.data, result.retCode, result.describe)
+  if (result.retcode == 0) {
+    if (dataHander) {
+      dataHander(result.data, result.retcode, result.describe)
+    } else {
+      showMessage(result.describe, 'success')
+    }
   } else {
     showMessage(errorMsg || result.describe, 'error')
   }

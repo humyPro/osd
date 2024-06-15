@@ -1,5 +1,5 @@
 type Result = {
-  retCode: number
+  retcode: number
   describe: string
   data: unknown
 }
