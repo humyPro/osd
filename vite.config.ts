@@ -11,7 +11,6 @@ import Icons from 'unplugin-icons/vite'
 import path from 'path'
 import legacy from '@vitejs/plugin-legacy'
 import topLevelAwait from 'vite-plugin-top-level-await'
-import terser from '@rollup/plugin-terser'
 const pathSrc = path.resolve(__dirname, 'src')
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -83,25 +82,7 @@ export default defineConfig({
       compress: {
         drop_console: true,
         drop_debugger: true
-      },
-      mangle: {
-        // 配置变量名混淆
-        properties: {
-          regex: /^_/
-        }
       }
-    },
-    rollupOptions: {
-      plugins: [
-        terser({
-          output: {
-            // 保留注释
-            // comments: /^!/
-          },
-          compress: true,
-          mangle: true // 启用变量名混淆
-        })
-      ]
     }
   }
 })

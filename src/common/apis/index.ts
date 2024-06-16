@@ -11,7 +11,6 @@ import {
 import utils from '@/common/util'
 import { request } from './common'
 import store from '@/store/AppStore'
-const mock = true
 const config = store.config
 const castFormKey = (form: {}) => {
   return Object.entries(form).reduce(
@@ -185,63 +184,6 @@ const formatDisk = () => {
     respParser: resultParser
   })
 }
-
-const test = () => {
-  const str = `<?xml version="1.0" encoding="utf-8"?>
-  <video>
-      <video_0>
-          <udp_h26x>
-              <h26x_en>1</h26x_en> 
-              <h26x_mode>0</h26x_mode> <!-- 0:单播；1：主播；2：广播 -->
-              <h26x_src_port>5000</h26x_src_port>
-              <h26x_dst_ip>235.0.0.0</h26x_dst_ip>
-              <h26x_dst_port>5000</h26x_dst_port>
-              <h26x_send_len>200</h26x_send_len>
-              <h26x_send_interval>60</h26x_send_interval>
-          </udp_h26x>
-          <udp_ts>
-              <ts_en>0</ts_en>
-              <ts_mode>0</ts_mode>
-              <ts_src_port>5000</ts_src_port>
-              <ts_dst_ip>235.0.0.0</ts_dst_ip>
-              <ts_dst_port>5000</ts_dst_port>
-              <ts_send_len>200</ts_send_len>
-              <ts_send_interval>60</ts_send_interval>
-          </udp_ts>
-          <rtsp>
-              <rtsp_en>1</rtsp_en>
-              <rtsp_port>5000</rtsp_port>
-              <trans_mode>0</trans_mode><!-- 0:udp; 1:tcp -->
-              <stream_name>stream0</stream_name>
-              <user_size>5</user_size>
-              <keep_alive>30</keep_alive>
-          </rtsp>
-          <rtmp>
-              <rtmp_en>0</rtmp_en>
-              <rtmp_url>rtmp://192.168.0.500/stream0.flv</rtmp_url>
-          </rtmp>
-          <gb28181>
-              <gb_en>0</gb_en>
-              <gb_server_ip>192.168.0.1</gb_server_ip>
-              <gb_server_port>8888</gb_server_port>
-              <gb_server_id>5000</gb_server_id>
-              <gb_period>2000</gb_period>
-              <heart_beat>60</heart_beat>
-              <local_sip_port>6666</local_sip_port>
-              <gb_auth_id>22222222</gb_auth_id>
-              <gb_passwd>1234</gb_passwd>
-          </gb28181>
-      </video_0>
-      <video_1>
-      <!-- 同video_0 -->
-      </video_1>
-      <video_2>
-      <!-- 同video_0 -->
-      </video_2>
-  </video>`
-  const json = utils.xmlToJson(str)
-}
-
 export default {
   request,
   getEncodingForm,

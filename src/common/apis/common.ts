@@ -1,5 +1,11 @@
 import util from '../util'
-import '@/mock'
+const env = import.meta.env.VITE_ENV
+if (env === 'development') {
+  import('@/mock')
+  console.warn('mock数据加载完毕')
+} else {
+  console.warn('mock数据未加载')
+}
 
 export type RequestType<T> = {
   url: string // 请求地址

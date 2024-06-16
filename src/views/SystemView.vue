@@ -458,7 +458,7 @@ onMounted(() => {
   display: flex;
   justify-content: space-between;
 }
-::v-deep .system-form .el-upload-list__item-name {
+:deep(.system-form .el-upload-list__item-name) {
   width: 200px;
 }
 </style>
