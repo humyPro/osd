@@ -7,28 +7,28 @@
           <FormTitle title="云台控制"></FormTitle>
           <div class="buttons">
             <div>
-              <el-button>OFF</el-button>
-              <el-button>HIDE</el-button>
-              <el-button>RES</el-button>
-              <el-button>RATF</el-button>
+              <el-button @click="submitBtnAction('OFF')">OFF</el-button>
+              <el-button @click="submitBtnAction('HIDE')">HIDE</el-button>
+              <el-button @click="submitBtnAction('RES')">RES</el-button>
+              <el-button @click="submitBtnAction('RATF')">RATF</el-button>
             </div>
             <div>
-              <el-button>GIMF</el-button>
-              <el-button>EULF</el-button>
-              <el-button>SCAN</el-button>
-              <el-button>GEO</el-button>
+              <el-button @click="submitBtnAction('GIMF')">GIMF</el-button>
+              <el-button @click="submitBtnAction('EULF')">EULF</el-button>
+              <el-button @click="submitBtnAction('SCAN')">SCAN</el-button>
+              <el-button @click="submitBtnAction('GEO')">GEO</el-button>
             </div>
             <div>
-              <el-button>CEUL</el-button>
-              <el-button>CGEO</el-button>
-              <el-button>CGIM</el-button>
-              <el-button>DOWN</el-button>
+              <el-button @click="submitBtnAction('CEUL')">CEUL</el-button>
+              <el-button @click="submitBtnAction('CGEO')">CGEO</el-button>
+              <el-button @click="submitBtnAction('CGIM')">CGIM</el-button>
+              <el-button @click="submitBtnAction('DOWN')">DOWN</el-button>
             </div>
             <div>
-              <el-button>RGIM</el-button>
-              <el-button>TRA</el-button>
-              <el-button>CTRA</el-button>
-              <el-button>ATRA</el-button>
+              <el-button @click="submitBtnAction('RGIM')">RGIM</el-button>
+              <el-button @click="submitBtnAction('TRA')">TRA</el-button>
+              <el-button @click="submitBtnAction('CTRA')">CTRA</el-button>
+              <el-button @click="submitBtnAction('ATRA')">ATRA</el-button>
             </div>
           </div>
           <div class="yt_box">
@@ -37,9 +37,9 @@
                 v-for="n in 8"
                 :class="`slice-${n} slice`"
                 :key="n"
-                @click="ytBtnChecked[n - 1] = !ytBtnChecked[n - 1]"
+                @click="submitBtnAction(keyMap[n])"
               >
-                <TriangleIcon class="yt_icon" :checked="ytBtnChecked[n - 1]" />
+                <TriangleIcon :title="n" class="yt_icon" :checked="true" />
               </li>
               <div class="center"></div>
             </ul>
@@ -47,25 +47,25 @@
         </div>
         <div class="form-box bordered">
           <FormTitle title="镜头控制"></FormTitle>
-          <el-form :model="deviceSelected" label-position="left">
+          <el-form label-position="left">
             <el-form-item label="设备选择">
               <el-select v-model="deviceSelected">
-                <el-option label="TV1" value="TV1" />
-                <el-option label="TV2" value="TV2" />
-                <el-option label="IR" value="IR" />
+                <el-option label="TV1" :value="0" />
+                <el-option label="TV2" :value="1" />
+                <el-option label="IR" :value="2" />
               </el-select>
             </el-form-item>
             <div class="buttons">
               <div>
-                <el-button>视场+</el-button>
-                <el-button>视场-</el-button>
-                <el-button>视场停止</el-button>
-                <el-button>视场设置</el-button>
+                <el-button @click="submitCameraAction(1)">视场+</el-button>
+                <el-button @click="submitCameraAction(2)">视场-</el-button>
+                <el-button @click="submitCameraAction(0)">视场停止</el-button>
+                <el-button @click="submitCameraAction(3)">视场设置</el-button>
               </div>
               <div>
-                <el-button>调焦+</el-button>
-                <el-button>调焦-</el-button>
-                <el-button>一键聚焦</el-button>
+                <el-button @click="submitCameraAction(4)">调焦+</el-button>
+                <el-button @click="submitCameraAction(5)">调焦-</el-button>
+                <el-button @click="submitCameraAction(6)">一键聚焦</el-button>
               </div>
             </div>
           </el-form>
@@ -75,9 +75,27 @@
   </div>
 </template>
 <script lang="ts" setup>
+import apis from '@/common/apis'
+import util from '@/common/util'
 import { ref } from 'vue'
-const ytBtnChecked = ref(new Array(8))
-const deviceSelected = ref()
+const deviceSelected = ref(0)
+const keyMap: { [key: string]: string } = {
+  '1': 'up',
+  '2': 'upper_right',
+  '3': 'right',
+  '4': 'lower_right',
+  '5': 'down',
+  '6': 'lower_left',
+  '7': 'left',
+  '8': 'upper_left'
+}
+const submitBtnAction = (action: string) => {
+  apis.ytControlAction(action).then((res) => util.resultHandler(res))
+}
+
+const submitCameraAction = (action: number) => {
+  apis.submitCameraAction(deviceSelected.value, action).then((res) => util.resultHandler(res))
+}
 </script>
 <style scoped>
 .buttons > div {

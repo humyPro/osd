@@ -74,7 +74,14 @@ export default defineConfig({
   },
   server: {
     host: '0.0.0.0',
-    hmr: true
+    hmr: true,
+    proxy: {
+      '/upgrade': {
+        target: 'http://192.168.144.1:8080/upload',
+        changeOrigin: true,
+        rewrite: (p) => p.replace('/upgrade', '')
+      }
+    }
   },
   build: {
     minify: 'terser',

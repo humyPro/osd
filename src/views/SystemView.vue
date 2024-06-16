@@ -174,8 +174,19 @@
             <el-form-item label="系统版本">
               <el-text>{{ systemInfo.version || 'unknown' }}</el-text>
             </el-form-item>
-            <el-form-item label="系统升级" v-if="false">
-              <el-upload ref="upload" class="upload-demo" action="" :limit="1" :auto-upload="false">
+            <el-form-item label="系统升级">
+              <el-upload
+                ref="upload"
+                class="upload-demo"
+                v-model:file-list="fileList"
+                :action="upgradeUrl"
+                :limit="1"
+                :auto-upload="false"
+                :on-error="onUploadError"
+                :on-success="onUploadSuccess"
+                :on-exceed="handleExceed"
+                :on-remove="handleRemove"
+              >
                 <template #trigger>
                   <el-button type="primary" :loading="loading.selectFileBtnLoding"
                     >选择文件</el-button
@@ -186,6 +197,7 @@
                   type="success"
                   @click="submitUpload"
                   :loading="loading.updateSystemBtnLoading"
+                  :disabled="upgradeBtnDisabled"
                 >
                   更新
                 </el-button>
@@ -204,7 +216,7 @@
         </div>
       </div>
       <div class="forms-box">
-        <div class="form-box bordered">
+        <div class="form-box bordered" v-loading="loading.systemMaintenanceLoading">
           <el-collapse
             v-model="systemConfigModel"
             @change="handSystemFormExpand"
@@ -217,36 +229,84 @@
                 </div>
               </template>
               <div v-if="showMaintenanceForm">
-                <el-form class="custom-label-size" v-model="loginForm" label-width="80px">
+                <el-form
+                  class="custom-label-size"
+                  :rules="systemMaintenanceRules"
+                  :model="systemMaintenance"
+                  label-width="80px"
+                  ref="systemMaintenanceFormRef"
+                >
                   <FormTitle title="产品信息"></FormTitle>
-                  <el-form-item label="产品编码">
-                    <el-text>123456</el-text>
+                  <el-form-item label="产品编码" prop="product.productNo">
+                    <el-input v-model="systemMaintenance.product.productNo" />
                   </el-form-item>
-                  <el-form-item label="产品SN码">
-                    <el-text>123456</el-text>
+                  <el-form-item label="产品SN码" prop="product.productSn">
+                    <el-input v-model="systemMaintenance.product.productSn" />
                   </el-form-item>
-                  <el-form-item label="备注">
-                    <el-input type="textarea"></el-input>
+                  <el-form-item label="备注" prop="product.note">
+                    <el-input v-model="systemMaintenance.product.note" type="textarea"></el-input>
                   </el-form-item>
                   <FormTitle title="产品配置"></FormTitle>
-                  <el-form-item label="TV1型号">
-                    <el-input placeholder="X1/X2/X3/X4/无"></el-input>
+                  <el-form-item label="TV1型号" prop="config.tv1">
+                    <el-select v-model="systemMaintenance.config.tv1">
+                      <el-option
+                        :label="k"
+                        :value="v"
+                        v-for="(k, v) in systemMaintenanceValues"
+                        :key="k"
+                      />
+                    </el-select>
                   </el-form-item>
-                  <el-form-item label="TV2型号">
-                    <el-input placeholder="X1/X2/X3/X4/无"></el-input>
+                  <el-form-item label="TV2型号" prop="config.tv2">
+                    <el-select v-model="systemMaintenance.config.tv2">
+                      <el-option
+                        :label="k"
+                        :value="v"
+                        v-for="(k, v) in systemMaintenanceValues"
+                        :key="k"
+                        selected
+                      />
+                    </el-select>
                   </el-form-item>
-                  <el-form-item label="IR1型号">
-                    <el-input placeholder="X1/X2/X3/X4/无"></el-input>
+                  <el-form-item label="IR1型号" prop="config.ir1">
+                    <el-select v-model="systemMaintenance.config.ir1">
+                      <el-option
+                        :label="k"
+                        :value="v"
+                        v-for="(k, v) in systemMaintenanceValues"
+                        :key="k"
+                      />
+                    </el-select>
                   </el-form-item>
-                  <el-form-item label="LA型号">
-                    <el-input placeholder="X1/X2/X3/X4/无"></el-input>
+                  <el-form-item label="LA型号" prop="config.la">
+                    <el-select v-model="systemMaintenance.config.la">
+                      <el-option
+                        :label="k"
+                        :value="v"
+                        v-for="(k, v) in systemMaintenanceValues"
+                        :key="k"
+                      />
+                    </el-select>
                   </el-form-item>
-                  <el-form-item label="用户协议">
-                    <el-input placeholder="X1/X2/X3/X4/无"></el-input>
+                  <el-form-item label="用户协议" prop="config.userProtocol">
+                    <el-select v-model="systemMaintenance.config.userProtocol">
+                      <el-option
+                        :label="k"
+                        :value="v"
+                        v-for="(k, v) in systemMaintenanceValues"
+                        :key="k"
+                      />
+                    </el-select>
                   </el-form-item>
                   <el-form-item>
                     <el-button @click="showMaintenanceForm = false">取消</el-button>
-                    <el-button type="primary" @click="confirmLogin"> 确认 </el-button>
+                    <el-button
+                      type="primary"
+                      :loading="loading.submitStorageInfoBtnLoading"
+                      @click="confirmSystemMaintenance"
+                    >
+                      确认
+                    </el-button>
                   </el-form-item>
                 </el-form>
               </div>
@@ -285,17 +345,26 @@
 </template>
 <script setup lang="ts">
 import { ref, reactive } from 'vue'
-import type { FormInstance, FormRules, UploadInstance } from 'element-plus'
+import {
+  genFileId,
+  type FormInstance,
+  type FormRules,
+  type UploadInstance,
+  type UploadProps,
+  type UploadRawFile
+} from 'element-plus'
 import util from '@/common/util'
 import { CameraFilled } from '@element-plus/icons-vue'
 import forms from '@/common/forms'
 import apis from '@/common/apis'
+import store from '@/store/AppStore'
 import type {
   StorageForm,
   VersionInfo,
   UserCommUartForm,
   UserCommUdpForm,
-  UserCommunicationForm
+  UserCommunicationForm,
+  SystemMaintenance
 } from '@/common/apis/modelTypes'
 
 type LoginFormType = { account: string; password: string }
@@ -309,16 +378,33 @@ const userCommConfigForm = ref<UserCommunicationForm>({
   checkData: 0
 } as UserCommunicationForm)
 const storageForm = ref<StorageForm>({} as StorageForm)
+const systemMaintenance = ref<SystemMaintenance>({
+  product: {},
+  config: {}
+} as SystemMaintenance)
+const systemMaintenanceValues = {
+  无: '',
+  X1: 'X1',
+  X2: 'X2',
+  X3: 'X3',
+  X4: 'X4'
+}
 const showMaintenanceLogin = ref(false)
 const showMaintenanceForm = ref(false)
 const loginForm = ref<LoginFormType>({} as LoginFormType)
 const userCommConfigRef = ref()
 const storageRef = ref()
-const loginFormRef = ref(null)
+const loginFormRef = ref()
+const systemMaintenanceFormRef = ref()
+const fileList = ref([])
+const upgradeBtnDisabled = ref(true)
+const upgradeUrl = store.config.upgradeSystemFileUrl
+// const upgradeUrl = 'http://192.168.144.1:8080/upload'
 const loading = ref({
   systemSectionLoading: false,
   userConmunicationSectionLoading: false,
   storageSectionLoading: false,
+  systemMaintenanceLoading: false,
   // button loading
   selectFileBtnLoding: false,
   updateSystemBtnLoading: false,
@@ -326,6 +412,7 @@ const loading = ref({
   restartBtnLoding: false,
   submitUserCommunicationBtnLoding: false,
   submitStorageInfoBtnLoading: false,
+  systemMaintenanceBtnLoading: true,
   formatBtnLoading: false
 })
 const userCommConfigRules = reactive<FormRules<UserCommunicationForm>>({
@@ -346,6 +433,21 @@ const loginFormRules = reactive<FormRules<LoginFormType>>({
   account: [{ validator: forms.checkString('账号'), trigger: 'blur' }],
   password: [{ validator: forms.checkString('密码'), trigger: 'blur' }]
 })
+const systemMaintenanceRules = reactive<FormRules<SystemMaintenance>>({
+  'product.productNo': [{ validator: forms.checkSelect('产品编码'), trigger: 'blur' }],
+  'product.productSn': [{ validator: forms.checkSelect('产品SN码'), trigger: 'blur' }],
+  'product.note': [{ validator: forms.checkString('备注'), trigger: 'blur' }],
+  'config.tv1': [{ validator: forms.checkSelect('TV1型号'), trigger: 'change' }],
+  'config.tv2': [{ validator: forms.checkSelect('TV2型号'), trigger: 'change' }],
+  'config.ir1': [{ validator: forms.checkSelect('IR1型号'), trigger: 'change' }],
+  'config.la': [{ validator: forms.checkSelect('LA型号'), trigger: 'change' }],
+  'config.userProtocol': [{ validator: forms.checkSelect('用户协议'), trigger: 'change' }]
+})
+
+watch(fileList, (newValue) => {
+  upgradeBtnDisabled.value = newValue == null || newValue.length == 0
+})
+
 const handSystemFormExpand = () => {
   if (!showMaintenanceForm.value) {
     showMaintenanceLogin.value = true
@@ -365,11 +467,13 @@ const confirmLogin = () => {
       showMaintenanceLogin.value = false
       showMaintenanceForm.value = true
       systemConfigModel.value = ['1']
+      nextTick(() => getSystemMaintenanceInfo())
     } else {
       util.showMessage('账号或密码错误', 'error')
     }
   })
 }
+
 const resetSystem = () => {
   loading.value.resetSystemBtnLoading = true
   apis
@@ -383,6 +487,25 @@ const restartSystem = () => {
     .systemSetting(1)
     .then((res) => util.resultHandler(res, '重启系统失败'))
     .finally(() => (loading.value.restartBtnLoding = false))
+}
+
+const onUploadError = (error: Error) => {
+  console.error(error)
+  util.showMessage('文件上传失败', 'error')
+  fileList.value = []
+}
+const onUploadSuccess = () => {
+  util.showMessage('文件上传成功')
+  getSystemInfo()
+}
+const handleRemove: UploadProps['onRemove'] = () => {
+  upload.value!.clearFiles()
+}
+const handleExceed: UploadProps['onExceed'] = (files: File[]) => {
+  upload.value!.clearFiles()
+  const file = files[0] as UploadRawFile
+  file.uid = genFileId()
+  upload.value!.handleStart(file)
 }
 
 const submitUpload = () => {
@@ -431,26 +554,63 @@ const confirmStorage = () => {
   })
 }
 
-onMounted(() => {
+const confirmSystemMaintenance = () => {
+  if (!systemMaintenanceFormRef.value) {
+    return
+  }
+  ;(systemMaintenanceFormRef.value as FormInstance).validate((valid) => {
+    if (valid) {
+      loading.value.systemMaintenanceBtnLoading = true
+      apis
+        .submitSystemMaintenance(systemMaintenance.value)
+        .then((res) => util.resultHandler(res, '提交系统维护信息失败'))
+        .finally(() => (loading.value.systemMaintenanceBtnLoading = false))
+    } else {
+      util.showMessage('表单校验失败', 'error')
+    }
+  })
+}
+
+const getSystemInfo = () => {
   loading.value.systemSectionLoading = true
-  loading.value.userConmunicationSectionLoading = true
-  loading.value.storageSectionLoading = true
   apis
     .getVersionInfo()
     .then((res) => (systemInfo.value = res))
     .finally(() => {
       loading.value.systemSectionLoading = false
     })
+}
+const getUserCommunicationInfo = () => {
+  loading.value.userConmunicationSectionLoading = true
   apis
     .getUserCommunicationInfo()
     .then((res) => (userCommConfigForm.value = res))
     .finally(() => {
       loading.value.userConmunicationSectionLoading = false
     })
+}
+const getStorageInfo = () => {
+  loading.value.storageSectionLoading = true
+
   apis
     .getStorageInfo()
     .then((res) => (storageForm.value = res))
     .finally(() => (loading.value.storageSectionLoading = false))
+}
+
+const getSystemMaintenanceInfo = () => {
+  loading.value.systemMaintenanceLoading = true
+
+  apis
+    .getSystemMaintenanceInfo()
+    .then((res) => (systemMaintenance.value = res))
+    .finally(() => (loading.value.systemMaintenanceLoading = false))
+}
+
+onMounted(() => {
+  getSystemInfo()
+  getUserCommunicationInfo()
+  getStorageInfo()
 })
 </script>
 <style scoped>
@@ -461,5 +621,11 @@ onMounted(() => {
 }
 :deep(.system-form .el-upload-list__item-name) {
   width: 200px;
+}
+:deep(.el-upload-list__item-file-name) {
+  width: 160px;
+}
+:deep(.el-upload-list__item .el-progress) {
+  top: 30px;
 }
 </style>

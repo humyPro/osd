@@ -12,5 +12,10 @@
   "submitUserCommunicationFormUrl": "/set_codec?type=communication",
   "getRecordInfoUrl": "/get_codec?type=record",
   "submitRecordFormUrl": "/set_codec?type=record",
-  "sdCardClearUrl": "/set_codec?type=sdcard_clear"
+  "sdCardClearUrl": "/set_codec?type=sdcard_clear",
+  "upgradeSystemFileUrl": "/upgrade",
+  "ytControl": "/set_codec?type=ptz",
+  "cameraControl": "/set_codec?type=lens_ctl",
+  "getSystemMaintenance": "/get_codec?type=maintenance",
+  "submitSystemMaintenance": "/set_codec?type=maintenance"
 }

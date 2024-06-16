@@ -1,6 +1,6 @@
 import fetchMock from 'fetch-mock'
 import data from './data'
-const option = { delay: 2000 }
+const option = { delay: 1000 }
 
 const baseConfig = {
   baseUrl: 'http://127.0.0.1:5173',
@@ -16,7 +16,12 @@ const baseConfig = {
   submitUserCommunicationFormUrl: '/set_codec?type=communication',
   getRecordInfoUrl: '/get_codec?type=record',
   submitRecordFormUrl: '/set_codec?type=record',
-  sdCardClearUrl: '/set_codec?type=sdcard_clear'
+  sdCardClearUrl: '/set_codec?type=sdcard_clear',
+  upgradeSystemFileUrl: '/upgrade',
+  ytControl: '/set_codec?type=ptz',
+  cameraControl: '/set_codec?type=lens_ctl',
+  getSystemMaintenance: '/get_codec?type=maintenance',
+  submitSystemMaintenance: '/set_codec?type=maintenance'
 }
 
 fetchMock.mock(
@@ -54,3 +59,26 @@ fetchMock.post(
   option
 )
 fetchMock.post(baseConfig.baseUrl + baseConfig.sdCardClearUrl, data.successResult, option)
+fetchMock.post(baseConfig.baseUrl + baseConfig.upgradeSystemFileUrl, data.successResult, option)
+fetchMock.post(
+  baseConfig.baseUrl + baseConfig.ytControl,
+  (url, request) => {
+    console.log(url, request.body)
+    return data.successResult
+  },
+  option
+)
+fetchMock.post(
+  baseConfig.baseUrl + baseConfig.cameraControl,
+  (url, request) => {
+    console.log(url, request.body)
+    return data.successResult
+  },
+  option
+)
+fetchMock.post(
+  baseConfig.baseUrl + baseConfig.getSystemMaintenance,
+  data.getSystemMaintenance,
+  option
+)
+fetchMock.post(baseConfig.baseUrl + baseConfig.submitSystemMaintenance, data.successResult, option)

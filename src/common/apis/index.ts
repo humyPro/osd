@@ -6,12 +6,14 @@ import {
   type UserCommunicationForm,
   type VencForm,
   type VideoForm,
-  type VersionInfo
+  type VersionInfo,
+  type SystemMaintenance
 } from './modelTypes'
 import utils from '@/common/util'
 import { request } from './common'
 import store from '@/store/AppStore'
 const config = store.config
+const xmlHeader = `<?xml version="1.0" encoding="utf-8"?>`
 const castFormKey = (form: {}) => {
   return Object.entries(form).reduce(
     (pre, [key, value]) => {
@@ -24,7 +26,7 @@ const castFormKey = (form: {}) => {
 
 const resultParser = async (res: Response) => {
   let txt = await res.text()
-  txt = `<a>${txt.replace('<?xml version="1.0" encoding="utf-8"?>', '')}</a>`
+  txt = `<a>${txt.replace(xmlHeader, '')}</a>`
   const resJson = utils.xmlToJson<Result>(txt)
   return resJson
 }
@@ -33,7 +35,7 @@ const getEncodingForm: () => Promise<EncodingForm> = () => {
   return request({
     url: `${config.baseUrl}${config.getEncodingUrl}`,
     method: 'post',
-    body: `<?xml version="1.0" encoding="utf-8"?><device_status></device_status>`,
+    body: `${xmlHeader}<device_status></device_status>`,
     respParser: async (response: Response) => {
       const txt = await response.text()
       return utils.xmlToJson<EncodingForm>(txt)
@@ -67,7 +69,7 @@ const getNetworkInfo = () => {
   return request({
     url: `${config.baseUrl}${config.getNetworkInfoUrl}`,
     method: 'post',
-    body: `<?xml version="1.0" encoding="utf-8"?><network></network>`,
+    body: `${xmlHeader}<network></network>`,
     respParser: async (response: Response) => {
       const txt = await response.text()
       return utils.xmlToJson<NetworkForm>(txt)
@@ -92,7 +94,7 @@ const getVideoInfo = () => {
   return request({
     url: `${config.baseUrl}${config.getVideoInfoUrl}`,
     method: 'post',
-    body: `<?xml version="1.0" encoding="utf-8"?><video></video>`,
+    body: `${xmlHeader}<video></video>`,
     respParser: async (response: Response) => {
       const txt = await response.text()
       return utils.xmlToJson<videoInfo>(txt).video
@@ -111,7 +113,7 @@ const getVersionInfo = () => {
   return request({
     url: `${config.baseUrl}${config.getVersionInfoUrl}`,
     method: 'post',
-    body: `<?xml version="1.0" encoding="utf-8"?><get_version></get_version>`,
+    body: `${xmlHeader}<get_version></get_version>`,
     respParser: async (response: Response) => {
       const txt = await response.text()
       return utils.xmlToJson<VersionInfo>(txt)
@@ -128,7 +130,7 @@ const systemSetting = (type: number) => {
   return request({
     url: `${config.baseUrl}${config.submitSystemSettingFormUrl}`,
     method: 'post',
-    body: `<?xml version="1.0" encoding="utf-8"?><system_set>${type}</system_set>`,
+    body: `${xmlHeader}<system_set>${type}</system_set>`,
     respParser: resultParser
   })
 }
@@ -137,7 +139,7 @@ const getUserCommunicationInfo = () => {
   return request({
     url: `${config.baseUrl}${config.getUserCommunicationInfoUrl}`,
     method: 'post',
-    body: `<?xml version="1.0" encoding="utf-8"?><communication></communication>`,
+    body: `${xmlHeader}<communication></communication>`,
     respParser: async (response: Response) => {
       const txt = await response.text()
       return utils.xmlToJson<UserCommunicationForm>(txt)
@@ -158,7 +160,7 @@ const getStorageInfo = () => {
   return request({
     url: `${config.baseUrl}${config.getRecordInfoUrl}`,
     method: 'post',
-    body: `<?xml version="1.0" encoding="utf-8"?><get_record></get_record>`,
+    body: `${xmlHeader}<get_record></get_record>`,
     respParser: async (response: Response) => {
       const txt = await response.text()
       return utils.xmlToJson<StorageForm>(txt)
@@ -180,7 +182,45 @@ const formatDisk = () => {
   return request<Result>({
     url: `${config.baseUrl}${config.sdCardClearUrl}`,
     method: 'post',
-    body: `<?xml version="1.0" encoding="utf-8"?><format></format>`,
+    body: `${xmlHeader}<format></format>`,
+    respParser: resultParser
+  })
+}
+
+const getSystemMaintenanceInfo = () => {
+  return request({
+    url: `${config.baseUrl}${config.getSystemMaintenance}`,
+    method: 'post',
+    body: `${xmlHeader}<maintenance></maintenance>`,
+    respParser: async (response: Response) => {
+      const txt = await response.text()
+      return utils.xmlToJson<SystemMaintenance>(txt)
+    }
+  })
+}
+
+const submitSystemMaintenance = (form: SystemMaintenance) => {
+  return request<Result>({
+    url: `${config.baseUrl}${config.submitSystemMaintenance}`,
+    method: 'post',
+    body: utils.jsonToXml({ maintenance: form }, utils.castFromCamelCase),
+    respParser: resultParser
+  })
+}
+
+const ytControlAction = (action: string) => {
+  return request<Result>({
+    url: `${config.baseUrl}${config.ytControl}`,
+    method: 'post',
+    body: `${xmlHeader}<ptz><action>${action}</action></ptz>`,
+    respParser: resultParser
+  })
+}
+const submitCameraAction = (device: number, action: number) => {
+  return request<Result>({
+    url: `${config.baseUrl}${config.cameraControl}`,
+    method: 'post',
+    body: `${xmlHeader}<lens_ctl><dev>${device}</dev><op>${action}</op></lens_ctl>`,
     respParser: resultParser
   })
 }
@@ -198,5 +238,9 @@ export default {
   submitUserCommunicationForm,
   getStorageInfo,
   submitStorageForm,
-  formatDisk
+  formatDisk,
+  getSystemMaintenanceInfo,
+  submitSystemMaintenance,
+  ytControlAction,
+  submitCameraAction
 }

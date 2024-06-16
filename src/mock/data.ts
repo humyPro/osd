@@ -247,5 +247,20 @@ export default {
   <ch0_record_en>0</ch0_record_en>
   <ch1_record_en>0</ch1_record_en>
   <ch2_record_en>0</ch2_record_en>
-  </record>`
+  </record>`,
+  getSystemMaintenance: `<?xml version="1.0" encoding="utf-8"?>
+	<maintenance>
+		<product>
+			<product_no>1234</product_no>
+			<product_sn>456780</product_sn>
+			<note>hahha</note>
+		</product>
+		<config>
+			<tv1>X1</tv1>
+			<tv2>X4</tv2>
+			<ir1>X2</ir1>
+			<la>X3</la>
+			<user_protocol>X1</user_protocol>
+		</config>
+	</maintenance>`
 }

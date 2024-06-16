@@ -28,4 +28,7 @@ defineProps({
 .triangle.checked {
   border-bottom: 15px solid var(--el-color-primary);
 }
+.triangle:active {
+  border-bottom: 15px solid rgba(62, 69, 71, 0.164);
+}
 </style>

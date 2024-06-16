@@ -120,6 +120,21 @@ type StorageForm = {
   ch1RecordEn: number
   ch2RecordEn: number
 }
+
+type SystemMaintenance = {
+  product: {
+    productNo: string
+    productSn: string
+    note: string
+  }
+  config: {
+    tv1: string
+    tv2: string
+    ir1: string
+    la: string
+    userProtocol: string
+  }
+}
 export type {
   Result,
   EncodingForm,
@@ -136,5 +151,6 @@ export type {
   UserCommunicationForm,
   UserCommUdpForm,
   UserCommUartForm,
-  StorageForm
+  StorageForm,
+  SystemMaintenance
 }
