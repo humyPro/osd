@@ -54,10 +54,11 @@
               />
             </el-form-item>
             <el-form-item label="校验位" prop="uart.parityBit">
-              <el-input
-                placeholder="奇校验/偶校验/无"
-                v-model.number="userCommConfigForm.uart.parityBit"
-              />
+              <el-select v-model="userCommConfigForm.uart.parityBit">
+                <el-option label="无" :value="0" />
+                <el-option label="奇校验" :value="1" />
+                <el-option label="偶校验" :value="2" />
+              </el-select>
             </el-form-item>
             <el-divider />
 
@@ -87,16 +88,16 @@
           >
             <el-form-item label="录像格式" prop="recordType">
               <el-select v-model="storageForm.recordType">
-                <el-option label="H26X" value="H26X" />
-                <el-option label="MP4" value="MP4" />
-                <el-option label="AVI" value="AVI" />
-                <el-option label="FLV" value="AFLVVI" />
+                <el-option label="H26X" :value="0" />
+                <el-option label="MP4" :value="1" />
+                <el-option label="AVI" :value="2" />
+                <el-option label="FLV" :value="3" />
               </el-select>
             </el-form-item>
             <el-form-item label="录像模式" prop="recordMode">
               <el-radio-group v-model="storageForm.recordMode">
-                <el-radio label="1">循环</el-radio>
-                <el-radio label="2">非循环</el-radio>
+                <el-radio label="1" :value="0">循环</el-radio>
+                <el-radio label="2" :value="1">非循环</el-radio>
               </el-radio-group>
             </el-form-item>
             <el-form-item label="文件时长" prop="recordDuration">
