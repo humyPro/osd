@@ -139,6 +139,30 @@ type SystemMaintenance = {
     la: string
     userProtocol: string
   }
+  ptz: {
+    angleZero: {
+      anglePosition: number
+      anglePitch: number
+      angleRoll: number
+    }
+    installZero: {
+      installPosition: number
+      installPitch: number
+      installRoll: number
+    }
+    positionKp: number
+    positionKi: number
+    positionFp: number
+    rollKp: number
+    rollKo: number
+    rollFp: number
+    xa: number
+    xb: number
+    ya: number
+    yb: number
+    za: number
+    zb: number
+  }
 }
 export type {
   Result,

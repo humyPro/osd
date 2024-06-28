@@ -298,6 +298,73 @@
                       />
                     </el-select>
                   </el-form-item>
+
+                  <FormTitle title="角度零位"></FormTitle>
+                  <el-form-item label="方位" prop="">
+                    <el-input v-model="systemMaintenance.ptz.angleZero.anglePosition" />
+                  </el-form-item>
+                  <el-form-item label="俯仰" prop="">
+                    <el-input v-model="systemMaintenance.ptz.angleZero.anglePitch" />
+                  </el-form-item>
+                  <el-form-item label="滚转" prop="">
+                    <el-input v-model="systemMaintenance.ptz.angleZero.angleRoll" />
+                  </el-form-item>
+                  <FormTitle title="安装误差"></FormTitle>
+                  <el-form-item label="方位" prop="">
+                    <el-input v-model="systemMaintenance.ptz.installZero.installPosition" />
+                  </el-form-item>
+                  <el-form-item label="俯仰" prop="">
+                    <el-input v-model="systemMaintenance.ptz.installZero.installPitch" />
+                  </el-form-item>
+                  <el-form-item label="滚转" prop="">
+                    <el-input v-model="systemMaintenance.ptz.installZero.installRoll" />
+                  </el-form-item>
+                  <el-form-item label="方位KP" prop="">
+                    <el-input v-model="systemMaintenance.ptz.positionKp" />
+                  </el-form-item>
+                  <el-form-item label="方位Ki" prop="">
+                    <el-input v-model="systemMaintenance.ptz.positionKi" />
+                  </el-form-item>
+                  <el-form-item label="方位Fp" prop="">
+                    <el-input v-model="systemMaintenance.ptz.positionFp" />
+                  </el-form-item>
+                  <el-form-item label="俯仰KP" prop="">
+                    <el-input v-model="systemMaintenance.ptz.pitchKp" />
+                  </el-form-item>
+                  <el-form-item label="俯仰Ki" prop="">
+                    <el-input v-model="systemMaintenance.ptz.pitchKi" />
+                  </el-form-item>
+                  <el-form-item label="俯仰Fp" prop="">
+                    <el-input v-model="systemMaintenance.ptz.pitchFp" />
+                  </el-form-item>
+                  <el-form-item label="滚转KP" prop="">
+                    <el-input v-model="systemMaintenance.ptz.rollKp" />
+                  </el-form-item>
+                  <el-form-item label="滚转Ki" prop="">
+                    <el-input v-model="systemMaintenance.ptz.rollKi" />
+                  </el-form-item>
+                  <el-form-item label="滚转Fp" prop="">
+                    <el-input v-model="systemMaintenance.ptz.rollFp" />
+                  </el-form-item>
+                  <FormTitle title="螺旋补偿"></FormTitle>
+                  <el-form-item label="xa" prop="">
+                    <el-input v-model="systemMaintenance.ptz.xa" />
+                  </el-form-item>
+                  <el-form-item label="xb" prop="">
+                    <el-input v-model="systemMaintenance.ptz.xb" />
+                  </el-form-item>
+                  <el-form-item label="ya" prop="">
+                    <el-input v-model="systemMaintenance.ptz.ya" />
+                  </el-form-item>
+                  <el-form-item label="yb" prop="">
+                    <el-input v-model="systemMaintenance.ptz.yb" />
+                  </el-form-item>
+                  <el-form-item label="za" prop="">
+                    <el-input v-model="systemMaintenance.ptz.za" />
+                  </el-form-item>
+                  <el-form-item label="zb" prop="">
+                    <el-input v-model="systemMaintenance.ptz.zb" />
+                  </el-form-item>
                   <el-form-item>
                     <el-button @click="showMaintenanceForm = false">取消</el-button>
                     <el-button
@@ -380,7 +447,11 @@ const userCommConfigForm = ref<UserCommunicationForm>({
 const storageForm = ref<StorageForm>({} as StorageForm)
 const systemMaintenance = ref<SystemMaintenance>({
   product: {},
-  config: {}
+  config: {},
+  ptz: {
+    angleZero: {},
+    installZero: {}
+  }
 } as SystemMaintenance)
 const systemMaintenanceValues = {
   无: '',
@@ -462,15 +533,11 @@ const confirmLogin = () => {
     if (!valid) {
       return
     }
-    if (loginForm.value.account === loginForm.value.password) {
-      util.showMessage('认证成功')
-      showMaintenanceLogin.value = false
-      showMaintenanceForm.value = true
-      systemConfigModel.value = ['1']
-      nextTick(() => getSystemMaintenanceInfo())
-    } else {
-      util.showMessage('账号或密码错误', 'error')
-    }
+    util.showMessage('认证成功')
+    showMaintenanceLogin.value = false
+    showMaintenanceForm.value = true
+    systemConfigModel.value = ['1']
+    nextTick(() => getSystemMaintenanceInfo())
   })
 }
 
@@ -600,7 +667,6 @@ const getStorageInfo = () => {
 
 const getSystemMaintenanceInfo = () => {
   loading.value.systemMaintenanceLoading = true
-
   apis
     .getSystemMaintenanceInfo()
     .then((res) => (systemMaintenance.value = res))

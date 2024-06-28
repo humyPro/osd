@@ -251,9 +251,9 @@ export default {
   getSystemMaintenance: `<?xml version="1.0" encoding="utf-8"?>
 	<maintenance>
 		<product>
-			<product_no>1234</product_no>
-			<product_sn>456780</product_sn>
-			<note>hahha</note>
+			<product_no>QP-125T</product_no> <!-- 产品型号 -->
+			<product_sn>002-0006</product_sn> <!-- 产品编号 -->
+			<note>hahha</note> <!-- 备注 -->
 		</product>
 		<config>
 			<tv1>X1</tv1>
@@ -262,5 +262,36 @@ export default {
 			<la>X3</la>
 			<user_protocol>X1</user_protocol>
 		</config>
+		<ptz> <!-- 云台参数 -->
+			<angle_zero> <!-- 角度零位 -->
+				<angle_position>232.16000</angle_position> 		<!-- 方位 -->
+				<angle_pitch>98.66000</angle_pitch>				<!-- 俯仰 -->
+				<angle_roll>15.55000</angle_roll>				<!-- 滚转 -->
+			</angle_zero>
+			<install_zero> <!-- 安装误差 -->
+				<install_position>0.00000</install_position> 	<!-- 方位 -->
+				<install_pitch>0.00000</install_pitch> 			<!-- 俯仰 -->
+				<install_roll>0.00000</install_roll>				<!-- 滚转 -->
+			</install_zero>
+			
+			<position_kp>5.00000</position_kp> <!-- 方位KP -->
+			<position_ki>1500.00000</position_ki> <!-- 方位Ki -->
+			<position_fp>0.00000</position_fp> <!-- 方位Fp -->
+			
+			<pitch_kp>15.00000</pitch_kp> <!-- 俯仰KP -->
+			<pitch_ki>5000.00000</pitch_ki> <!-- 俯仰Ki -->
+			<pitch_fp>0.00000</pitch_fp> <!-- 俯仰Fp -->
+			
+			<roll_kp>0.00000</roll_kp> <!-- 滚转 kp -->
+			<roll_ki>0.00000</roll_ki> <!-- 滚转 Ki -->
+			<roll_fp>0.00000</roll_fp> <!-- 滚转 Fp -->
+			
+			<xa>0.00000</xa>
+			<xb>0.01136</xb>
+			<ya>0.00000</ya>
+			<yb>0.02602</yb>
+			<za>0.00000</za>
+			<zb>-0.01495</zb>
+		</ptz>
 	</maintenance>`
 }
