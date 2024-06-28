@@ -153,8 +153,11 @@ type SystemMaintenance = {
     positionKp: number
     positionKi: number
     positionFp: number
+    pitchKp: number
+    pitchKi: number
+    pitchFp: number
     rollKp: number
-    rollKo: number
+    rollKi: number
     rollFp: number
     xa: number
     xb: number
