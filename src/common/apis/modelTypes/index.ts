@@ -38,6 +38,11 @@ type NetworkForm = {
   ip: string
   mask: string
   gateway: string
+  mac: string
+  dns1: string
+  dns2: string
+  dhcp: number
+  wifiExist: number
 }
 
 type RTSPForm = {

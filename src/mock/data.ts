@@ -74,16 +74,16 @@ export default {
       </video>
   </device_status>`,
   getNetwork: `<?xml version="1.0" encoding="utf-8"?>
-  <network>
-      <ip>172.16.7.250</ip>
-      <mask>255.255.255.0</mask>
-      <gateway>0.0.0.0</gateway>
-      <mac>e6:5b:db:75:79:8a</mac>
-      <dns1>8.8.8.8</dns1>
-      <dns2>114.114.114.114</dns2>
-      <dhcp>0</dhcp>
-      <wifi_exist>0</wifi_exist>
-  </network>`,
+    <network>
+        <ip>172.16.7.250</ip>
+        <mask>255.255.255.0</mask>
+        <gateway>0.0.0.0</gateway>
+        <mac>e6:5b:db:75:79:8a</mac>
+        <dns1>8.8.8.8</dns1>
+        <dns2>114.114.114.114</dns2>
+        <dhcp>0</dhcp>
+        <wifi_exist>0</wifi_exist>
+    </network>`,
   getVideo: `<?xml version="1.0" encoding="utf-8"?>
 <video>
     <video_0>

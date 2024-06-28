@@ -55,19 +55,14 @@ const login = () => {
   loginButtonLoading.value = true
   ;(loginFormRef.value as FormInstance).validate((valid) => {
     if (valid) {
-      if (loginForm.value.account === 'root' && loginForm.value.password === 'qwer@1234') {
-        setTimeout(() => {
-          util.showMessage('登录成功')
-          const token = util.guid()
-          util.saveStorage('jta123k', token)
-          util.setToken(token)
-          router.push('/encoding')
-          loginButtonLoading.value = false
-        }, 1000)
-      } else {
-        util.showMessage('账号密码错误', 'error')
+      setTimeout(() => {
+        util.showMessage('登录成功')
+        const token = util.guid()
+        util.saveStorage('jta123k', token)
+        util.setToken(token)
+        router.push('/encoding')
         loginButtonLoading.value = false
-      }
+      }, 1000)
     } else {
       loginButtonLoading.value = false
     }

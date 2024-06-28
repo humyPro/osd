@@ -11,14 +11,29 @@
             :model="networkForm"
             label-position="left"
           >
-            <el-form-item label="IP地址" class="custom-select" prop="ip">
+            <el-form-item label="IP地址" prop="ip">
               <el-input v-model.trim="networkForm.ip" />
             </el-form-item>
-            <el-form-item label="子网掩码" class="custom-select" prop="mask">
+            <el-form-item label="子网掩码" prop="mask">
               <el-input v-model.trim="networkForm.mask" />
             </el-form-item>
-            <el-form-item label="默认网关" class="custom-select" prop="gateway">
+            <el-form-item label="默认网关" prop="gateway">
               <el-input v-model.trim="networkForm.gateway" />
+            </el-form-item>
+            <el-form-item label="mac地址" prop="mac">
+              <el-input v-model.trim="networkForm.mac" />
+            </el-form-item>
+            <el-form-item label="dns1" prop="dns1">
+              <el-input v-model.trim="networkForm.dns1" />
+            </el-form-item>
+            <el-form-item label="dns2" prop="dns2">
+              <el-input v-model.trim="networkForm.dns2" />
+            </el-form-item>
+            <el-form-item label="dhcp" prop="dhcp">
+              <el-switch v-model="networkForm.dhcp" :active-value="1" :inactive-value="0" />
+            </el-form-item>
+            <el-form-item label="wifi" prop="wifiExist">
+              <el-switch v-model="networkForm.wifiExist" :active-value="1" :inactive-value="0" />
             </el-form-item>
             <el-button class="save-button" @click="submitNetworkForm" type="primary">
               保存
