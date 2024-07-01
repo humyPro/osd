@@ -80,7 +80,7 @@ const getNetworkInfo = () => {
 const submitNetworkForm = (form: NetworkForm) => {
   const data = utils.jsonToXml(form, utils.castFromCamelCase)
   return request<Result>({
-    url: `${config.baseUrl}${config.submitEncodingFormUrl}`,
+    url: `${config.baseUrl}${config.submitNetworkFormUrl}`,
     method: 'post',
     body: data,
     respParser: resultParser
