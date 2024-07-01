@@ -25,7 +25,7 @@
               <el-select v-model="channel.resolutionRatio" placeholder="">
                 <el-option label="640x480" value="640x480" />
                 <el-option label="1280x720" value="1280x720" />
-                <el-option label="1920x1080" value="2048x1152" />
+                <el-option label="1920x1080" value="1920x1080" />
                 <el-option label="4096x2304" value="4096x2304" />
               </el-select>
             </el-form-item>
@@ -252,7 +252,7 @@ const submitChannelForm = (index: number) => {
           encodingFormLoading.value[index] = false
         })
         .catch((e) => {
-	  console.error(e)
+          console.error(e)
           encodingFormLoading.value[index] = false
           util.showMessage('提交数据失败', 'error')
         })
