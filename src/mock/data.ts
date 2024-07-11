@@ -19,7 +19,7 @@ export default {
       </url>
       <encode>
           <venc_0>
-              <enType>96</enType> <!-- 96:h264 ; 265:h265 -->
+              <en_type>96</en_type> <!-- 96:h264 ; 265:h265 -->
               <venc_aspect_ration>0</venc_aspect_ration>
               <venc_bitrate>4000</venc_bitrate>
               <venc_framerate>30</venc_framerate>
@@ -33,7 +33,7 @@ export default {
               <venc_min_qp>5</venc_min_qp>
           </venc_0>
           <venc_1>
-              <enType>96</enType>
+              <en_type>96</en_type>
               <venc_aspect_ration>0</venc_aspect_ration>
               <venc_bitrate>4000</venc_bitrate>
               <venc_framerate>30</venc_framerate>
@@ -47,7 +47,7 @@ export default {
               <venc_min_qp>5</venc_min_qp>
           </venc_1>
           <venc_2>
-              <enType>96</enType>
+              <en_type>96</en_type>
               <venc_aspect_ration>0</venc_aspect_ration>
               <venc_bitrate>4000</venc_bitrate>
               <venc_framerate>25</venc_framerate>
