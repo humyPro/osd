@@ -1,9 +1,10 @@
-import fetchMock from 'fetch-mock'
+import fetchMock, { type MockRequest } from 'fetch-mock'
 import data from './data'
 const option = { delay: 1000 }
 
 const baseConfig = {
-  baseUrl: 'http://127.0.0.1:5173',
+  baseUrl: 'http://localhost:5173',
+  loginUrl: '/logon',
   getEncodingUrl: '/get_status?type=device_status',
   submitEncodingFormUrl: '/set_codec?type=venc',
   getNetworkInfoUrl: '/get_codec?type=network',
@@ -34,6 +35,7 @@ fetchMock.mock(
   },
   option
 )
+fetchMock.post(baseConfig.baseUrl + baseConfig.loginUrl, data.successResult, option)
 fetchMock.post(baseConfig.baseUrl + baseConfig.getEncodingUrl, data.getEncoding, option)
 fetchMock.post(baseConfig.baseUrl + baseConfig.submitEncodingFormUrl, data.successResult, option)
 fetchMock.post(baseConfig.baseUrl + baseConfig.getNetworkInfoUrl, data.getNetwork, option)
@@ -50,7 +52,11 @@ fetchMock.post(
 )
 fetchMock.post(
   baseConfig.baseUrl + baseConfig.submitUserCommunicationFormUrl,
-  data.successResult,
+  (url: string, opts: MockRequest) => {
+    const body = opts.body
+    console.log('submit user communication payload:', body)
+    return data.successResult
+  },
   option
 )
 fetchMock.post(

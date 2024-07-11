@@ -11,7 +11,7 @@ const showMessage = (message: string, type: MessageType = 'success') => {
 const resultHandler = (
   result: Result,
   errorMsg?: string,
-  dataHander?: (data: unknown, code: number, msg: string) => {}
+  dataHander?: (data: unknown, code: number, msg: string) => void
 ) => {
   if (result.retcode == 0) {
     if (dataHander) {

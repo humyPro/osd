@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory } from 'vue-router'
+import { createRouter, createWebHashHistory } from 'vue-router'
 import EncodingView from '@/views/EncodingView.vue'
 import NetworkView from '@/views/NetworkView.vue'
 import SystemView from '@/views/SystemView.vue'
@@ -7,8 +7,9 @@ import ControlView from '@/views/ControlView.vue'
 import NotFoundView from '@/views/NotFoundView.vue'
 import LoginView from '@/views/LoginView.vue'
 import util from '@/common/util'
+const baseUrl = import.meta.env.BASE_URL
 const router = createRouter({
-  history: createWebHistory(import.meta.env.BASE_URL),
+  history: createWebHashHistory(),
   routes: [
     {
       path: '/:pathMatch(.*)*',
@@ -69,14 +70,14 @@ const router = createRouter({
 })
 
 router.beforeEach(async (to) => {
-  if (
-    // 检查用户是否已登录 'jta123k', 't1jhasd89dkj-u1h31k29asdkja'
-    util.getStorage('jta123k') !== util.getToken() &&
-    to.name !== '登录'
-  ) {
-    // 将用户重定向到登录页面
-    return { name: '登录' }
-  }
+  // if (
+  //   // 检查用户是否已登录 'jta123k', 't1jhasd89dkj-u1h31k29asdkja'
+  //   util.getStorage('jta123k') !== util.getToken() &&
+  //   to.name !== '登录'
+  // ) {
+  //   // 将用户重定向到登录页面
+  //   return { name: '登录' }
+  // }
 })
 
 export default router

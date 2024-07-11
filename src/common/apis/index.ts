@@ -31,6 +31,18 @@ const resultParser = async (res: Response) => {
   return resJson
 }
 
+const login: (account: string, password: string) => Promise<Result> = (
+  account: string,
+  password: string
+) => {
+  return request<Result>({
+    url: `${config.baseUrl}${config.loginUrl}`,
+    method: 'post',
+    body: `${xmlHeader}<logon><user>${account}</user><passwd>${password}</passwd></logon>`,
+    respParser: resultParser
+  })
+}
+
 const getEncodingForm: () => Promise<EncodingForm> = () => {
   return request({
     url: `${config.baseUrl}${config.getEncodingUrl}`,
@@ -226,6 +238,7 @@ const submitCameraAction = (device: number, action: number) => {
 }
 export default {
   request,
+  login,
   getEncodingForm,
   submitEncodingForm,
   getNetworkInfo,

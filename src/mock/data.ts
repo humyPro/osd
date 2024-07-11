@@ -2,6 +2,9 @@ export default {
   successResult: `<?xml version="1.0" encoding="utf-8"?>
     <retcode>0</retcode>
     <describe>success</describe>`,
+  errorResult: `<?xml version="1.0" encoding="utf-8"?>
+    <retcode>1</retcode>
+    <describe>success</describe>`,
   getEncoding: `<?xml version="1.0" encoding="utf-8"?>
   <device_status>
       <url>
@@ -16,7 +19,7 @@ export default {
       </url>
       <encode>
           <venc_0>
-              <entype>96</entype> <!-- 96:h264 ; 265:h265 -->
+              <enType>96</enType> <!-- 96:h264 ; 265:h265 -->
               <venc_aspect_ration>0</venc_aspect_ration>
               <venc_bitrate>4000</venc_bitrate>
               <venc_framerate>30</venc_framerate>
@@ -30,7 +33,7 @@ export default {
               <venc_min_qp>5</venc_min_qp>
           </venc_0>
           <venc_1>
-              <entype>96</entype>
+              <enType>96</enType>
               <venc_aspect_ration>0</venc_aspect_ration>
               <venc_bitrate>4000</venc_bitrate>
               <venc_framerate>30</venc_framerate>
@@ -44,7 +47,7 @@ export default {
               <venc_min_qp>5</venc_min_qp>
           </venc_1>
           <venc_2>
-              <entype>96</entype>
+              <enType>96</enType>
               <venc_aspect_ration>0</venc_aspect_ration>
               <venc_bitrate>4000</venc_bitrate>
               <venc_framerate>25</venc_framerate>

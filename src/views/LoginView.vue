@@ -32,6 +32,7 @@
   </div>
 </template>
 <script lang="ts" setup>
+import apis from '@/common/apis'
 import forms from '@/common/forms'
 import util from '@/common/util'
 import type { FormInstance, FormRules } from 'element-plus'
@@ -55,14 +56,13 @@ const login = () => {
   loginButtonLoading.value = true
   ;(loginFormRef.value as FormInstance).validate((valid) => {
     if (valid) {
-      setTimeout(() => {
-        util.showMessage('登录成功')
-        const token = util.guid()
-        util.saveStorage('jta123k', token)
-        util.setToken(token)
-        router.push('/encoding')
+      apis.login(loginForm.value.account, loginForm.value.password).then((res) => {
+        util.resultHandler(res, '认证失败', () => {
+          util.showMessage('登录成功')
+          router.push('/encoding')
+        })
         loginButtonLoading.value = false
-      }, 1000)
+      })
     } else {
       loginButtonLoading.value = false
     }

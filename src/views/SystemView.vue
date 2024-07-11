@@ -172,7 +172,9 @@
           <FormTitle title="系统信息"></FormTitle>
           <el-form :model="systemInfo" label-position="left" class="system-form">
             <el-form-item label="系统版本">
-              <el-text>{{ systemInfo.version || 'unknown' }}</el-text>
+              <el-text :title="systemInfo.version" :line-clamp="5">{{
+                systemInfo.version || 'unknown'
+              }}</el-text>
             </el-form-item>
             <el-form-item label="系统升级">
               <el-upload
@@ -383,10 +385,7 @@
       </div>
     </div>
     <el-dialog v-model="showMaintenanceLogin" width="30%" :show-close="false" style="width: 360px">
-      <template #header>
-        <el-text>验证密码后显示系统维护页面</el-text><br />
-        <el-text>测试tips:密码与账号相同则验证通过</el-text>
-      </template>
+      <template #header> <el-text>验证密码后显示系统维护页面</el-text><br /> </template>
       <el-form
         class="custom-label-size"
         :model="loginForm"
@@ -533,10 +532,15 @@ const confirmLogin = () => {
     if (!valid) {
       return
     }
-    util.showMessage('认证成功')
-    showMaintenanceLogin.value = false
-    showMaintenanceForm.value = true
-    systemConfigModel.value = ['1']
+    apis.login(loginForm.value.account, loginForm.value.password).then((res) =>
+      util.resultHandler(res, '认证失败', () => {
+        util.showMessage('认证成功')
+        showMaintenanceLogin.value = false
+        showMaintenanceForm.value = true
+        systemConfigModel.value = ['1']
+      })
+    )
+
     nextTick(() => getSystemMaintenanceInfo())
   })
 }
@@ -584,7 +588,6 @@ const confirmFormat = () => {
     .formatDisk()
     .then((res) => util.resultHandler(res, '格式化硬盘失败'))
     .finally(() => (loading.value.formatBtnLoading = false))
-  // todo format
 }
 const confirmUserCommConfig = () => {
   if (!userCommConfigRef.value) {
