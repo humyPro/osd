@@ -43,6 +43,18 @@ const login: (account: string, password: string) => Promise<Result> = (
   })
 }
 
+const loginForSystemConfig: (account: string, password: string) => Promise<Result> = (
+  account: string,
+  password: string
+) => {
+  return request<Result>({
+    url: `${config.baseUrl}${config.loginForSystemInfo}`,
+    method: 'post',
+    body: `${xmlHeader}<auth><user>${account}</user><passwd>${password}</passwd></logon>`,
+    respParser: resultParser
+  })
+}
+
 const getEncodingForm: () => Promise<EncodingForm> = () => {
   return request({
     url: `${config.baseUrl}${config.getEncodingUrl}`,

@@ -6,8 +6,6 @@ import VideoView from '@/views/VideoView.vue'
 import ControlView from '@/views/ControlView.vue'
 import NotFoundView from '@/views/NotFoundView.vue'
 import LoginView from '@/views/LoginView.vue'
-import util from '@/common/util'
-const baseUrl = import.meta.env.BASE_URL
 const router = createRouter({
   history: createWebHashHistory(),
   routes: [

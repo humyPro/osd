@@ -297,5 +297,10 @@ export default {
 			<za>0.00000</za>
 			<zb>-0.01495</zb>
 		</ptz>
-	</maintenance>`
+	</maintenance>`,
+  loginForSystemInfo: `<?xml version="1.0" encoding="utf-8"?>
+	<auth>
+		<user>root</user>
+		<passwd>12345</passwd>
+	</auth> `
 }

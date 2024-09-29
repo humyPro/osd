@@ -1,4 +1,5 @@
 import util from '../util'
+import intercepters from './fetchResponseIntercepter'
 const env = import.meta.env.VITE_ENV
 if (env === 'development') {
   import('@/mock')
@@ -62,6 +63,9 @@ export const request = async <T>(params: RequestType<T>): Promise<T> => {
     })
   }
   return fetch(requestUrl, init)
+    .then((response) => {
+      return intercepters.authIntercepter({ url: requestUrl }, response)
+    })
     .then((response) => {
       if (!response.ok) {
         return Promise.reject(response)

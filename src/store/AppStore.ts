@@ -1,10 +1,6 @@
-import { request } from '@/common/apis/common'
-import configJson from '@/../public/static/config.json'
-type ConfigType = typeof configJson
-
-const res = await request<ConfigType>({ url: '/static/config.json', method: 'get' })
+import configJson from '@/router/config.json'
 
 const store = reactive({
-  config: res
+  config: configJson
 })
 export default store
