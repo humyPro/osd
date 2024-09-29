@@ -131,28 +131,30 @@ type SystemMaintenance = {
     productNo: string
     productSn: string
     note: string
+    lock: string
   }
   config: {
     tv1: string
     tv2: string
     ir1: string
+    ir2: string
     la: string
     userProtocol: string
   }
   ptz: {
     angleZero: {
-      anglePosition: number
+      angleYaw: number
       anglePitch: number
       angleRoll: number
     }
     installZero: {
-      installPosition: number
+      installYaw: number
       installPitch: number
       installRoll: number
     }
-    positionKp: number
-    positionKi: number
-    positionFp: number
+    yawKp: number
+    yawKi: number
+    yawFp: number
     pitchKp: number
     pitchKi: number
     pitchFp: number

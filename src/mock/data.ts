@@ -257,6 +257,7 @@ export default {
 			<product_no>QP-125T</product_no> <!-- 产品型号 -->
 			<product_sn>002-0006</product_sn> <!-- 产品编号 -->
 			<note>hahha</note> <!-- 备注 -->
+			<lock>false</lock> <!-- true/false -->
 		</product>
 		<config>
 			<tv1>X1</tv1>
@@ -267,19 +268,19 @@ export default {
 		</config>
 		<ptz> <!-- 云台参数 -->
 			<angle_zero> <!-- 角度零位 -->
-				<angle_position>232.16000</angle_position> 		<!-- 方位 -->
+				<angle_yaw>232.16000</angle_yaw> 		<!-- 方位 -->
 				<angle_pitch>98.66000</angle_pitch>				<!-- 俯仰 -->
 				<angle_roll>15.55000</angle_roll>				<!-- 滚转 -->
 			</angle_zero>
 			<install_zero> <!-- 安装误差 -->
-				<install_position>0.00000</install_position> 	<!-- 方位 -->
+				<install_yaw>0.00000</install_yaw> 	<!-- 方位 -->
 				<install_pitch>0.00000</install_pitch> 			<!-- 俯仰 -->
 				<install_roll>0.00000</install_roll>				<!-- 滚转 -->
 			</install_zero>
 			
-			<position_kp>5.00000</position_kp> <!-- 方位KP -->
-			<position_ki>1500.00000</position_ki> <!-- 方位Ki -->
-			<position_fp>0.00000</position_fp> <!-- 方位Fp -->
+			<yaw_kp>5.00000</yaw_kp> <!-- 方位KP -->
+			<yaw_ki>1500.00000</yaw_ki> <!-- 方位Ki -->
+			<yaw_fp>0.00000</yaw_fp> <!-- 方位Fp -->
 			
 			<pitch_kp>15.00000</pitch_kp> <!-- 俯仰KP -->
 			<pitch_ki>5000.00000</pitch_ki> <!-- 俯仰Ki -->

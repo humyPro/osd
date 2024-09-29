@@ -21,12 +21,14 @@ const checkNumber =
     }
   }
 
-const checkSelect = (name?: string) => (rule: any, value: any, callback: any) => {
-  if (isUndefineOrNullOrEmpty(value)) {
-    return callback(new Error(name ? `请选择${name}` : '请选择'))
+const checkSelect =
+  (name?: string) =>
+  (rule: unknown, value: unknown, callback: (error?: Error | string | undefined) => void) => {
+    if (isUndefineOrNullOrEmpty(value)) {
+      return callback(new Error(name ? `请选择${name}` : '请选择'))
+    }
+    callback()
   }
-  callback()
-}
 const ipRegexp = /^((?:(?:25[0-5]|2[0-4]\d|[01]?\d?\d)\.){3}(?:25[0-5]|2[0-4]\d|[01]?\d?\d))$/
 const checkIp =
   (name = 'IP') =>

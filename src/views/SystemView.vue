@@ -232,151 +232,199 @@
               </template>
               <div v-if="showMaintenanceForm">
                 <el-form
-                  class="custom-label-size"
+                  class="custom-label-size system-info-box"
                   :rules="systemMaintenanceRules"
                   :model="systemMaintenance"
                   label-width="80px"
                   ref="systemMaintenanceFormRef"
                 >
-                  <FormTitle title="产品信息"></FormTitle>
-                  <el-form-item label="产品编码" prop="product.productNo">
-                    <el-input v-model="systemMaintenance.product.productNo" />
-                  </el-form-item>
-                  <el-form-item label="产品SN码" prop="product.productSn">
-                    <el-input v-model="systemMaintenance.product.productSn" />
-                  </el-form-item>
-                  <el-form-item label="备注" prop="product.note">
-                    <el-input v-model="systemMaintenance.product.note" type="textarea"></el-input>
-                  </el-form-item>
-                  <FormTitle title="产品配置"></FormTitle>
-                  <el-form-item label="TV1型号" prop="config.tv1">
-                    <el-select v-model="systemMaintenance.config.tv1">
-                      <el-option
-                        :label="k"
-                        :value="v"
-                        v-for="(k, v) in systemMaintenanceValues"
-                        :key="k"
-                      />
-                    </el-select>
-                  </el-form-item>
-                  <el-form-item label="TV2型号" prop="config.tv2">
-                    <el-select v-model="systemMaintenance.config.tv2">
-                      <el-option
-                        :label="k"
-                        :value="v"
-                        v-for="(k, v) in systemMaintenanceValues"
-                        :key="k"
-                        selected
-                      />
-                    </el-select>
-                  </el-form-item>
-                  <el-form-item label="IR1型号" prop="config.ir1">
-                    <el-select v-model="systemMaintenance.config.ir1">
-                      <el-option
-                        :label="k"
-                        :value="v"
-                        v-for="(k, v) in systemMaintenanceValues"
-                        :key="k"
-                      />
-                    </el-select>
-                  </el-form-item>
-                  <el-form-item label="LA型号" prop="config.la">
-                    <el-select v-model="systemMaintenance.config.la">
-                      <el-option
-                        :label="k"
-                        :value="v"
-                        v-for="(k, v) in systemMaintenanceValues"
-                        :key="k"
-                      />
-                    </el-select>
-                  </el-form-item>
-                  <el-form-item label="用户协议" prop="config.userProtocol">
-                    <el-select v-model="systemMaintenance.config.userProtocol">
-                      <el-option
-                        :label="k"
-                        :value="v"
-                        v-for="(k, v) in systemMaintenanceValues"
-                        :key="k"
-                      />
-                    </el-select>
-                  </el-form-item>
+                  <div class="system-info-wrap">
+                    <div>
+                      <FormTitle title="产品信息"></FormTitle>
+                      <el-form-item label="产品编码" prop="product.productNo">
+                        <el-input
+                          :disabled="systemMaintenance.product.lock != 'true'"
+                          v-model="systemMaintenance.product.productNo"
+                        />
+                      </el-form-item>
+                      <el-form-item label="产品SN码" prop="product.productSn">
+                        <el-input
+                          :disabled="systemMaintenance.product.lock != 'true'"
+                          v-model="systemMaintenance.product.productSn"
+                        />
+                      </el-form-item>
+                      <el-form-item label="备注" prop="product.note">
+                        <el-input
+                          :disabled="systemMaintenance.product.lock != 'true'"
+                          v-model="systemMaintenance.product.note"
+                          type="textarea"
+                        ></el-input>
+                      </el-form-item>
+                      <el-button
+                        :loading="loading.productInfoBtnLoding"
+                        class="save-button"
+                        type="primary"
+                        @click="submitProductInfo"
+                        >保存</el-button
+                      >
+                    </div>
+                    <div>
+                      <FormTitle title="产品配置"></FormTitle>
+                      <el-form-item label="TV1型号" prop="config.tv1">
+                        <el-input v-model="systemMaintenance.config.tv1" />
+                      </el-form-item>
+                      <el-form-item label="TV2型号" prop="config.tv2">
+                        <el-input v-model="systemMaintenance.config.tv2" />
+                      </el-form-item>
+                      <el-form-item label="IR1型号" prop="config.ir1">
+                        <el-input v-model="systemMaintenance.config.ir1" />
+                      </el-form-item>
+                      <el-form-item label="IR2型号" prop="config.ir2">
+                        <el-input v-model="systemMaintenance.config.ir2" />
+                      </el-form-item>
+                      <el-form-item label="LA型号" prop="config.la">
+                        <el-input v-model="systemMaintenance.config.la" />
+                      </el-form-item>
+                      <el-form-item label="用户协议" prop="config.userProtocol">
+                        <el-input v-model="systemMaintenance.config.userProtocol" />
+                      </el-form-item>
+                      <el-button
+                        :loading="loading.productConfigBtnLoding"
+                        class="save-button"
+                        type="primary"
+                        @click="submitProductConfig"
+                        >保存
+                      </el-button>
+                    </div>
+                  </div>
 
-                  <FormTitle title="角度零位"></FormTitle>
-                  <el-form-item label="方位" prop="">
-                    <el-input v-model="systemMaintenance.ptz.angleZero.anglePosition" />
-                  </el-form-item>
-                  <el-form-item label="俯仰" prop="">
-                    <el-input v-model="systemMaintenance.ptz.angleZero.anglePitch" />
-                  </el-form-item>
-                  <el-form-item label="滚转" prop="">
-                    <el-input v-model="systemMaintenance.ptz.angleZero.angleRoll" />
-                  </el-form-item>
-                  <FormTitle title="安装误差"></FormTitle>
-                  <el-form-item label="方位" prop="">
-                    <el-input v-model="systemMaintenance.ptz.installZero.installPosition" />
-                  </el-form-item>
-                  <el-form-item label="俯仰" prop="">
-                    <el-input v-model="systemMaintenance.ptz.installZero.installPitch" />
-                  </el-form-item>
-                  <el-form-item label="滚转" prop="">
-                    <el-input v-model="systemMaintenance.ptz.installZero.installRoll" />
-                  </el-form-item>
-                  <el-form-item label="方位KP" prop="">
-                    <el-input v-model="systemMaintenance.ptz.positionKp" />
-                  </el-form-item>
-                  <el-form-item label="方位Ki" prop="">
-                    <el-input v-model="systemMaintenance.ptz.positionKi" />
-                  </el-form-item>
-                  <el-form-item label="方位Fp" prop="">
-                    <el-input v-model="systemMaintenance.ptz.positionFp" />
-                  </el-form-item>
-                  <el-form-item label="俯仰KP" prop="">
-                    <el-input v-model="systemMaintenance.ptz.pitchKp" />
-                  </el-form-item>
-                  <el-form-item label="俯仰Ki" prop="">
-                    <el-input v-model="systemMaintenance.ptz.pitchKi" />
-                  </el-form-item>
-                  <el-form-item label="俯仰Fp" prop="">
-                    <el-input v-model="systemMaintenance.ptz.pitchFp" />
-                  </el-form-item>
-                  <el-form-item label="滚转KP" prop="">
-                    <el-input v-model="systemMaintenance.ptz.rollKp" />
-                  </el-form-item>
-                  <el-form-item label="滚转Ki" prop="">
-                    <el-input v-model="systemMaintenance.ptz.rollKi" />
-                  </el-form-item>
-                  <el-form-item label="滚转Fp" prop="">
-                    <el-input v-model="systemMaintenance.ptz.rollFp" />
-                  </el-form-item>
-                  <FormTitle title="螺旋补偿"></FormTitle>
-                  <el-form-item label="xa" prop="">
-                    <el-input v-model="systemMaintenance.ptz.xa" />
-                  </el-form-item>
-                  <el-form-item label="xb" prop="">
-                    <el-input v-model="systemMaintenance.ptz.xb" />
-                  </el-form-item>
-                  <el-form-item label="ya" prop="">
-                    <el-input v-model="systemMaintenance.ptz.ya" />
-                  </el-form-item>
-                  <el-form-item label="yb" prop="">
-                    <el-input v-model="systemMaintenance.ptz.yb" />
-                  </el-form-item>
-                  <el-form-item label="za" prop="">
-                    <el-input v-model="systemMaintenance.ptz.za" />
-                  </el-form-item>
-                  <el-form-item label="zb" prop="">
-                    <el-input v-model="systemMaintenance.ptz.zb" />
-                  </el-form-item>
-                  <el-form-item>
-                    <el-button @click="showMaintenanceForm = false">取消</el-button>
+                  <!-- <FormTitle title="云台参数"></FormTitle> -->
+                  <div class="system-info-wrap">
+                    <div>
+                      <FormTitle title="角度零位"></FormTitle>
+                      <el-form-item label="方位" prop="">
+                        <el-input v-model="systemMaintenance.ptz.angleZero.angleYaw" />
+                      </el-form-item>
+                      <el-form-item label="俯仰" prop="">
+                        <el-input v-model="systemMaintenance.ptz.angleZero.anglePitch" />
+                      </el-form-item>
+                      <el-form-item label="滚转" prop="">
+                        <el-input v-model="systemMaintenance.ptz.angleZero.angleRoll" />
+                      </el-form-item>
+                      <el-button
+                        :loading="loading.ytZeroBtnLoding"
+                        class="save-button"
+                        type="primary"
+                        @click="submitYtZeroPosition"
+                        >保存
+                      </el-button>
+                      <FormTitle title="安装误差"></FormTitle>
+                      <el-form-item label="方位" prop="">
+                        <el-input v-model="systemMaintenance.ptz.installZero.installYaw" />
+                      </el-form-item>
+                      <el-form-item label="俯仰" prop="">
+                        <el-input v-model="systemMaintenance.ptz.installZero.installPitch" />
+                      </el-form-item>
+                      <el-form-item label="滚转" prop="">
+                        <el-input v-model="systemMaintenance.ptz.installZero.installRoll" />
+                      </el-form-item>
+                      <el-button
+                        :loading="loading.ytInstallBtnLoding"
+                        class="save-button"
+                        type="primary"
+                        @click="submitYtInstallInfo"
+                        >保存
+                      </el-button>
+                    </div>
+                    <div>
+                      <FormTitle title="伺服参数"></FormTitle>
+                      <el-tabs v-model="activeName" class="demo-tabs">
+                        <el-tab-pane label="方位" name="yaw">
+                          <el-form-item label="方位Kp" prop="">
+                            <el-input v-model="systemMaintenance.ptz.yawKp" />
+                          </el-form-item>
+                          <el-form-item label="方位Ki" prop="">
+                            <el-input v-model="systemMaintenance.ptz.yawKi" />
+                          </el-form-item>
+                          <el-form-item label="方位Fp" prop="">
+                            <el-input v-model="systemMaintenance.ptz.yawFp" />
+                          </el-form-item>
+                          <el-button
+                            :loading="loading.ptzBtnLoding"
+                            class="save-button"
+                            type="primary"
+                            @click="submitServoParameters('yaw')"
+                            >保存
+                          </el-button>
+                        </el-tab-pane>
+                        <el-tab-pane label="俯仰" name="pitch">
+                          <el-form-item label="俯仰Kp" prop="">
+                            <el-input v-model="systemMaintenance.ptz.pitchKp" />
+                          </el-form-item>
+                          <el-form-item label="俯仰Ki" prop="">
+                            <el-input v-model="systemMaintenance.ptz.pitchKi" />
+                          </el-form-item>
+                          <el-form-item label="俯仰Fp" prop="">
+                            <el-input v-model="systemMaintenance.ptz.pitchFp" />
+                          </el-form-item>
+                          <el-button
+                            :loading="loading.ptzBtnLoding"
+                            class="save-button"
+                            type="primary"
+                            @click="submitServoParameters('pitch')"
+                            >保存
+                          </el-button>
+                        </el-tab-pane>
+                        <el-tab-pane label="滚转" name="roll">
+                          <el-form-item label="滚转Kp" prop="">
+                            <el-input v-model="systemMaintenance.ptz.rollKp" />
+                          </el-form-item>
+                          <el-form-item label="滚转Ki" prop="">
+                            <el-input v-model="systemMaintenance.ptz.rollKi" />
+                          </el-form-item>
+                          <el-form-item label="滚转Fp" prop="">
+                            <el-input v-model="systemMaintenance.ptz.rollFp" />
+                          </el-form-item>
+                          <el-button
+                            :loading="loading.ptzBtnLoding"
+                            class="save-button"
+                            type="primary"
+                            @click="submitServoParameters('rollch')"
+                            >保存
+                          </el-button>
+                        </el-tab-pane>
+                      </el-tabs>
+                    </div>
+                  </div>
+                  <div>
+                    <FormTitle title="陀螺补偿"></FormTitle>
+                    <el-form-item label="Xa" prop="">
+                      <el-input v-model="systemMaintenance.ptz.xa" />
+                    </el-form-item>
+                    <el-form-item label="Xb" prop="">
+                      <el-input v-model="systemMaintenance.ptz.xb" />
+                    </el-form-item>
+                    <el-form-item label="Ya" prop="">
+                      <el-input v-model="systemMaintenance.ptz.ya" />
+                    </el-form-item>
+                    <el-form-item label="Yb" prop="">
+                      <el-input v-model="systemMaintenance.ptz.yb" />
+                    </el-form-item>
+                    <el-form-item label="Za" prop="">
+                      <el-input v-model="systemMaintenance.ptz.za" />
+                    </el-form-item>
+                    <el-form-item label="Zb" prop="">
+                      <el-input v-model="systemMaintenance.ptz.zb" />
+                    </el-form-item>
                     <el-button
+                      :loading="loading.gyroscopeBtnLoding"
+                      class="save-button"
                       type="primary"
-                      :loading="loading.submitStorageInfoBtnLoading"
-                      @click="confirmSystemMaintenance"
+                      @click="submitGyroscope"
                     >
                       确认
                     </el-button>
-                  </el-form-item>
+                  </div>
                 </el-form>
               </div>
             </el-collapse-item>
@@ -397,7 +445,7 @@
           <el-input v-model.trim="loginForm.account" @keyup.enter="confirmLogin" />
         </el-form-item>
         <el-form-item label="密码" label-width="50px" prop="password">
-          <el-input v-model="loginForm.password" @keyup.enter="confirmLogin" />
+          <el-input v-model="loginForm.password" @keyup.enter="confirmLogin" type="password" />
         </el-form-item>
       </el-form>
       <template #footer>
@@ -483,8 +531,16 @@ const loading = ref({
   submitUserCommunicationBtnLoding: false,
   submitStorageInfoBtnLoading: false,
   systemMaintenanceBtnLoading: true,
-  formatBtnLoading: false
+  formatBtnLoading: false,
+  //
+  productInfoBtnLoding: false,
+  productConfigBtnLoding: false,
+  ytZeroBtnLoding: false,
+  ytInstallBtnLoding: false,
+  ptzBtnLoding: false,
+  gyroscopeBtnLoding: false
 })
+const activeName = ref('yaw') // 云台配置菜单控制
 const userCommConfigRules = reactive<FormRules<UserCommunicationForm>>({
   'udp.udpLocalPort': [{ validator: forms.checkNumber(0, 65535, '本机端口'), trigger: 'blur' }],
   'udp.udpDstIp': [{ validator: forms.checkIp('目的地址'), trigger: 'blur' }],
@@ -676,6 +732,27 @@ const getSystemMaintenanceInfo = () => {
     .finally(() => (loading.value.systemMaintenanceLoading = false))
 }
 
+const submitProductInfo = () => {
+  // todo
+}
+
+const submitProductConfig = () => {
+  // todo
+}
+const submitYtZeroPosition = () => {
+  // todo
+}
+
+const submitYtInstallInfo = () => {
+  // todo
+}
+
+const submitServoParameters = (type) => {
+  // todo 伺服参数
+}
+
+const submitGyroscope = () => {}
+
 onMounted(() => {
   getSystemInfo()
   getUserCommunicationInfo()
@@ -696,5 +773,13 @@ onMounted(() => {
 }
 :deep(.el-upload-list__item .el-progress) {
   top: 30px;
+}
+.system-info-box {
+  display: flex;
+}
+.system-info-wrap {
+  display: flex;
+  flex-direction: column;
+  margin: 0 21px;
 }
 </style>
