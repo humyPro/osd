@@ -63,12 +63,16 @@ export const request = async <T>(params: RequestType<T>): Promise<T> => {
     })
   }
   return fetch(requestUrl, init)
+    .catch((res) => {
+      console.error(res)
+      throw new Error('网络异常，无法连接到服务器')
+    })
     .then((response) => {
       return intercepters.authIntercepter({ url: requestUrl }, response)
     })
     .then((response) => {
       if (!response.ok) {
-        return Promise.reject(response)
+        throw new Error('服务器异常')
       }
       if (respParser) {
         return respParser(response)
@@ -77,7 +81,7 @@ export const request = async <T>(params: RequestType<T>): Promise<T> => {
     })
     .catch((e) => {
       console.log(e)
-      util.showMessage('网络异常，无法连接到服务器', 'error')
+      util.showMessage(e.message, 'error')
       return Promise.reject(e)
     })
 }

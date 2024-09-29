@@ -3,28 +3,8 @@ import data from './data'
 const option = { delay: 1000 }
 import store from '@/store/AppStore'
 const baseConfig = store.config
-
-fetchMock.mock(
-  {
-    url: '/static/config.json',
-    ...option
-  },
-  () => {
-    return baseConfig
-  },
-  option
-)
 fetchMock.post(baseConfig.baseUrl + baseConfig.loginUrl, data.successResult, option)
-// fetchMock.post(baseConfig.baseUrl + baseConfig.getEncodingUrl, data.getEncoding, option)
-fetchMock.post(
-  baseConfig.baseUrl + baseConfig.getEncodingUrl,
-  () => {
-    return {
-      status: 401
-    }
-  },
-  option
-)
+fetchMock.post(baseConfig.baseUrl + baseConfig.getEncodingUrl, data.getEncoding, option)
 fetchMock.post(baseConfig.baseUrl + baseConfig.submitEncodingFormUrl, data.successResult, option)
 fetchMock.post(baseConfig.baseUrl + baseConfig.getNetworkInfoUrl, data.getNetwork, option)
 fetchMock.post(baseConfig.baseUrl + baseConfig.submitNetworkFormUrl, data.successResult, option)
