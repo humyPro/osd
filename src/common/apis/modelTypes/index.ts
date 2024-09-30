@@ -125,49 +125,63 @@ type StorageForm = {
   ch1RecordEn: number
   ch2RecordEn: number
 }
-
+type SystemProduct = {
+  productNo: string
+  productSn: string
+  note: string
+  lock: string
+}
+type SystemProductConfig = {
+  tv1: string
+  tv2: string
+  ir1: string
+  ir2: string
+  la: string
+  userProtocol: string
+}
+type SystemPtzInstallZero = {
+  installYaw: number
+  installPitch: number
+  installRoll: number
+}
+type SystemPtzAngleZero = {
+  angleYaw: number
+  anglePitch: number
+  angleRoll: number
+}
+type SystemYtYaw = {
+  yawKp: number
+  yawKi: number
+  yawFp: number
+}
+type SystemYtPitch = {
+  pitchKp: number
+  pitchKi: number
+  pitchFp: number
+}
+type SystemYtRoll = {
+  rollKp: number
+  rollKi: number
+  rollFp: number
+}
+type SystemGyroscope = {
+  xa: number
+  xb: number
+  ya: number
+  yb: number
+  za: number
+  zb: number
+}
 type SystemMaintenance = {
-  product: {
-    productNo: string
-    productSn: string
-    note: string
-    lock: string
-  }
-  config: {
-    tv1: string
-    tv2: string
-    ir1: string
-    ir2: string
-    la: string
-    userProtocol: string
-  }
+  product: SystemProduct
+  config: SystemProductConfig
   ptz: {
-    angleZero: {
-      angleYaw: number
-      anglePitch: number
-      angleRoll: number
-    }
-    installZero: {
-      installYaw: number
-      installPitch: number
-      installRoll: number
-    }
-    yawKp: number
-    yawKi: number
-    yawFp: number
-    pitchKp: number
-    pitchKi: number
-    pitchFp: number
-    rollKp: number
-    rollKi: number
-    rollFp: number
-    xa: number
-    xb: number
-    ya: number
-    yb: number
-    za: number
-    zb: number
-  }
+    angleZero: SystemPtzAngleZero
+    installZero: SystemPtzInstallZero
+  } & SystemYtYaw &
+    SystemYtPitch &
+    SystemYtRoll &
+    SystemGyroscope
 }
 export type {
   Result,
@@ -186,5 +200,13 @@ export type {
   UserCommUdpForm,
   UserCommUartForm,
   StorageForm,
-  SystemMaintenance
+  SystemMaintenance,
+  SystemProduct,
+  SystemProductConfig,
+  SystemPtzAngleZero,
+  SystemPtzInstallZero,
+  SystemYtYaw,
+  SystemYtPitch,
+  SystemYtRoll,
+  SystemGyroscope
 }

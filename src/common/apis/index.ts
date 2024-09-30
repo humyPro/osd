@@ -248,6 +248,7 @@ const submitCameraAction = (device: number, action: number) => {
     respParser: resultParser
   })
 }
+
 export default {
   request,
   login,

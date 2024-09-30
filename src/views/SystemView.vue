@@ -230,16 +230,16 @@
                   <el-text type="primary" size="large">系统维护</el-text>
                 </div>
               </template>
-              <div v-if="showMaintenanceForm">
-                <el-form
-                  class="custom-label-size system-info-box"
-                  :rules="systemMaintenanceRules"
-                  :model="systemMaintenance"
-                  label-width="80px"
-                  ref="systemMaintenanceFormRef"
-                >
-                  <div class="system-info-wrap">
-                    <div>
+              <div v-if="showMaintenanceForm" class="system-info-box">
+                <div class="system-info-wrap">
+                  <div>
+                    <el-form
+                      class="custom-label-size"
+                      :rules="systemProductRules"
+                      :model="systemMaintenance.product"
+                      label-width="80px"
+                      ref="systemProductRef"
+                    >
                       <FormTitle title="产品信息"></FormTitle>
                       <el-form-item label="产品编码" prop="product.productNo">
                         <el-input
@@ -267,8 +267,16 @@
                         @click="submitProductInfo"
                         >保存</el-button
                       >
-                    </div>
-                    <div>
+                    </el-form>
+                  </div>
+                  <div>
+                    <el-form
+                      class="custom-label-size"
+                      :rules="systemProductConfigRules"
+                      :model="systemMaintenance.config"
+                      label-width="80px"
+                      ref="systemProductConfigRef"
+                    >
                       <FormTitle title="产品配置"></FormTitle>
                       <el-form-item label="TV1型号" prop="config.tv1">
                         <el-input v-model="systemMaintenance.config.tv1" />
@@ -295,12 +303,20 @@
                         @click="submitProductConfig"
                         >保存
                       </el-button>
-                    </div>
+                    </el-form>
                   </div>
+                </div>
 
-                  <!-- <FormTitle title="云台参数"></FormTitle> -->
-                  <div class="system-info-wrap">
-                    <div>
+                <!-- <FormTitle title="云台参数"></FormTitle> -->
+                <div class="system-info-wrap">
+                  <div>
+                    <el-form
+                      class="custom-label-size"
+                      :rules="systemPtzAngleZeroRules"
+                      :model="systemMaintenance.ptz.angleZero"
+                      label-width="80px"
+                      ref="systemYtAngleZeroRef"
+                    >
                       <FormTitle title="角度零位"></FormTitle>
                       <el-form-item label="方位" prop="">
                         <el-input v-model="systemMaintenance.ptz.angleZero.angleYaw" />
@@ -318,6 +334,14 @@
                         @click="submitYtZeroPosition"
                         >保存
                       </el-button>
+                    </el-form>
+                    <el-form
+                      class="custom-label-size"
+                      :rules="systemPtzInstallZeroRules"
+                      :model="systemMaintenance.ptz.installZero"
+                      label-width="80px"
+                      ref="systemYtInstallRef"
+                    >
                       <FormTitle title="安装误差"></FormTitle>
                       <el-form-item label="方位" prop="">
                         <el-input v-model="systemMaintenance.ptz.installZero.installYaw" />
@@ -335,11 +359,19 @@
                         @click="submitYtInstallInfo"
                         >保存
                       </el-button>
-                    </div>
-                    <div>
-                      <FormTitle title="伺服参数"></FormTitle>
-                      <el-tabs v-model="activeName" class="demo-tabs">
-                        <el-tab-pane label="方位" name="yaw">
+                    </el-form>
+                  </div>
+                  <div>
+                    <FormTitle title="伺服参数"></FormTitle>
+                    <el-tabs v-model="activeName" class="demo-tabs">
+                      <el-tab-pane label="方位" name="yaw">
+                        <el-form
+                          class="custom-label-size"
+                          :rules="systemYtYawRules"
+                          :model="systemMaintenance.ptz"
+                          label-width="80px"
+                          ref="systemYtYawRef"
+                        >
                           <el-form-item label="方位Kp" prop="">
                             <el-input v-model="systemMaintenance.ptz.yawKp" />
                           </el-form-item>
@@ -356,8 +388,16 @@
                             @click="submitServoParameters('yaw')"
                             >保存
                           </el-button>
-                        </el-tab-pane>
-                        <el-tab-pane label="俯仰" name="pitch">
+                        </el-form>
+                      </el-tab-pane>
+                      <el-tab-pane label="俯仰" name="pitch">
+                        <el-form
+                          class="custom-label-size"
+                          :rules="systemYtPitchRules"
+                          :model="systemMaintenance.ptz"
+                          label-width="80px"
+                          ref="systemYtPitchRef"
+                        >
                           <el-form-item label="俯仰Kp" prop="">
                             <el-input v-model="systemMaintenance.ptz.pitchKp" />
                           </el-form-item>
@@ -374,8 +414,16 @@
                             @click="submitServoParameters('pitch')"
                             >保存
                           </el-button>
-                        </el-tab-pane>
-                        <el-tab-pane label="滚转" name="roll">
+                        </el-form>
+                      </el-tab-pane>
+                      <el-tab-pane label="滚转" name="roll">
+                        <el-form
+                          class="custom-label-size"
+                          :rules="systemYtRollRules"
+                          :model="systemMaintenance.ptz"
+                          label-width="80px"
+                          ref="systemYtRollRef"
+                        >
                           <el-form-item label="滚转Kp" prop="">
                             <el-input v-model="systemMaintenance.ptz.rollKp" />
                           </el-form-item>
@@ -392,12 +440,20 @@
                             @click="submitServoParameters('rollch')"
                             >保存
                           </el-button>
-                        </el-tab-pane>
-                      </el-tabs>
-                    </div>
+                        </el-form>
+                      </el-tab-pane>
+                    </el-tabs>
                   </div>
-                  <div>
-                    <FormTitle title="陀螺补偿"></FormTitle>
+                </div>
+                <div>
+                  <FormTitle title="陀螺补偿"></FormTitle>
+                  <el-form
+                    class="custom-label-size"
+                    :rules="systemGyroscopeRules"
+                    :model="systemMaintenance.ptz"
+                    label-width="80px"
+                    ref="systemGyroscopeRef"
+                  >
                     <el-form-item label="Xa" prop="">
                       <el-input v-model="systemMaintenance.ptz.xa" />
                     </el-form-item>
@@ -424,8 +480,8 @@
                     >
                       确认
                     </el-button>
-                  </div>
-                </el-form>
+                  </el-form>
+                </div>
               </div>
             </el-collapse-item>
           </el-collapse>
@@ -478,7 +534,11 @@ import type {
   UserCommUartForm,
   UserCommUdpForm,
   UserCommunicationForm,
-  SystemMaintenance
+  SystemMaintenance,
+  SystemProduct,
+  SystemProductConfig,
+  SystemPtzAngleZero,
+  SystemPtzInstallZero
 } from '@/common/apis/modelTypes'
 
 type LoginFormType = { account: string; password: string }
@@ -508,7 +568,7 @@ const systemMaintenanceValues = {
   X4: 'X4'
 }
 const showMaintenanceLogin = ref(false)
-const showMaintenanceForm = ref(false)
+const showMaintenanceForm = ref(true)
 const loginForm = ref<LoginFormType>({} as LoginFormType)
 const userCommConfigRef = ref()
 const storageRef = ref()
@@ -559,17 +619,66 @@ const loginFormRules = reactive<FormRules<LoginFormType>>({
   account: [{ validator: forms.checkString('账号'), trigger: 'blur' }],
   password: [{ validator: forms.checkString('密码'), trigger: 'blur' }]
 })
-const systemMaintenanceRules = reactive<FormRules<SystemMaintenance>>({
-  'product.productNo': [{ validator: forms.checkSelect('产品编码'), trigger: 'blur' }],
-  'product.productSn': [{ validator: forms.checkSelect('产品SN码'), trigger: 'blur' }],
-  'product.note': [{ validator: forms.checkString('备注'), trigger: 'blur' }],
-  'config.tv1': [{ validator: forms.checkSelect('TV1型号'), trigger: 'change' }],
-  'config.tv2': [{ validator: forms.checkSelect('TV2型号'), trigger: 'change' }],
-  'config.ir1': [{ validator: forms.checkSelect('IR1型号'), trigger: 'change' }],
-  'config.la': [{ validator: forms.checkSelect('LA型号'), trigger: 'change' }],
-  'config.userProtocol': [{ validator: forms.checkSelect('用户协议'), trigger: 'change' }]
-})
 
+const systemProductRef = ref()
+const systemProductConfigRef = ref()
+const systemYtAngleZeroRef = ref()
+const systemYtInstallRef = ref()
+const systemYtYawRef = ref()
+const systemYtPitchRef = ref()
+const systemYtRollRef = ref()
+const systemGyroscopeRef = ref()
+const systemProductRules = reactive<FormRules<SystemProduct>>({
+  productNo: [{ validator: forms.checkString('产品编码'), trigger: 'blur' }],
+  productSn: [{ validator: forms.checkString('产品SN码'), trigger: 'blur' }],
+  note: [{ validator: forms.checkString('备注'), trigger: 'blur' }]
+})
+const systemProductConfigRules = reactive<FormRules<SystemProductConfig>>({
+  tv1: [{ validator: forms.checkString('TV1型号'), trigger: 'blur' }],
+  tv2: [{ validator: forms.checkString('TV2型号'), trigger: 'blur' }],
+  ir1: [{ validator: forms.checkString('IR1型号'), trigger: 'blur' }],
+  ir2: [{ validator: forms.checkString('IR2型号'), trigger: 'blur' }],
+  la: [{ validator: forms.checkString('LA型号'), trigger: 'blur' }],
+  userProtocol: [{ validator: forms.checkString('用户协议'), trigger: 'blur' }]
+})
+const systemPtzAngleZeroRules = reactive<FormRules<SystemPtzAngleZero>>({
+  angleYaw: [{ validator: forms.checkString('方位'), trigger: 'blur' }],
+  anglePitch: [{ validator: forms.checkString('仰角'), trigger: 'blur' }],
+  angleRoll: [{ validator: forms.checkString('翻滚'), trigger: 'blur' }]
+})
+const systemPtzInstallZeroRules = reactive<FormRules<SystemPtzInstallZero>>({
+  installYaw: [{ validator: forms.checkString('方位'), trigger: 'blur' }],
+  installPitch: [{ validator: forms.checkString('仰角'), trigger: 'blur' }],
+  installRoll: [{ validator: forms.checkString('翻滚'), trigger: 'blur' }]
+})
+const systemYtYawRules = reactive<FormRules<SystemYtYaw>>({
+  yawKp: [{ validator: forms.checkString('方位Kp'), trigger: 'blur' }],
+  yawKi: [{ validator: forms.checkString('方位Ki'), trigger: 'blur' }],
+  yawFp: [{ validator: forms.checkString('方位Fp'), trigger: 'blur' }]
+})
+const systemYtPitchRules = reactive<FormRules<SystemYtPitch>>({
+  pitchKp: [{ validator: forms.checkString('俯仰Kp'), trigger: 'blur' }],
+  pitchKi: [{ validator: forms.checkString('俯仰Ki'), trigger: 'blur' }],
+  pitchFp: [{ validator: forms.checkString('俯仰Fp'), trigger: 'blur' }]
+})
+const systemYtRollRules = reactive<FormRules<systemYtRollRules>>({
+  rollKp: [{ validator: forms.checkString('滚转Kp'), trigger: 'blur' }],
+  rollKi: [{ validator: forms.checkString('滚转Ki'), trigger: 'blur' }],
+  rollFp: [{ validator: forms.checkString('滚转Fp'), trigger: 'blur' }]
+})
+const systemGyroscopeRules = reactive<FormRulrs<SystemGyroscope>>({
+  xa: [{ validator: forms.checkString('Xa'), trigger: 'blur' }],
+  xb: [{ validator: forms.checkString('Xb'), trigger: 'blur' }],
+  ya: [{ validator: forms.checkString('Ya'), trigger: 'blur' }],
+  yb: [{ validator: forms.checkString('Yb'), trigger: 'blur' }],
+  za: [{ validator: forms.checkString('Za'), trigger: 'blur' }],
+  zb: [{ validator: forms.checkString('Zb'), trigger: 'blur' }]
+})
+/**
+ * yawKp: number
+  yawKi: number
+  yawFp: number
+ */
 watch(fileList, (newValue) => {
   upgradeBtnDisabled.value = newValue == null || newValue.length == 0
 })
