@@ -1,3 +1,6 @@
+import type { FormInstance } from 'element-plus'
+import util from '../util'
+
 const isUndefineOrNullOrEmpty = (v: unknown) => v === undefined || v === null || v === ''
 const checkNumber =
   (min: number | (() => number), max: number | (() => number), name?: string) =>
@@ -48,9 +51,24 @@ const checkString = (name?: string) => (rule: any, value: any, callback: any) =>
   }
   callback()
 }
+
+const validateForm = (
+  form: FormInstance,
+  validCallback?: () => void,
+  invalidCallback?: () => void
+) => {
+  form.validate((valid) => {
+    if (valid) {
+      validCallback && validCallback()
+    } else {
+      invalidCallback ? invalidCallback() : util.showMessage('表单校验失败', 'error')
+    }
+  })
+}
 export default {
   checkNumber,
   checkSelect,
   checkIp,
-  checkString
+  checkString,
+  validateForm
 }

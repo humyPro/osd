@@ -231,6 +231,16 @@ const submitSystemMaintenance = (form: SystemMaintenance) => {
     respParser: resultParser
   })
 }
+// 根据类型提交系统维护页面表单
+const submitSplitSystemMaintenanceForm = (type: string, form: Record<string, any>) => {
+  return request<Result>({
+    url: `${config.baseUrl}${config.submitSplitSystemMaintenanceForm}`,
+    query: { type: type },
+    method: 'post',
+    body: utils.jsonToXml(form, utils.castFromCamelCase),
+    respParser: resultParser
+  })
+}
 
 const ytControlAction = (action: string) => {
   return request<Result>({
@@ -267,6 +277,7 @@ export default {
   formatDisk,
   getSystemMaintenanceInfo,
   submitSystemMaintenance,
+  submitSplitSystemMaintenanceForm,
   ytControlAction,
   submitCameraAction
 }

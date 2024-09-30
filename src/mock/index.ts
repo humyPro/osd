@@ -1,4 +1,4 @@
-import fetchMock, { type MockRequest } from 'fetch-mock'
+import fetchMock, { type MockRequest, type MockResponseObject } from 'fetch-mock'
 import data from './data'
 const option = { delay: 1000 }
 import store from '@/store/AppStore'
@@ -55,5 +55,12 @@ fetchMock.post(
   data.getSystemMaintenance,
   option
 )
-fetchMock.post(baseConfig.baseUrl + baseConfig.loginForSystemInfo, data.loginForSystemInfo, option)
 fetchMock.post(baseConfig.baseUrl + baseConfig.submitSystemMaintenance, data.successResult, option)
+fetchMock.post(
+  new RegExp('.*'),
+  (url, request) => {
+    console.log(url, request)
+    return data.successResult
+  },
+  option
+)

@@ -241,30 +241,31 @@
                       ref="systemProductRef"
                     >
                       <FormTitle title="产品信息"></FormTitle>
-                      <el-form-item label="产品编码" prop="product.productNo">
+                      <el-form-item label="产品编码" prop="productNo">
                         <el-input
-                          :disabled="systemMaintenance.product.lock != 'true'"
+                          :disabled="systemMaintenance.product.lock === 'true'"
                           v-model="systemMaintenance.product.productNo"
                         />
                       </el-form-item>
-                      <el-form-item label="产品SN码" prop="product.productSn">
+                      <el-form-item label="产品SN码" prop="productSn">
                         <el-input
-                          :disabled="systemMaintenance.product.lock != 'true'"
+                          :disabled="systemMaintenance.product.lock === 'true'"
                           v-model="systemMaintenance.product.productSn"
                         />
                       </el-form-item>
-                      <el-form-item label="备注" prop="product.note">
+                      <el-form-item label="备注" prop="note">
                         <el-input
-                          :disabled="systemMaintenance.product.lock != 'true'"
+                          :disabled="systemMaintenance.product.lock === 'true'"
                           v-model="systemMaintenance.product.note"
                           type="textarea"
                         ></el-input>
                       </el-form-item>
                       <el-button
+                        :disabled="systemMaintenance.product.lock === 'true'"
                         :loading="loading.productInfoBtnLoding"
                         class="save-button"
                         type="primary"
-                        @click="submitProductInfo"
+                        @click="confirmSystemProduct"
                         >保存</el-button
                       >
                     </el-form>
@@ -278,29 +279,29 @@
                       ref="systemProductConfigRef"
                     >
                       <FormTitle title="产品配置"></FormTitle>
-                      <el-form-item label="TV1型号" prop="config.tv1">
+                      <el-form-item label="TV1型号" prop="tv1">
                         <el-input v-model="systemMaintenance.config.tv1" />
                       </el-form-item>
-                      <el-form-item label="TV2型号" prop="config.tv2">
+                      <el-form-item label="TV2型号" prop="tv2">
                         <el-input v-model="systemMaintenance.config.tv2" />
                       </el-form-item>
-                      <el-form-item label="IR1型号" prop="config.ir1">
+                      <el-form-item label="IR1型号" prop="ir1">
                         <el-input v-model="systemMaintenance.config.ir1" />
                       </el-form-item>
-                      <el-form-item label="IR2型号" prop="config.ir2">
+                      <el-form-item label="IR2型号" prop="ir2">
                         <el-input v-model="systemMaintenance.config.ir2" />
                       </el-form-item>
-                      <el-form-item label="LA型号" prop="config.la">
+                      <el-form-item label="LA型号" prop="la">
                         <el-input v-model="systemMaintenance.config.la" />
                       </el-form-item>
-                      <el-form-item label="用户协议" prop="config.userProtocol">
+                      <el-form-item label="用户协议" prop="userProtocol">
                         <el-input v-model="systemMaintenance.config.userProtocol" />
                       </el-form-item>
                       <el-button
                         :loading="loading.productConfigBtnLoding"
                         class="save-button"
                         type="primary"
-                        @click="submitProductConfig"
+                        @click="confirmSystemProductConfig"
                         >保存
                       </el-button>
                     </el-form>
@@ -318,20 +319,20 @@
                       ref="systemYtAngleZeroRef"
                     >
                       <FormTitle title="角度零位"></FormTitle>
-                      <el-form-item label="方位" prop="">
+                      <el-form-item label="方位" prop="angleYaw">
                         <el-input v-model="systemMaintenance.ptz.angleZero.angleYaw" />
                       </el-form-item>
-                      <el-form-item label="俯仰" prop="">
+                      <el-form-item label="俯仰" prop="anglePitch">
                         <el-input v-model="systemMaintenance.ptz.angleZero.anglePitch" />
                       </el-form-item>
-                      <el-form-item label="滚转" prop="">
+                      <el-form-item label="滚转" prop="angleRoll">
                         <el-input v-model="systemMaintenance.ptz.angleZero.angleRoll" />
                       </el-form-item>
                       <el-button
                         :loading="loading.ytZeroBtnLoding"
                         class="save-button"
                         type="primary"
-                        @click="submitYtZeroPosition"
+                        @click="confirmAngleZero"
                         >保存
                       </el-button>
                     </el-form>
@@ -343,20 +344,20 @@
                       ref="systemYtInstallRef"
                     >
                       <FormTitle title="安装误差"></FormTitle>
-                      <el-form-item label="方位" prop="">
+                      <el-form-item label="方位" prop="installYaw">
                         <el-input v-model="systemMaintenance.ptz.installZero.installYaw" />
                       </el-form-item>
-                      <el-form-item label="俯仰" prop="">
+                      <el-form-item label="俯仰" prop="installPitch">
                         <el-input v-model="systemMaintenance.ptz.installZero.installPitch" />
                       </el-form-item>
-                      <el-form-item label="滚转" prop="">
+                      <el-form-item label="滚转" prop="installRoll">
                         <el-input v-model="systemMaintenance.ptz.installZero.installRoll" />
                       </el-form-item>
                       <el-button
                         :loading="loading.ytInstallBtnLoding"
                         class="save-button"
                         type="primary"
-                        @click="submitYtInstallInfo"
+                        @click="confirmInstall"
                         >保存
                       </el-button>
                     </el-form>
@@ -372,20 +373,20 @@
                           label-width="80px"
                           ref="systemYtYawRef"
                         >
-                          <el-form-item label="方位Kp" prop="">
+                          <el-form-item label="方位Kp" prop="yawKp">
                             <el-input v-model="systemMaintenance.ptz.yawKp" />
                           </el-form-item>
-                          <el-form-item label="方位Ki" prop="">
+                          <el-form-item label="方位Ki" prop="yawKi">
                             <el-input v-model="systemMaintenance.ptz.yawKi" />
                           </el-form-item>
-                          <el-form-item label="方位Fp" prop="">
+                          <el-form-item label="方位Fp" prop="yawFp">
                             <el-input v-model="systemMaintenance.ptz.yawFp" />
                           </el-form-item>
                           <el-button
-                            :loading="loading.ptzBtnLoding"
+                            :loading="loading.ptzServoBtnLoding"
                             class="save-button"
                             type="primary"
-                            @click="submitServoParameters('yaw')"
+                            @click="confirmServoParams('yaw')"
                             >保存
                           </el-button>
                         </el-form>
@@ -398,20 +399,20 @@
                           label-width="80px"
                           ref="systemYtPitchRef"
                         >
-                          <el-form-item label="俯仰Kp" prop="">
+                          <el-form-item label="俯仰Kp" prop="pitchKp">
                             <el-input v-model="systemMaintenance.ptz.pitchKp" />
                           </el-form-item>
-                          <el-form-item label="俯仰Ki" prop="">
+                          <el-form-item label="俯仰Ki" prop="pitchKi">
                             <el-input v-model="systemMaintenance.ptz.pitchKi" />
                           </el-form-item>
-                          <el-form-item label="俯仰Fp" prop="">
+                          <el-form-item label="俯仰Fp" prop="pitchFp">
                             <el-input v-model="systemMaintenance.ptz.pitchFp" />
                           </el-form-item>
                           <el-button
-                            :loading="loading.ptzBtnLoding"
+                            :loading="loading.ptzServoBtnLoding"
                             class="save-button"
                             type="primary"
-                            @click="submitServoParameters('pitch')"
+                            @click="confirmServoParams('pitch')"
                             >保存
                           </el-button>
                         </el-form>
@@ -424,20 +425,20 @@
                           label-width="80px"
                           ref="systemYtRollRef"
                         >
-                          <el-form-item label="滚转Kp" prop="">
+                          <el-form-item label="滚转Kp" prop="rollKp">
                             <el-input v-model="systemMaintenance.ptz.rollKp" />
                           </el-form-item>
-                          <el-form-item label="滚转Ki" prop="">
+                          <el-form-item label="滚转Ki" prop="rollKi">
                             <el-input v-model="systemMaintenance.ptz.rollKi" />
                           </el-form-item>
-                          <el-form-item label="滚转Fp" prop="">
+                          <el-form-item label="滚转Fp" prop="rollFp">
                             <el-input v-model="systemMaintenance.ptz.rollFp" />
                           </el-form-item>
                           <el-button
-                            :loading="loading.ptzBtnLoding"
+                            :loading="loading.ptzServoBtnLoding"
                             class="save-button"
                             type="primary"
-                            @click="submitServoParameters('rollch')"
+                            @click="confirmServoParams('rollch')"
                             >保存
                           </el-button>
                         </el-form>
@@ -454,29 +455,29 @@
                     label-width="80px"
                     ref="systemGyroscopeRef"
                   >
-                    <el-form-item label="Xa" prop="">
+                    <el-form-item label="Xa" prop="xa">
                       <el-input v-model="systemMaintenance.ptz.xa" />
                     </el-form-item>
-                    <el-form-item label="Xb" prop="">
+                    <el-form-item label="Xb" prop="xb">
                       <el-input v-model="systemMaintenance.ptz.xb" />
                     </el-form-item>
-                    <el-form-item label="Ya" prop="">
+                    <el-form-item label="Ya" prop="ya">
                       <el-input v-model="systemMaintenance.ptz.ya" />
                     </el-form-item>
-                    <el-form-item label="Yb" prop="">
+                    <el-form-item label="Yb" prop="yb">
                       <el-input v-model="systemMaintenance.ptz.yb" />
                     </el-form-item>
-                    <el-form-item label="Za" prop="">
+                    <el-form-item label="Za" prop="za">
                       <el-input v-model="systemMaintenance.ptz.za" />
                     </el-form-item>
-                    <el-form-item label="Zb" prop="">
+                    <el-form-item label="Zb" prop="zb">
                       <el-input v-model="systemMaintenance.ptz.zb" />
                     </el-form-item>
                     <el-button
                       :loading="loading.gyroscopeBtnLoding"
                       class="save-button"
                       type="primary"
-                      @click="submitGyroscope"
+                      @click="confirmGyro"
                     >
                       确认
                     </el-button>
@@ -507,7 +508,9 @@
       <template #footer>
         <span class="dialog-footer">
           <el-button @click="showMaintenanceLogin = false">取消</el-button>
-          <el-button type="primary" @click="confirmLogin"> 确认 </el-button>
+          <el-button type="primary" @click="confirmLogin" :loading="loading.systemLoginBtnLoading">
+            确认
+          </el-button>
         </span>
       </template>
     </el-dialog>
@@ -538,8 +541,13 @@ import type {
   SystemProduct,
   SystemProductConfig,
   SystemPtzAngleZero,
-  SystemPtzInstallZero
+  SystemPtzInstallZero,
+  SystemGyroscope,
+  SystemYtPitch,
+  SystemYtYaw,
+  SystemYtRoll
 } from '@/common/apis/modelTypes'
+import type { StartWith } from '@/common/type'
 
 type LoginFormType = { account: string; password: string }
 const upload = ref<UploadInstance>()
@@ -568,7 +576,7 @@ const systemMaintenanceValues = {
   X4: 'X4'
 }
 const showMaintenanceLogin = ref(false)
-const showMaintenanceForm = ref(true)
+const showMaintenanceForm = ref(false)
 const loginForm = ref<LoginFormType>({} as LoginFormType)
 const userCommConfigRef = ref()
 const storageRef = ref()
@@ -593,11 +601,12 @@ const loading = ref({
   systemMaintenanceBtnLoading: true,
   formatBtnLoading: false,
   //
+  systemLoginBtnLoading: false,
   productInfoBtnLoding: false,
   productConfigBtnLoding: false,
   ytZeroBtnLoding: false,
   ytInstallBtnLoding: false,
-  ptzBtnLoding: false,
+  ptzServoBtnLoding: false,
   gyroscopeBtnLoding: false
 })
 const activeName = ref('yaw') // 云台配置菜单控制
@@ -661,12 +670,12 @@ const systemYtPitchRules = reactive<FormRules<SystemYtPitch>>({
   pitchKi: [{ validator: forms.checkString('俯仰Ki'), trigger: 'blur' }],
   pitchFp: [{ validator: forms.checkString('俯仰Fp'), trigger: 'blur' }]
 })
-const systemYtRollRules = reactive<FormRules<systemYtRollRules>>({
+const systemYtRollRules = reactive<FormRules<SystemYtRoll>>({
   rollKp: [{ validator: forms.checkString('滚转Kp'), trigger: 'blur' }],
   rollKi: [{ validator: forms.checkString('滚转Ki'), trigger: 'blur' }],
   rollFp: [{ validator: forms.checkString('滚转Fp'), trigger: 'blur' }]
 })
-const systemGyroscopeRules = reactive<FormRulrs<SystemGyroscope>>({
+const systemGyroscopeRules = reactive<FormRules<SystemGyroscope>>({
   xa: [{ validator: forms.checkString('Xa'), trigger: 'blur' }],
   xb: [{ validator: forms.checkString('Xb'), trigger: 'blur' }],
   ya: [{ validator: forms.checkString('Ya'), trigger: 'blur' }],
@@ -688,26 +697,6 @@ const handSystemFormExpand = () => {
     showMaintenanceLogin.value = true
     systemConfigModel.value = []
   }
-}
-const confirmLogin = () => {
-  if (!loginFormRef.value) {
-    return
-  }
-  ;(loginFormRef.value as FormInstance).validate((valid) => {
-    if (!valid) {
-      return
-    }
-    apis.login(loginForm.value.account, loginForm.value.password).then((res) =>
-      util.resultHandler(res, '认证失败', () => {
-        util.showMessage('认证成功')
-        showMaintenanceLogin.value = false
-        showMaintenanceForm.value = true
-        systemConfigModel.value = ['1']
-      })
-    )
-
-    nextTick(() => getSystemMaintenanceInfo())
-  })
 }
 
 const resetSystem = () => {
@@ -806,6 +795,144 @@ const confirmSystemMaintenance = () => {
   })
 }
 
+const confirmLogin = () => {
+  if (!loginFormRef.value) {
+    return
+  }
+  ;(loginFormRef.value as FormInstance).validate((valid) => {
+    if (!valid) {
+      return
+    }
+
+    forms.validateForm(loginFormRef.value as FormInstance, () => {
+      loading.value.systemLoginBtnLoading = true
+      apis
+        .submitSplitSystemMaintenanceForm('auth', {
+          auth: {
+            user: loginForm.value.account,
+            passwd: loginForm.value.password
+          }
+        })
+        .then((res) =>
+          util.resultHandler(res, '认证失败', () => {
+            util.showMessage('认证成功')
+            showMaintenanceLogin.value = false
+            showMaintenanceForm.value = true
+            systemConfigModel.value = ['1']
+            nextTick(() => getSystemMaintenanceInfo())
+          })
+        )
+        .finally(() => (loading.value.systemLoginBtnLoading = false))
+    })
+  })
+}
+
+const confirmSystemProduct = () => {
+  if (!systemProductRef.value) {
+    return
+  }
+  forms.validateForm(systemProductRef.value as FormInstance, () => {
+    loading.value.productInfoBtnLoding = true
+    apis
+      .submitSplitSystemMaintenanceForm('product', {
+        product: systemMaintenance.value.product
+      })
+      .then((res) => util.resultHandler(res, '提交产品信息失败'))
+      .finally(() => (loading.value.productInfoBtnLoding = false))
+  })
+}
+
+const confirmSystemProductConfig = () => {
+  if (!systemProductConfigRef.value) {
+    return
+  }
+  forms.validateForm(systemProductConfigRef.value as FormInstance, () => {
+    loading.value.productConfigBtnLoding = true
+    apis
+      .submitSplitSystemMaintenanceForm('product_config', {
+        productConfig: systemMaintenance.value.config
+      })
+      .then((res) => util.resultHandler(res, '提交产品配置信息失败'))
+      .finally(() => (loading.value.productConfigBtnLoding = false))
+  })
+}
+
+const confirmAngleZero = () => {
+  if (!systemYtAngleZeroRef.value) {
+    return
+  }
+  forms.validateForm(systemYtAngleZeroRef.value as FormInstance, () => {
+    loading.value.ytZeroBtnLoding = true
+    apis
+      .submitSplitSystemMaintenanceForm('angle_zero', {
+        angleZero: systemMaintenance.value.ptz.angleZero
+      })
+      .then((res) => util.resultHandler(res, '提交角度零位信息失败'))
+      .finally(() => (loading.value.ytZeroBtnLoding = false))
+  })
+}
+
+const confirmInstall = () => {
+  if (!systemYtInstallRef.value) {
+    return
+  }
+  forms.validateForm(systemYtInstallRef.value as FormInstance, () => {
+    loading.value.ytInstallBtnLoding = true
+    apis
+      .submitSplitSystemMaintenanceForm('install_zero', {
+        installZero: systemMaintenance.value.ptz.installZero
+      })
+      .then((res) => util.resultHandler(res, '提交安装误差信息失败'))
+      .finally(() => (loading.value.ytInstallBtnLoding = false))
+  })
+}
+
+const servoRefMap = {
+  yaw: systemYtYawRef,
+  pitch: systemYtPitchRef,
+  roll: systemYtRollRef
+}
+const confirmServoParams = (type: keyof typeof servoRefMap) => {
+  if (!servoRefMap[type].value) {
+    return
+  }
+  forms.validateForm(servoRefMap[type].value as FormInstance, () => {
+    type keysType = keyof typeof systemMaintenance.value.ptz
+    loading.value.ptzServoBtnLoding = true
+    const keys = Object.keys(systemMaintenance.value.ptz) as [keysType]
+    type formType = Partial<Record<StartWith<keysType, typeof type>, any>>
+    const params = (keys.filter((k) => k.startsWith(type)) as [keyof formType]).reduce((p, c) => {
+      p[c] = systemMaintenance.value.ptz[c]
+      return p
+    }, {} as formType)
+    apis
+      .submitSplitSystemMaintenanceForm('servo_' + type, {
+        [type]: params
+      })
+      .then((res) => util.resultHandler(res, '提交伺服参数失败'))
+      .finally(() => (loading.value.ptzServoBtnLoding = false))
+  })
+}
+
+const confirmGyro = () => {
+  if (!systemGyroscopeRef.value) {
+    return
+  }
+  forms.validateForm(systemGyroscopeRef.value as FormInstance, () => {
+    loading.value.gyroscopeBtnLoding = true
+    type keyType = keyof typeof systemMaintenance.value.ptz
+    const params = Object.keys(systemMaintenance.value.ptz)
+      .filter((k) => k.startsWith('x') || k.startsWith('y') || k.startsWith('z'))
+      .reduce((p, c) => (p[c as keyType] = systemMaintenance.value.ptz[c as keyType]), {} as any)
+    apis
+      .submitSplitSystemMaintenanceForm('gyro_compensation', {
+        para: params
+      })
+      .then((res) => util.resultHandler(res, '提交陀螺补偿信息失败'))
+      .finally(() => (loading.value.gyroscopeBtnLoding = false))
+  })
+}
+
 const getSystemInfo = () => {
   loading.value.systemSectionLoading = true
   apis
@@ -840,27 +967,6 @@ const getSystemMaintenanceInfo = () => {
     .then((res) => (systemMaintenance.value = res))
     .finally(() => (loading.value.systemMaintenanceLoading = false))
 }
-
-const submitProductInfo = () => {
-  // todo
-}
-
-const submitProductConfig = () => {
-  // todo
-}
-const submitYtZeroPosition = () => {
-  // todo
-}
-
-const submitYtInstallInfo = () => {
-  // todo
-}
-
-const submitServoParameters = (type) => {
-  // todo 伺服参数
-}
-
-const submitGyroscope = () => {}
 
 onMounted(() => {
   getSystemInfo()

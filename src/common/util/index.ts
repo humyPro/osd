@@ -1,4 +1,4 @@
-import { ElMessage } from 'element-plus'
+import { ElMessage, type FormInstance } from 'element-plus'
 import type { Result } from '../apis/modelTypes'
 type MessageType = 'success' | 'warning' | 'error' | 'info'
 const showMessage = (message: string, type: MessageType = 'success') => {
