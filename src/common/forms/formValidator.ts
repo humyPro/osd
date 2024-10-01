@@ -3,7 +3,12 @@ import util from '../util'
 
 const isUndefineOrNullOrEmpty = (v: unknown) => v === undefined || v === null || v === ''
 const checkNumber =
-  (min: number | (() => number), max: number | (() => number), name?: string) =>
+  (
+    min: number | (() => number),
+    max: number | (() => number),
+    name?: string,
+    int: boolean = true
+  ) =>
   (rule: any, value: any, callback: any) => {
     if (isUndefineOrNullOrEmpty(value)) {
       return callback(new Error(name ? `请输入${name}` : '请输入'))
@@ -11,7 +16,7 @@ const checkNumber =
     const localMax = max instanceof Function ? max() : max
     const localMin = min instanceof Function ? min() : min
 
-    if (!Number.isInteger(value)) {
+    if (int && !Number.isInteger(value)) {
       callback(new Error(name ? `${name}只能为整数` : '请输入数字'))
     } else {
       if (value > localMax) {

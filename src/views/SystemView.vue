@@ -241,14 +241,16 @@
                       ref="systemProductRef"
                     >
                       <FormTitle title="产品信息"></FormTitle>
-                      <el-form-item label="产品编码" prop="productNo">
+                      <el-form-item label="产品型号" prop="productNo">
                         <el-input
+                          placeholder="如:QP-125T"
                           :disabled="systemMaintenance.product.lock === 'true'"
                           v-model="systemMaintenance.product.productNo"
                         />
                       </el-form-item>
-                      <el-form-item label="产品SN码" prop="productSn">
+                      <el-form-item label="产品编码" prop="productSn">
                         <el-input
+                          placeholder="001-0001"
                           :disabled="systemMaintenance.product.lock === 'true'"
                           v-model="systemMaintenance.product.productSn"
                         />
@@ -280,22 +282,25 @@
                     >
                       <FormTitle title="产品配置"></FormTitle>
                       <el-form-item label="TV1型号" prop="tv1">
-                        <el-input v-model="systemMaintenance.config.tv1" />
+                        <el-input placeholder="0/1/2/3/4" v-model="systemMaintenance.config.tv1" />
                       </el-form-item>
                       <el-form-item label="TV2型号" prop="tv2">
-                        <el-input v-model="systemMaintenance.config.tv2" />
+                        <el-input placeholder="0/1/2/3/4" v-model="systemMaintenance.config.tv2" />
                       </el-form-item>
                       <el-form-item label="IR1型号" prop="ir1">
-                        <el-input v-model="systemMaintenance.config.ir1" />
+                        <el-input placeholder="0/1/2/3/4" v-model="systemMaintenance.config.ir1" />
                       </el-form-item>
                       <el-form-item label="IR2型号" prop="ir2">
-                        <el-input v-model="systemMaintenance.config.ir2" />
+                        <el-input placeholder="0/1/2/3/4" v-model="systemMaintenance.config.ir2" />
                       </el-form-item>
                       <el-form-item label="LA型号" prop="la">
-                        <el-input v-model="systemMaintenance.config.la" />
+                        <el-input placeholder="0/1/2/3/4" v-model="systemMaintenance.config.la" />
                       </el-form-item>
                       <el-form-item label="用户协议" prop="userProtocol">
-                        <el-input v-model="systemMaintenance.config.userProtocol" />
+                        <el-input
+                          placeholder="0/1/2/3/4"
+                          v-model="systemMaintenance.config.userProtocol"
+                        />
                       </el-form-item>
                       <el-button
                         :loading="loading.productConfigBtnLoding"
@@ -320,13 +325,25 @@
                     >
                       <FormTitle title="角度零位"></FormTitle>
                       <el-form-item label="方位" prop="angleYaw">
-                        <el-input v-model="systemMaintenance.ptz.angleZero.angleYaw" />
+                        <el-input
+                          placeholder="[0,360]"
+                          type="number"
+                          v-model="systemMaintenance.ptz.angleZero.angleYaw"
+                        />
                       </el-form-item>
                       <el-form-item label="俯仰" prop="anglePitch">
-                        <el-input v-model="systemMaintenance.ptz.angleZero.anglePitch" />
+                        <el-input
+                          placeholder="[0,360]"
+                          type="number"
+                          v-model="systemMaintenance.ptz.angleZero.anglePitch"
+                        />
                       </el-form-item>
                       <el-form-item label="滚转" prop="angleRoll">
-                        <el-input v-model="systemMaintenance.ptz.angleZero.angleRoll" />
+                        <el-input
+                          placeholder="[0,360]"
+                          type="number"
+                          v-model="systemMaintenance.ptz.angleZero.angleRoll"
+                        />
                       </el-form-item>
                       <el-button
                         :loading="loading.ytZeroBtnLoding"
@@ -345,13 +362,25 @@
                     >
                       <FormTitle title="安装误差"></FormTitle>
                       <el-form-item label="方位" prop="installYaw">
-                        <el-input v-model="systemMaintenance.ptz.installZero.installYaw" />
+                        <el-input
+                          placeholder="[-5,5]"
+                          type="number"
+                          v-model="systemMaintenance.ptz.installZero.installYaw"
+                        />
                       </el-form-item>
                       <el-form-item label="俯仰" prop="installPitch">
-                        <el-input v-model="systemMaintenance.ptz.installZero.installPitch" />
+                        <el-input
+                          placeholder="[-5,5]"
+                          type="number"
+                          v-model="systemMaintenance.ptz.installZero.installPitch"
+                        />
                       </el-form-item>
                       <el-form-item label="滚转" prop="installRoll">
-                        <el-input v-model="systemMaintenance.ptz.installZero.installRoll" />
+                        <el-input
+                          placeholder="[-5,5]"
+                          type="number"
+                          v-model="systemMaintenance.ptz.installZero.installRoll"
+                        />
                       </el-form-item>
                       <el-button
                         :loading="loading.ytInstallBtnLoding"
@@ -374,13 +403,25 @@
                           ref="systemYtYawRef"
                         >
                           <el-form-item label="方位Kp" prop="yawKp">
-                            <el-input v-model="systemMaintenance.ptz.yawKp" />
+                            <el-input
+                              placeholder="[0,500]"
+                              type="number"
+                              v-model="systemMaintenance.ptz.yawKp"
+                            />
                           </el-form-item>
                           <el-form-item label="方位Ki" prop="yawKi">
-                            <el-input v-model="systemMaintenance.ptz.yawKi" />
+                            <el-input
+                              placeholder="[0,50000]"
+                              type="number"
+                              v-model="systemMaintenance.ptz.yawKi"
+                            />
                           </el-form-item>
                           <el-form-item label="方位Fp" prop="yawFp">
-                            <el-input v-model="systemMaintenance.ptz.yawFp" />
+                            <el-input
+                              placeholder="[0,1000]"
+                              type="number"
+                              v-model="systemMaintenance.ptz.yawFp"
+                            />
                           </el-form-item>
                           <el-button
                             :loading="loading.ptzServoBtnLoding"
@@ -400,13 +441,25 @@
                           ref="systemYtPitchRef"
                         >
                           <el-form-item label="俯仰Kp" prop="pitchKp">
-                            <el-input v-model="systemMaintenance.ptz.pitchKp" />
+                            <el-input
+                              placeholder="[0,500]"
+                              type="number"
+                              v-model="systemMaintenance.ptz.pitchKp"
+                            />
                           </el-form-item>
                           <el-form-item label="俯仰Ki" prop="pitchKi">
-                            <el-input v-model="systemMaintenance.ptz.pitchKi" />
+                            <el-input
+                              placeholder="[0,50000]"
+                              type="number"
+                              v-model="systemMaintenance.ptz.pitchKi"
+                            />
                           </el-form-item>
                           <el-form-item label="俯仰Fp" prop="pitchFp">
-                            <el-input v-model="systemMaintenance.ptz.pitchFp" />
+                            <el-input
+                              placeholder="[0,1000]"
+                              type="number"
+                              v-model="systemMaintenance.ptz.pitchFp"
+                            />
                           </el-form-item>
                           <el-button
                             :loading="loading.ptzServoBtnLoding"
@@ -425,14 +478,28 @@
                           label-width="80px"
                           ref="systemYtRollRef"
                         >
-                          <el-form-item label="滚转Kp" prop="rollKp">
+                          <el-form-item
+                            placeholder="[0,500]"
+                            type="number"
+                            label="滚转Kp"
+                            prop="rollKp"
+                          >
                             <el-input v-model="systemMaintenance.ptz.rollKp" />
                           </el-form-item>
-                          <el-form-item label="滚转Ki" prop="rollKi">
+                          <el-form-item
+                            placeholder="[0,50000]"
+                            type="number"
+                            label="滚转Ki"
+                            prop="rollKi"
+                          >
                             <el-input v-model="systemMaintenance.ptz.rollKi" />
                           </el-form-item>
                           <el-form-item label="滚转Fp" prop="rollFp">
-                            <el-input v-model="systemMaintenance.ptz.rollFp" />
+                            <el-input
+                              placeholder="[0,1000]"
+                              type="number"
+                              v-model="systemMaintenance.ptz.rollFp"
+                            />
                           </el-form-item>
                           <el-button
                             :loading="loading.ptzServoBtnLoding"
@@ -456,22 +523,22 @@
                     ref="systemGyroscopeRef"
                   >
                     <el-form-item label="Xa" prop="xa">
-                      <el-input v-model="systemMaintenance.ptz.xa" />
+                      <el-input type="number" v-model="systemMaintenance.ptz.xa" />
                     </el-form-item>
                     <el-form-item label="Xb" prop="xb">
-                      <el-input v-model="systemMaintenance.ptz.xb" />
+                      <el-input type="number" v-model="systemMaintenance.ptz.xb" />
                     </el-form-item>
                     <el-form-item label="Ya" prop="ya">
-                      <el-input v-model="systemMaintenance.ptz.ya" />
+                      <el-input type="number" v-model="systemMaintenance.ptz.ya" />
                     </el-form-item>
                     <el-form-item label="Yb" prop="yb">
-                      <el-input v-model="systemMaintenance.ptz.yb" />
+                      <el-input type="number" v-model="systemMaintenance.ptz.yb" />
                     </el-form-item>
                     <el-form-item label="Za" prop="za">
-                      <el-input v-model="systemMaintenance.ptz.za" />
+                      <el-input type="number" v-model="systemMaintenance.ptz.za" />
                     </el-form-item>
                     <el-form-item label="Zb" prop="zb">
-                      <el-input v-model="systemMaintenance.ptz.zb" />
+                      <el-input type="number" v-model="systemMaintenance.ptz.zb" />
                     </el-form-item>
                     <el-button
                       :loading="loading.gyroscopeBtnLoding"
@@ -483,6 +550,9 @@
                     </el-button>
                   </el-form>
                 </div>
+              </div>
+              <div class="export-btn-box">
+                <el-button @click="exportToFile" type="primary">导出文件</el-button>
               </div>
             </el-collapse-item>
           </el-collapse>
@@ -569,13 +639,6 @@ const systemMaintenance = ref<SystemMaintenance>({
   }
 } as SystemMaintenance)
 const upProgress = ref(0) //上传进度
-const systemMaintenanceValues = {
-  无: '',
-  X1: 'X1',
-  X2: 'X2',
-  X3: 'X3',
-  X4: 'X4'
-}
 const showMaintenanceLogin = ref(false)
 const showMaintenanceForm = ref(false)
 const showUploadProgress = ref(false)
@@ -583,7 +646,6 @@ const loginForm = ref<LoginFormType>({} as LoginFormType)
 const userCommConfigRef = ref()
 const storageRef = ref()
 const loginFormRef = ref()
-const systemMaintenanceFormRef = ref()
 const fileList = ref([])
 const upgradeBtnDisabled = ref(true)
 const upgradeUrl = store.config.upgradeSystemFileUrl
@@ -653,29 +715,29 @@ const systemProductConfigRules = reactive<FormRules<SystemProductConfig>>({
   userProtocol: [{ validator: forms.checkString('用户协议'), trigger: 'blur' }]
 })
 const systemPtzAngleZeroRules = reactive<FormRules<SystemPtzAngleZero>>({
-  angleYaw: [{ validator: forms.checkString('方位'), trigger: 'blur' }],
-  anglePitch: [{ validator: forms.checkString('仰角'), trigger: 'blur' }],
-  angleRoll: [{ validator: forms.checkString('翻滚'), trigger: 'blur' }]
+  angleYaw: [{ validator: forms.checkNumber(0, 300, '方位', false), trigger: 'blur' }],
+  anglePitch: [{ validator: forms.checkNumber(0, 300, '仰角', false), trigger: 'blur' }],
+  angleRoll: [{ validator: forms.checkNumber(0, 300, '翻滚', false), trigger: 'blur' }]
 })
 const systemPtzInstallZeroRules = reactive<FormRules<SystemPtzInstallZero>>({
-  installYaw: [{ validator: forms.checkString('方位'), trigger: 'blur' }],
-  installPitch: [{ validator: forms.checkString('仰角'), trigger: 'blur' }],
-  installRoll: [{ validator: forms.checkString('翻滚'), trigger: 'blur' }]
+  installYaw: [{ validator: forms.checkNumber(-5, 5, '方位', false), trigger: 'blur' }],
+  installPitch: [{ validator: forms.checkNumber(-5, 5, '仰角', false), trigger: 'blur' }],
+  installRoll: [{ validator: forms.checkNumber(-5, 5, '翻滚', false), trigger: 'blur' }]
 })
 const systemYtYawRules = reactive<FormRules<SystemYtYaw>>({
-  yawKp: [{ validator: forms.checkString('方位Kp'), trigger: 'blur' }],
-  yawKi: [{ validator: forms.checkString('方位Ki'), trigger: 'blur' }],
-  yawFp: [{ validator: forms.checkString('方位Fp'), trigger: 'blur' }]
+  yawKp: [{ validator: forms.checkNumber(0, 500, '方位Kp', false), trigger: 'blur' }],
+  yawKi: [{ validator: forms.checkNumber(0, 50000, '方位Ki', false), trigger: 'blur' }],
+  yawFp: [{ validator: forms.checkNumber(0, 1000, '方位Fp', false), trigger: 'blur' }]
 })
 const systemYtPitchRules = reactive<FormRules<SystemYtPitch>>({
-  pitchKp: [{ validator: forms.checkString('俯仰Kp'), trigger: 'blur' }],
-  pitchKi: [{ validator: forms.checkString('俯仰Ki'), trigger: 'blur' }],
-  pitchFp: [{ validator: forms.checkString('俯仰Fp'), trigger: 'blur' }]
+  pitchKp: [{ validator: forms.checkNumber(0, 500, '俯仰Kp', false), trigger: 'blur' }],
+  pitchKi: [{ validator: forms.checkNumber(0, 50000, '俯仰Ki', false), trigger: 'blur' }],
+  pitchFp: [{ validator: forms.checkNumber(0, 1000, '俯仰Fp', false), trigger: 'blur' }]
 })
 const systemYtRollRules = reactive<FormRules<SystemYtRoll>>({
-  rollKp: [{ validator: forms.checkString('滚转Kp'), trigger: 'blur' }],
-  rollKi: [{ validator: forms.checkString('滚转Ki'), trigger: 'blur' }],
-  rollFp: [{ validator: forms.checkString('滚转Fp'), trigger: 'blur' }]
+  rollKp: [{ validator: forms.checkNumber(0, 500, '滚转Kp', false), trigger: 'blur' }],
+  rollKi: [{ validator: forms.checkNumber(0, 50000, '滚转Ki', false), trigger: 'blur' }],
+  rollFp: [{ validator: forms.checkNumber(0, 1000, '滚转Fp', false), trigger: 'blur' }]
 })
 const systemGyroscopeRules = reactive<FormRules<SystemGyroscope>>({
   xa: [{ validator: forms.checkString('Xa'), trigger: 'blur' }],
@@ -793,23 +855,6 @@ const confirmStorage = () => {
         .submitStorageForm(storageForm.value)
         .then((res) => util.resultHandler(res, '提交配置信息失败'))
         .finally(() => (loading.value.submitStorageInfoBtnLoading = false))
-    } else {
-      util.showMessage('表单校验失败', 'error')
-    }
-  })
-}
-
-const confirmSystemMaintenance = () => {
-  if (!systemMaintenanceFormRef.value) {
-    return
-  }
-  ;(systemMaintenanceFormRef.value as FormInstance).validate((valid) => {
-    if (valid) {
-      loading.value.systemMaintenanceBtnLoading = true
-      apis
-        .submitSystemMaintenance(systemMaintenance.value)
-        .then((res) => util.resultHandler(res, '提交系统维护信息失败'))
-        .finally(() => (loading.value.systemMaintenanceBtnLoading = false))
     } else {
       util.showMessage('表单校验失败', 'error')
     }
@@ -988,7 +1033,43 @@ const getSystemMaintenanceInfo = () => {
     .then((res) => (systemMaintenance.value = res))
     .finally(() => (loading.value.systemMaintenanceLoading = false))
 }
-
+const exportToFile = () => {
+  const form = systemMaintenance.value
+  const content = `产品型号：${form.product.productNo}
+产品SN码：${form.product.productSn}
+方位角度零位：${form.ptz.angleZero.angleYaw}
+俯仰角度零位：${form.ptz.angleZero.anglePitch}
+翻滚角度零位：${form.ptz.angleZero.angleRoll}
+方位安装误差角：${form.ptz.installZero.installYaw}
+俯仰安装误差角：${form.ptz.installZero.installPitch}
+翻滚安装误差角：${form.ptz.installZero.installRoll}
+陀螺补偿参数xa：${form.ptz.xa}
+陀螺补偿参数xb：${form.ptz.xb}
+陀螺补偿参数ya：${form.ptz.ya}
+陀螺补偿参数yb：${form.ptz.yb}
+陀螺补偿参数za：${form.ptz.za}
+陀螺补偿参数zb：${form.ptz.zb}
+方位Kp：${form.ptz.yawKp}
+方位Ki：${form.ptz.yawKi}
+方位Fp：${form.ptz.yawFp}
+俯仰Kp：${form.ptz.pitchKp}
+俯仰Ki：${form.ptz.pitchKi}
+俯仰Fp：${form.ptz.pitchFp}
+滚转Kp：${form.ptz.rollKp}
+滚转Ki：${form.ptz.rollKi}
+滚转Fp：${form.ptz.rollFp}
+  `
+  const blob = new Blob([content], { type: 'text/plain' })
+  const url = URL.createObjectURL(blob)
+  const link = document.createElement('a')
+  link.href = url
+  const now = new Date()
+  link.download = `${form.product.productNo}_${form.product.productSn}_${now.getFullYear()}-${now.getMonth() + 1}-${now.getDate()} ${now.getHours()}_${now.getMinutes()}_${now.getSeconds()}`
+  document.body.appendChild(link)
+  link.click()
+  document.body.removeChild(link)
+  URL.revokeObjectURL(url)
+}
 onMounted(() => {
   getSystemInfo()
   getUserCommunicationInfo()
@@ -1020,5 +1101,10 @@ onMounted(() => {
 }
 .upload .el-progress--line {
   width: 100%;
+}
+.export-btn-box {
+  display: flex;
+  justify-content: flex-end;
+  padding-right: 30px;
 }
 </style>
