@@ -19,5 +19,6 @@
   "cameraControl": "/set_codec?type=lens_ctl",
   "getSystemMaintenance": "/get_codec?type=maintenance",
   "submitSystemMaintenance": "/set_codec?type=maintenance",
-  "submitSplitSystemMaintenanceForm": "/maintenance"
+  "submitSplitSystemMaintenanceForm": "/maintenance",
+  "getUpProgress": "/up_progress"
 }

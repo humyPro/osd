@@ -302,5 +302,11 @@ export default {
 	<auth>
 		<user>root</user>
 		<passwd>12345</passwd>
-	</auth> `
+	</auth> `,
+  getUpProgress(progress: number) {
+    return `<?xml version="1.0" encoding="utf-8"?>
+	<get_upgrade>
+	<up_progress>${progress}</up_progress> 
+	</get_upgrade>`
+  }
 }

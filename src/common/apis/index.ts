@@ -7,7 +7,8 @@ import {
   type VencForm,
   type VideoForm,
   type VersionInfo,
-  type SystemMaintenance
+  type SystemMaintenance,
+  type UpProgress
 } from './modelTypes'
 import utils from '@/common/util'
 import { request } from './common'
@@ -210,6 +211,17 @@ const formatDisk = () => {
     respParser: resultParser
   })
 }
+const getUpProgress = () => {
+  return request({
+    url: `${config.baseUrl}${config.getUpProgress}`,
+    method: 'post',
+    body: utils.jsonToXml({ getUpgrade: { upProgress: 0 } }, utils.castFromCamelCase),
+    respParser: async (response: Response) => {
+      const txt = await response.text()
+      return utils.xmlToJson<UpProgress>(txt)
+    }
+  })
+}
 
 const getSystemMaintenanceInfo = () => {
   return request({
@@ -258,7 +270,6 @@ const submitCameraAction = (device: number, action: number) => {
     respParser: resultParser
   })
 }
-
 export default {
   request,
   login,
@@ -279,5 +290,6 @@ export default {
   submitSystemMaintenance,
   submitSplitSystemMaintenanceForm,
   ytControlAction,
-  submitCameraAction
+  submitCameraAction,
+  getUpProgress
 }

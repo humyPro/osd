@@ -7,7 +7,7 @@ const authIntercepter: (request: { url: string }, resp: Response) => Promise<Res
   res
 ) => {
   if (res.status === 401) {
-    router.push('/login')
+    router.replace('/login')
     throw new Error('认证过期，请重新登录')
   }
   return Promise.resolve(res)

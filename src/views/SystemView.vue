@@ -176,10 +176,9 @@
                 systemInfo.version || 'unknown'
               }}</el-text>
             </el-form-item>
-            <el-form-item label="系统升级">
+            <el-form-item label="系统升级" class="upload">
               <el-upload
                 ref="upload"
-                class="upload-demo"
                 v-model:file-list="fileList"
                 :action="upgradeUrl"
                 :limit="1"
@@ -204,6 +203,7 @@
                   更新
                 </el-button>
               </el-upload>
+              <el-progress v-if="showUploadProgress" :percentage="upProgress" />
             </el-form-item>
             <el-divider />
             <div style="width: 100%; display: flex; justify-content: space-around">
@@ -438,7 +438,7 @@
                             :loading="loading.ptzServoBtnLoding"
                             class="save-button"
                             type="primary"
-                            @click="confirmServoParams('rollch')"
+                            @click="confirmServoParams('roll')"
                             >保存
                           </el-button>
                         </el-form>
@@ -568,6 +568,7 @@ const systemMaintenance = ref<SystemMaintenance>({
     installZero: {}
   }
 } as SystemMaintenance)
+const upProgress = ref(0) //上传进度
 const systemMaintenanceValues = {
   无: '',
   X1: 'X1',
@@ -577,6 +578,7 @@ const systemMaintenanceValues = {
 }
 const showMaintenanceLogin = ref(false)
 const showMaintenanceForm = ref(false)
+const showUploadProgress = ref(false)
 const loginForm = ref<LoginFormType>({} as LoginFormType)
 const userCommConfigRef = ref()
 const storageRef = ref()
@@ -725,6 +727,7 @@ const onUploadSuccess = () => {
 }
 const handleRemove: UploadProps['onRemove'] = () => {
   upload.value!.clearFiles()
+  showUploadProgress.value = false
 }
 const handleExceed: UploadProps['onExceed'] = (files: File[]) => {
   upload.value!.clearFiles()
@@ -734,7 +737,25 @@ const handleExceed: UploadProps['onExceed'] = (files: File[]) => {
 }
 
 const submitUpload = () => {
+  upProgress.value = 0
+  showUploadProgress.value = true
   upload.value!.submit()
+  const getProgress = () => {
+    const timer = setTimeout(() => {
+      apis.getUpProgress().then((res) => {
+        if (!showUploadProgress.value) {
+          clearTimeout(timer)
+          return
+        }
+        const progress = res.upProgress
+        upProgress.value = progress
+        if (progress < 100) {
+          getProgress()
+        }
+      })
+    }, 100)
+  }
+  getProgress()
 }
 const confirmFormat = () => {
   loading.value.formatBtnLoading = true
@@ -987,7 +1008,7 @@ onMounted(() => {
   width: 160px;
 }
 :deep(.el-upload-list__item .el-progress) {
-  top: 30px;
+  display: none;
 }
 .system-info-box {
   display: flex;
@@ -996,5 +1017,8 @@ onMounted(() => {
   display: flex;
   flex-direction: column;
   margin: 0 21px;
+}
+.upload .el-progress--line {
+  width: 100%;
 }
 </style>

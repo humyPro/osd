@@ -56,6 +56,20 @@ fetchMock.post(
   option
 )
 fetchMock.post(baseConfig.baseUrl + baseConfig.submitSystemMaintenance, data.successResult, option)
+let progress = 0
+const getProgress = () => {
+  if (progress > 100) {
+    progress = 0
+    return progress
+  }
+  progress = progress + 10
+  return progress
+}
+fetchMock.post(
+  baseConfig.baseUrl + baseConfig.getUpProgress,
+  () => data.getUpProgress(getProgress()),
+  option
+)
 fetchMock.post(
   new RegExp('.*'),
   (url, request) => {

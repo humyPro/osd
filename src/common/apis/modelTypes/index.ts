@@ -183,6 +183,9 @@ type SystemMaintenance = {
     SystemYtRoll &
     SystemGyroscope
 }
+type UpProgress = {
+  upProgress: number
+}
 export type {
   Result,
   EncodingForm,
@@ -208,5 +211,6 @@ export type {
   SystemYtYaw,
   SystemYtPitch,
   SystemYtRoll,
-  SystemGyroscope
+  SystemGyroscope,
+  UpProgress
 }
