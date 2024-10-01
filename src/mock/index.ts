@@ -1,4 +1,4 @@
-import fetchMock, { type MockRequest, type MockResponseObject } from 'fetch-mock'
+import fetchMock, { type MockRequest } from 'fetch-mock'
 import data from './data'
 const option = { delay: 1000 }
 import store from '@/store/AppStore'

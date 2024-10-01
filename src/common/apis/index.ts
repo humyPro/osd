@@ -15,15 +15,6 @@ import { request } from './common'
 import store from '@/store/AppStore'
 const config = store.config
 const xmlHeader = `<?xml version="1.0" encoding="utf-8"?>`
-const castFormKey = (form: {}) => {
-  return Object.entries(form).reduce(
-    (pre, [key, value]) => {
-      pre[utils.castFromCamelCase(key.toString())] = value
-      return pre
-    },
-    {} as Record<string, any>
-  )
-}
 
 const resultParser = async (res: Response) => {
   let txt = await res.text()
@@ -40,18 +31,6 @@ const login: (account: string, password: string) => Promise<Result> = (
     url: `${config.baseUrl}${config.loginUrl}`,
     method: 'post',
     body: `${xmlHeader}<logon><user>${account}</user><passwd>${password}</passwd></logon>`,
-    respParser: resultParser
-  })
-}
-
-const loginForSystemConfig: (account: string, password: string) => Promise<Result> = (
-  account: string,
-  password: string
-) => {
-  return request<Result>({
-    url: `${config.baseUrl}${config.loginForSystemInfo}`,
-    method: 'post',
-    body: `${xmlHeader}<auth><user>${account}</user><passwd>${password}</passwd></logon>`,
     respParser: resultParser
   })
 }

@@ -20,9 +20,10 @@ export const request = async <T>(params: RequestType<T>): Promise<T> => {
   if (query) {
     const urlObj = new URL(url)
     const searchParams = urlObj.searchParams
-    for (const [key, value] of Object.entries(query)) {
+    for (const k of Object.keys(query)) {
+      const value = query[k]
       if (value != null && value != undefined) {
-        searchParams.append(key, value.toString())
+        searchParams.append(k, value.toString())
       }
     }
     urlObj.search = searchParams.toString()
