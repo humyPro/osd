@@ -17,7 +17,7 @@ const resultHandler = (
     if (dataHander) {
       dataHander(result.data, result.retcode, result.describe)
     } else {
-      showMessage(result.describe, 'success')
+      showMessage(result.describe || '操作成功', 'success')
     }
   } else {
     showMessage(errorMsg || result.describe, 'error')

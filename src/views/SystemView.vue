@@ -552,6 +552,18 @@
                 </div>
               </div>
               <div class="export-btn-box">
+                <el-button
+                  @click="confirmSystembtn(1)"
+                  type="primary"
+                  :loading="loading.systemBtnLoading1"
+                  >电机找零</el-button
+                >
+                <el-button
+                  @click="confirmSystembtn(2)"
+                  type="primary"
+                  :loading="loading.systemBtnLoading2"
+                  >温度补偿</el-button
+                >
                 <el-button @click="exportToFile" type="primary">导出文件</el-button>
               </div>
             </el-collapse-item>
@@ -671,7 +683,9 @@ const loading = ref({
   ytZeroBtnLoding: false,
   ytInstallBtnLoding: false,
   ptzServoBtnLoding: false,
-  gyroscopeBtnLoding: false
+  gyroscopeBtnLoding: false,
+  systemBtnLoading1: false,
+  systemBtnLoading2: false
 })
 const activeName = ref('yaw') // 云台配置菜单控制
 const userCommConfigRules = reactive<FormRules<UserCommunicationForm>>({
@@ -979,7 +993,15 @@ const confirmServoParams = (type: keyof typeof servoRefMap) => {
       .finally(() => (loading.value.ptzServoBtnLoding = false))
   })
 }
-
+const confirmSystembtn = (type: 1 | 2) => {
+  loading.value[`systemBtnLoading${type}`] = true
+  apis
+    .submitSplitSystemMaintenanceForm('ext', {
+      ext: { op: type }
+    })
+    .then((res) => util.resultHandler(res, '操作失败'))
+    .finally(() => (loading.value[`systemBtnLoading${type}`] = false))
+}
 const confirmGyro = () => {
   if (!systemGyroscopeRef.value) {
     return
@@ -988,8 +1010,12 @@ const confirmGyro = () => {
     loading.value.gyroscopeBtnLoding = true
     type keyType = keyof typeof systemMaintenance.value.ptz
     const params = Object.keys(systemMaintenance.value.ptz)
-      .filter((k) => k.startsWith('x') || k.startsWith('y') || k.startsWith('z'))
-      .reduce((p, c) => (p[c as keyType] = systemMaintenance.value.ptz[c as keyType]), {} as any)
+      .filter((k) => /^[xyz][ab]$/.test(k))
+      .reduce((p, c) => {
+        const v = systemMaintenance.value.ptz[c as keyType]
+        p[c as keyType] = v
+        return p
+      }, {} as any)
     apis
       .submitSplitSystemMaintenanceForm('gyro_compensation', {
         para: params
