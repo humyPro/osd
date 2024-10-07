@@ -1,6 +1,12 @@
 import configJson from '@/router/config.json'
-
-const store = reactive({
-  config: configJson
+import { defineStore } from 'pinia'
+export const useAppConfig = defineStore('appConfig', {
+  state: () => ({
+    config: configJson
+  }),
+  actions: {
+    setBaseUrl(url: string) {
+      this.config.baseUrl = url
+    }
+  }
 })
-export default store

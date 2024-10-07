@@ -12,9 +12,11 @@ import {
 } from './modelTypes'
 import utils from '@/common/util'
 import { request } from './common'
-import store from '@/store/AppStore'
-const config = store.config
+import { useAppConfig } from '@/store/AppStore'
 const xmlHeader = `<?xml version="1.0" encoding="utf-8"?>`
+const getConfig = () => {
+  return useAppConfig().config
+}
 
 const resultParser = async (res: Response) => {
   let txt = await res.text()
@@ -28,7 +30,7 @@ const login: (account: string, password: string) => Promise<Result> = (
   password: string
 ) => {
   return request<Result>({
-    url: `${config.baseUrl}${config.loginUrl}`,
+    url: `${getConfig().baseUrl}${getConfig().loginUrl}`,
     method: 'post',
     body: `${xmlHeader}<logon><user>${account}</user><passwd>${password}</passwd></logon>`,
     respParser: resultParser
@@ -37,7 +39,7 @@ const login: (account: string, password: string) => Promise<Result> = (
 
 const getEncodingForm: () => Promise<EncodingForm> = () => {
   return request({
-    url: `${config.baseUrl}${config.getEncodingUrl}`,
+    url: `${getConfig().baseUrl}${getConfig().getEncodingUrl}`,
     method: 'post',
     body: `${xmlHeader}<device_status></device_status>`,
     respParser: async (response: Response) => {
@@ -62,7 +64,7 @@ const submitEncodingForm = (index: number, form: VencForm) => {
   const data = utils.jsonToXml(requestData, utils.castFromCamelCase)
 
   return request<Result>({
-    url: `${config.baseUrl}${config.submitEncodingFormUrl}`,
+    url: `${getConfig().baseUrl}${getConfig().submitEncodingFormUrl}`,
     method: 'post',
     body: data,
     respParser: resultParser
@@ -71,7 +73,7 @@ const submitEncodingForm = (index: number, form: VencForm) => {
 
 const getNetworkInfo = () => {
   return request({
-    url: `${config.baseUrl}${config.getNetworkInfoUrl}`,
+    url: `${getConfig().baseUrl}${getConfig().getNetworkInfoUrl}`,
     method: 'post',
     body: `${xmlHeader}<network></network>`,
     respParser: async (response: Response) => {
@@ -84,7 +86,7 @@ const getNetworkInfo = () => {
 const submitNetworkForm = (form: NetworkForm) => {
   const data = utils.jsonToXml(form, utils.castFromCamelCase)
   return request<Result>({
-    url: `${config.baseUrl}${config.submitNetworkFormUrl}`,
+    url: `${getConfig().baseUrl}${getConfig().submitNetworkFormUrl}`,
     method: 'post',
     body: data,
     respParser: resultParser
@@ -96,7 +98,7 @@ const getVideoInfo = () => {
     video: VideoForm[]
   }
   return request({
-    url: `${config.baseUrl}${config.getVideoInfoUrl}`,
+    url: `${getConfig().baseUrl}${getConfig().getVideoInfoUrl}`,
     method: 'post',
     body: `${xmlHeader}<video></video>`,
     respParser: async (response: Response) => {
@@ -107,7 +109,7 @@ const getVideoInfo = () => {
 }
 const submitVideoInfo = (data: { video: { index: number } & VideoForm }) => {
   return request<Result>({
-    url: `${config.baseUrl}${config.submitVideoFormUrl}`,
+    url: `${getConfig().baseUrl}${getConfig().submitVideoFormUrl}`,
     method: 'post',
     body: utils.jsonToXml(data, utils.castFromCamelCase),
     respParser: resultParser
@@ -115,7 +117,7 @@ const submitVideoInfo = (data: { video: { index: number } & VideoForm }) => {
 }
 const getVersionInfo = () => {
   return request({
-    url: `${config.baseUrl}${config.getVersionInfoUrl}`,
+    url: `${getConfig().baseUrl}${getConfig().getVersionInfoUrl}`,
     method: 'post',
     body: `${xmlHeader}<get_version></get_version>`,
     respParser: async (response: Response) => {
@@ -132,7 +134,7 @@ const getVersionInfo = () => {
  */
 const systemSetting = (type: number) => {
   return request({
-    url: `${config.baseUrl}${config.submitSystemSettingFormUrl}`,
+    url: `${getConfig().baseUrl}${getConfig().submitSystemSettingFormUrl}`,
     method: 'post',
     body: `${xmlHeader}<system_set>${type}</system_set>`,
     respParser: resultParser
@@ -141,7 +143,7 @@ const systemSetting = (type: number) => {
 
 const getUserCommunicationInfo = () => {
   return request({
-    url: `${config.baseUrl}${config.getUserCommunicationInfoUrl}`,
+    url: `${getConfig().baseUrl}${getConfig().getUserCommunicationInfoUrl}`,
     method: 'post',
     body: `${xmlHeader}<communication></communication>`,
     respParser: async (response: Response) => {
@@ -153,7 +155,7 @@ const getUserCommunicationInfo = () => {
 
 const submitUserCommunicationForm = (form: UserCommunicationForm) => {
   return request<Result>({
-    url: `${config.baseUrl}${config.submitUserCommunicationFormUrl}`,
+    url: `${getConfig().baseUrl}${getConfig().submitUserCommunicationFormUrl}`,
     method: 'post',
     body: utils.jsonToXml({ communication: form }, utils.castFromCamelCase),
     respParser: resultParser
@@ -162,7 +164,7 @@ const submitUserCommunicationForm = (form: UserCommunicationForm) => {
 
 const getStorageInfo = () => {
   return request({
-    url: `${config.baseUrl}${config.getRecordInfoUrl}`,
+    url: `${getConfig().baseUrl}${getConfig().getRecordInfoUrl}`,
     method: 'post',
     body: `${xmlHeader}<get_record></get_record>`,
     respParser: async (response: Response) => {
@@ -174,7 +176,7 @@ const getStorageInfo = () => {
 
 const submitStorageForm = (form: StorageForm) => {
   return request<Result>({
-    url: `${config.baseUrl}${config.submitRecordFormUrl}`,
+    url: `${getConfig().baseUrl}${getConfig().submitRecordFormUrl}`,
     method: 'post',
     body: utils.jsonToXml({ record: form }, utils.castFromCamelCase),
     respParser: resultParser
@@ -184,7 +186,7 @@ const submitStorageForm = (form: StorageForm) => {
 const formatDisk = () => {
   //格式化
   return request<Result>({
-    url: `${config.baseUrl}${config.sdCardClearUrl}`,
+    url: `${getConfig().baseUrl}${getConfig().sdCardClearUrl}`,
     method: 'post',
     body: `${xmlHeader}<format></format>`,
     respParser: resultParser
@@ -192,7 +194,7 @@ const formatDisk = () => {
 }
 const getUpProgress = () => {
   return request({
-    url: `${config.baseUrl}${config.getUpProgress}`,
+    url: `${getConfig().baseUrl}${getConfig().getUpProgress}`,
     method: 'post',
     body: utils.jsonToXml({ getUpgrade: { upProgress: 0 } }, utils.castFromCamelCase),
     respParser: async (response: Response) => {
@@ -204,7 +206,7 @@ const getUpProgress = () => {
 
 const getSystemMaintenanceInfo = () => {
   return request({
-    url: `${config.baseUrl}${config.getSystemMaintenance}`,
+    url: `${getConfig().baseUrl}${getConfig().getSystemMaintenance}`,
     method: 'post',
     body: `${xmlHeader}<maintenance></maintenance>`,
     respParser: async (response: Response) => {
@@ -216,7 +218,7 @@ const getSystemMaintenanceInfo = () => {
 
 const submitSystemMaintenance = (form: SystemMaintenance) => {
   return request<Result>({
-    url: `${config.baseUrl}${config.submitSystemMaintenance}`,
+    url: `${getConfig().baseUrl}${getConfig().submitSystemMaintenance}`,
     method: 'post',
     body: utils.jsonToXml({ maintenance: form }, utils.castFromCamelCase),
     respParser: resultParser
@@ -225,7 +227,7 @@ const submitSystemMaintenance = (form: SystemMaintenance) => {
 // 根据类型提交系统维护页面表单
 const submitSplitSystemMaintenanceForm = (type: string, form: Record<string, any>) => {
   return request<Result>({
-    url: `${config.baseUrl}${config.submitSplitSystemMaintenanceForm}`,
+    url: `${getConfig().baseUrl}${getConfig().submitSplitSystemMaintenanceForm}`,
     query: { type: type },
     method: 'post',
     body: utils.jsonToXml(form, utils.castFromCamelCase),
@@ -235,7 +237,7 @@ const submitSplitSystemMaintenanceForm = (type: string, form: Record<string, any
 
 const ytControlAction = (action: string) => {
   return request<Result>({
-    url: `${config.baseUrl}${config.ytControl}`,
+    url: `${getConfig().baseUrl}${getConfig().ytControl}`,
     method: 'post',
     body: `${xmlHeader}<ptz><action>${action}</action></ptz>`,
     respParser: resultParser
@@ -243,7 +245,7 @@ const ytControlAction = (action: string) => {
 }
 const submitCameraAction = (device: number, action: number) => {
   return request<Result>({
-    url: `${config.baseUrl}${config.cameraControl}`,
+    url: `${getConfig().baseUrl}${getConfig().cameraControl}`,
     method: 'post',
     body: `${xmlHeader}<lens_ctl><dev>${device}</dev><op>${action}</op></lens_ctl>`,
     respParser: resultParser

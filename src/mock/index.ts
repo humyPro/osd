@@ -1,8 +1,8 @@
 import fetchMock, { type MockRequest } from 'fetch-mock'
 import data from './data'
 const option = { delay: 1000 }
-import store from '@/store/AppStore'
-const baseConfig = store.config
+import { useAppConfig } from '@/store/AppStore'
+const baseConfig = useAppConfig().config
 fetchMock.post(baseConfig.baseUrl + baseConfig.loginUrl, data.successResult, option)
 fetchMock.post(baseConfig.baseUrl + baseConfig.getEncodingUrl, data.getEncoding, option)
 fetchMock.post(baseConfig.baseUrl + baseConfig.submitEncodingFormUrl, data.successResult, option)

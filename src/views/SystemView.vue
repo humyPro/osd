@@ -600,7 +600,7 @@ import util from '@/common/util'
 import { CameraFilled } from '@element-plus/icons-vue'
 import forms from '@/common/forms'
 import apis from '@/common/apis'
-import store from '@/store/AppStore'
+import { useAppConfig } from '@/store/AppStore'
 import type {
   StorageForm,
   VersionInfo,
@@ -648,7 +648,7 @@ const storageRef = ref()
 const loginFormRef = ref()
 const fileList = ref([])
 const upgradeBtnDisabled = ref(true)
-const upgradeUrl = store.config.upgradeSystemFileUrl
+const upgradeUrl = useAppConfig().config.upgradeSystemFileUrl
 // const upgradeUrl = 'http://192.168.144.1:8080/upload'
 const loading = ref({
   systemSectionLoading: false,
