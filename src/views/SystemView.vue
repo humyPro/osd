@@ -184,9 +184,9 @@
                 :limit="1"
                 :auto-upload="false"
                 :on-error="onUploadError"
-                :on-success="onUploadSuccess"
                 :on-exceed="handleExceed"
                 :on-remove="handleRemove"
+                :on-change="handleChange"
               >
                 <template #trigger>
                   <el-button type="primary" :loading="loading.selectFileBtnLoding"
@@ -768,6 +768,7 @@ const systemGyroscopeRules = reactive<FormRules<SystemGyroscope>>({
  */
 watch(fileList, (newValue) => {
   upgradeBtnDisabled.value = newValue == null || newValue.length == 0
+  upProgress.value = 0
 })
 
 const handSystemFormExpand = () => {
@@ -791,11 +792,14 @@ const restartSystem = () => {
     .then((res) => util.resultHandler(res, '重启系统失败'))
     .finally(() => (loading.value.restartBtnLoding = false))
 }
-
+let uploadProgressTimer: number | null = null
 const onUploadError = (error: Error) => {
   console.error(error)
   util.showMessage('文件上传失败', 'error')
   fileList.value = []
+  if (uploadProgressTimer) {
+    clearTimeout(uploadProgressTimer)
+  }
 }
 const onUploadSuccess = () => {
   util.showMessage('文件上传成功')
@@ -805,6 +809,7 @@ const handleRemove: UploadProps['onRemove'] = () => {
   upload.value!.clearFiles()
   showUploadProgress.value = false
 }
+const handleChange = () => {}
 const handleExceed: UploadProps['onExceed'] = (files: File[]) => {
   upload.value!.clearFiles()
   const file = files[0] as UploadRawFile
@@ -827,9 +832,12 @@ const submitUpload = () => {
         upProgress.value = progress
         if (progress < 100) {
           getProgress()
+        } else {
+          onUploadSuccess()
         }
       })
-    }, 100)
+    }, 200)
+    uploadProgressTimer = timer
   }
   getProgress()
 }
@@ -1116,6 +1124,9 @@ onMounted(() => {
 }
 :deep(.el-upload-list__item .el-progress) {
   display: none;
+}
+:deep(.el-upload-list__item-file-name) {
+  white-space: break-spaces;
 }
 .system-info-box {
   display: flex;
