@@ -17,6 +17,9 @@ const xmlHeader = `<?xml version="1.0" encoding="utf-8"?>`
 const getConfig = () => {
   return useAppConfig().config
 }
+const buildUrl = (url: string) => {
+  return url
+}
 
 const resultParser = async (res: Response) => {
   let txt = await res.text()
@@ -30,7 +33,7 @@ const login: (account: string, password: string) => Promise<Result> = (
   password: string
 ) => {
   return request<Result>({
-    url: `${getConfig().baseUrl}${getConfig().loginUrl}`,
+    url: buildUrl(getConfig().loginUrl),
     method: 'post',
     body: `${xmlHeader}<logon><user>${account}</user><passwd>${password}</passwd></logon>`,
     respParser: resultParser
@@ -39,7 +42,7 @@ const login: (account: string, password: string) => Promise<Result> = (
 
 const getEncodingForm: () => Promise<EncodingForm> = () => {
   return request({
-    url: `${getConfig().baseUrl}${getConfig().getEncodingUrl}`,
+    url: buildUrl(getConfig().getEncodingUrl),
     method: 'post',
     body: `${xmlHeader}<device_status></device_status>`,
     respParser: async (response: Response) => {
@@ -64,7 +67,7 @@ const submitEncodingForm = (index: number, form: VencForm) => {
   const data = utils.jsonToXml(requestData, utils.castFromCamelCase)
 
   return request<Result>({
-    url: `${getConfig().baseUrl}${getConfig().submitEncodingFormUrl}`,
+    url: buildUrl(getConfig().submitEncodingFormUrl),
     method: 'post',
     body: data,
     respParser: resultParser
@@ -73,7 +76,7 @@ const submitEncodingForm = (index: number, form: VencForm) => {
 
 const getNetworkInfo = () => {
   return request({
-    url: `${getConfig().baseUrl}${getConfig().getNetworkInfoUrl}`,
+    url: buildUrl(getConfig().getNetworkInfoUrl),
     method: 'post',
     body: `${xmlHeader}<network></network>`,
     respParser: async (response: Response) => {
@@ -86,7 +89,7 @@ const getNetworkInfo = () => {
 const submitNetworkForm = (form: NetworkForm) => {
   const data = utils.jsonToXml(form, utils.castFromCamelCase)
   return request<Result>({
-    url: `${getConfig().baseUrl}${getConfig().submitNetworkFormUrl}`,
+    url: buildUrl(getConfig().submitNetworkFormUrl),
     method: 'post',
     body: data,
     respParser: resultParser
@@ -98,7 +101,7 @@ const getVideoInfo = () => {
     video: VideoForm[]
   }
   return request({
-    url: `${getConfig().baseUrl}${getConfig().getVideoInfoUrl}`,
+    url: buildUrl(getConfig().getVideoInfoUrl),
     method: 'post',
     body: `${xmlHeader}<video></video>`,
     respParser: async (response: Response) => {
@@ -109,7 +112,7 @@ const getVideoInfo = () => {
 }
 const submitVideoInfo = (data: { video: { index: number } & VideoForm }) => {
   return request<Result>({
-    url: `${getConfig().baseUrl}${getConfig().submitVideoFormUrl}`,
+    url: buildUrl(getConfig().submitVideoFormUrl),
     method: 'post',
     body: utils.jsonToXml(data, utils.castFromCamelCase),
     respParser: resultParser
@@ -117,7 +120,7 @@ const submitVideoInfo = (data: { video: { index: number } & VideoForm }) => {
 }
 const getVersionInfo = () => {
   return request({
-    url: `${getConfig().baseUrl}${getConfig().getVersionInfoUrl}`,
+    url: buildUrl(getConfig().getVersionInfoUrl),
     method: 'post',
     body: `${xmlHeader}<get_version></get_version>`,
     respParser: async (response: Response) => {
@@ -134,7 +137,7 @@ const getVersionInfo = () => {
  */
 const systemSetting = (type: number) => {
   return request({
-    url: `${getConfig().baseUrl}${getConfig().submitSystemSettingFormUrl}`,
+    url: buildUrl(getConfig().submitSystemSettingFormUrl),
     method: 'post',
     body: `${xmlHeader}<system_set>${type}</system_set>`,
     respParser: resultParser
@@ -143,7 +146,7 @@ const systemSetting = (type: number) => {
 
 const getUserCommunicationInfo = () => {
   return request({
-    url: `${getConfig().baseUrl}${getConfig().getUserCommunicationInfoUrl}`,
+    url: buildUrl(getConfig().getUserCommunicationInfoUrl),
     method: 'post',
     body: `${xmlHeader}<communication></communication>`,
     respParser: async (response: Response) => {
@@ -155,7 +158,7 @@ const getUserCommunicationInfo = () => {
 
 const submitUserCommunicationForm = (form: UserCommunicationForm) => {
   return request<Result>({
-    url: `${getConfig().baseUrl}${getConfig().submitUserCommunicationFormUrl}`,
+    url: buildUrl(getConfig().submitUserCommunicationFormUrl),
     method: 'post',
     body: utils.jsonToXml({ communication: form }, utils.castFromCamelCase),
     respParser: resultParser
@@ -164,7 +167,7 @@ const submitUserCommunicationForm = (form: UserCommunicationForm) => {
 
 const getStorageInfo = () => {
   return request({
-    url: `${getConfig().baseUrl}${getConfig().getRecordInfoUrl}`,
+    url: buildUrl(getConfig().getRecordInfoUrl),
     method: 'post',
     body: `${xmlHeader}<get_record></get_record>`,
     respParser: async (response: Response) => {
@@ -176,7 +179,7 @@ const getStorageInfo = () => {
 
 const submitStorageForm = (form: StorageForm) => {
   return request<Result>({
-    url: `${getConfig().baseUrl}${getConfig().submitRecordFormUrl}`,
+    url: buildUrl(getConfig().submitRecordFormUrl),
     method: 'post',
     body: utils.jsonToXml({ record: form }, utils.castFromCamelCase),
     respParser: resultParser
@@ -186,7 +189,7 @@ const submitStorageForm = (form: StorageForm) => {
 const formatDisk = () => {
   //格式化
   return request<Result>({
-    url: `${getConfig().baseUrl}${getConfig().sdCardClearUrl}`,
+    url: buildUrl(getConfig().sdCardClearUrl),
     method: 'post',
     body: `${xmlHeader}<format></format>`,
     respParser: resultParser
@@ -194,7 +197,7 @@ const formatDisk = () => {
 }
 const getUpProgress = () => {
   return request({
-    url: `${getConfig().baseUrl}${getConfig().getUpProgress}`,
+    url: buildUrl(getConfig().getUpProgress),
     method: 'post',
     body: utils.jsonToXml({ getUpgrade: { upProgress: 0 } }, utils.castFromCamelCase),
     respParser: async (response: Response) => {
@@ -206,7 +209,7 @@ const getUpProgress = () => {
 
 const getSystemMaintenanceInfo = () => {
   return request({
-    url: `${getConfig().baseUrl}${getConfig().getSystemMaintenance}`,
+    url: buildUrl(getConfig().getSystemMaintenance),
     method: 'post',
     body: `${xmlHeader}<maintenance></maintenance>`,
     respParser: async (response: Response) => {
@@ -218,7 +221,7 @@ const getSystemMaintenanceInfo = () => {
 
 const submitSystemMaintenance = (form: SystemMaintenance) => {
   return request<Result>({
-    url: `${getConfig().baseUrl}${getConfig().submitSystemMaintenance}`,
+    url: buildUrl(getConfig().submitSystemMaintenance),
     method: 'post',
     body: utils.jsonToXml({ maintenance: form }, utils.castFromCamelCase),
     respParser: resultParser
@@ -227,7 +230,7 @@ const submitSystemMaintenance = (form: SystemMaintenance) => {
 // 根据类型提交系统维护页面表单
 const submitSplitSystemMaintenanceForm = (type: string, form: Record<string, any>) => {
   return request<Result>({
-    url: `${getConfig().baseUrl}${getConfig().submitSplitSystemMaintenanceForm}`,
+    url: buildUrl(getConfig().submitSplitSystemMaintenanceForm),
     query: { type: type },
     method: 'post',
     body: utils.jsonToXml(form, utils.castFromCamelCase),
@@ -237,7 +240,7 @@ const submitSplitSystemMaintenanceForm = (type: string, form: Record<string, any
 
 const ytControlAction = (action: string) => {
   return request<Result>({
-    url: `${getConfig().baseUrl}${getConfig().ytControl}`,
+    url: buildUrl(getConfig().ytControl),
     method: 'post',
     body: `${xmlHeader}<ptz><action>${action}</action></ptz>`,
     respParser: resultParser
@@ -245,7 +248,7 @@ const ytControlAction = (action: string) => {
 }
 const submitCameraAction = (device: number, action: number) => {
   return request<Result>({
-    url: `${getConfig().baseUrl}${getConfig().cameraControl}`,
+    url: buildUrl(getConfig().cameraControl),
     method: 'post',
     body: `${xmlHeader}<lens_ctl><dev>${device}</dev><op>${action}</op></lens_ctl>`,
     respParser: resultParser

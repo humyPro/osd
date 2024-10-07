@@ -18,7 +18,9 @@ export const request = async <T>(params: RequestType<T>): Promise<T> => {
   const { url, method, timeout, query, body, respParser } = params
   let requestUrl = url
   if (query) {
-    const urlObj = new URL(url)
+    const urlObj = url.startsWith('http')
+      ? new URL(url)
+      : new URL(url, `${window.location.protocol}//${window.location.host}`)
     const searchParams = urlObj.searchParams
     for (const k of Object.keys(query)) {
       const value = query[k]
