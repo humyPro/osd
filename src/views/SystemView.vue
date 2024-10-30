@@ -69,6 +69,14 @@
                 :inactive-value="0"
               />
             </el-form-item>
+
+            <el-form-item label="元数据">
+              <el-switch
+                v-model="userCommConfigForm.metedata"
+                :active-value="1"
+                :inactive-value="0"
+              />
+            </el-form-item>
             <el-button
               type="primary"
               class="save-button"

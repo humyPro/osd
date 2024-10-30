@@ -238,7 +238,8 @@ export default {
           <stop_bit>2</stop_bit>
           <parity_bit>0</parity_bit> <!-- 0:无，1，奇校验；2，偶校 -->
       </uart>
-      <check_date>0</check_date>
+      <check_data>0</check_data> <!-- 0:关闭；1: 开启 -->
+      <metedata>0</metedata>          <!-- 元数据 0;关闭；1：开启 -->
   </communication>`,
   getStore: `<?xml version="1.0" encoding="utf-8"?>
   <record>

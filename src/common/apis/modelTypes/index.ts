@@ -114,6 +114,7 @@ type UserCommunicationForm = {
   udp: UserCommUdpForm
   uart: UserCommUartForm
   checkData: number
+  metedata: number
 }
 type StorageForm = {
   recordType: number
