@@ -254,6 +254,15 @@ const submitCameraAction = (device: number, action: number) => {
     respParser: resultParser
   })
 }
+
+const systemParam = (type: 0 | 1) => {
+  return request<Result>({
+    url: buildUrl(getConfig().systemParam),
+    method: 'post',
+    body: `${xmlHeader}<servo_para><op>${type}</op></servo_para>`,
+    respParser: resultParser
+  })
+}
 export default {
   request,
   login,
@@ -275,5 +284,6 @@ export default {
   submitSplitSystemMaintenanceForm,
   ytControlAction,
   submitCameraAction,
-  getUpProgress
+  getUpProgress,
+  systemParam
 }

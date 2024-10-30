@@ -257,13 +257,11 @@
                       </el-form-item>
                       <el-form-item label="备注" prop="note">
                         <el-input
-                          :disabled="systemMaintenance.product.lock === 'true'"
                           v-model="systemMaintenance.product.note"
                           type="textarea"
                         ></el-input>
                       </el-form-item>
                       <el-button
-                        :disabled="systemMaintenance.product.lock === 'true'"
                         :loading="loading.productInfoBtnLoding"
                         class="save-button"
                         type="primary"
@@ -324,34 +322,58 @@
                       ref="systemYtAngleZeroRef"
                     >
                       <FormTitle title="角度零位"></FormTitle>
-                      <el-form-item label="方位" prop="angleYaw">
-                        <el-input
-                          placeholder="[0,360]"
-                          type="number"
-                          v-model="systemMaintenance.ptz.angleZero.angleYaw"
-                        />
+                      <el-tabs v-model="zeroActiveName">
+                        <el-tab-pane
+                          :label="{ '0': '内角度', '1': '外角度' }[String(angleZero.type)]"
+                          :name="angleZero.type"
+                          :key="angleZero.type"
+                          v-for="angleZero in systemMaintenance.ptz.angleZero"
+                        >
+                          <el-form-item label="方位" prop="angleYaw">
+                            <el-input
+                              placeholder="[0,360]"
+                              type="number"
+                              v-model="angleZero.angleYaw"
+                            />
+                          </el-form-item>
+                          <el-form-item label="俯仰" prop="anglePitch">
+                            <el-input
+                              placeholder="[0,360]"
+                              type="number"
+                              v-model="angleZero.anglePitch"
+                            />
+                          </el-form-item>
+                          <el-form-item label="滚转" prop="angleRoll">
+                            <el-input
+                              placeholder="[0,360]"
+                              type="number"
+                              v-model="angleZero.angleRoll"
+                            />
+                          </el-form-item>
+                        </el-tab-pane>
+                      </el-tabs>
+                      <el-form-item>
+                        <div
+                          :style="{
+                            display: 'flex',
+                            justifyContent: 'flex-end',
+                            width: '100%'
+                          }"
+                        >
+                          <el-button
+                            :loading="loading.ytZeroAutoBtnLoding"
+                            type="primary"
+                            @click="confirmAutoAngleZero"
+                            >自动零位
+                          </el-button>
+                          <el-button
+                            :loading="loading.ytZeroBtnLoding"
+                            type="primary"
+                            @click="confirmAngleZero"
+                            >确定
+                          </el-button>
+                        </div>
                       </el-form-item>
-                      <el-form-item label="俯仰" prop="anglePitch">
-                        <el-input
-                          placeholder="[0,360]"
-                          type="number"
-                          v-model="systemMaintenance.ptz.angleZero.anglePitch"
-                        />
-                      </el-form-item>
-                      <el-form-item label="滚转" prop="angleRoll">
-                        <el-input
-                          placeholder="[0,360]"
-                          type="number"
-                          v-model="systemMaintenance.ptz.angleZero.angleRoll"
-                        />
-                      </el-form-item>
-                      <el-button
-                        :loading="loading.ytZeroBtnLoding"
-                        class="save-button"
-                        type="primary"
-                        @click="confirmAngleZero"
-                        >保存
-                      </el-button>
                     </el-form>
                     <el-form
                       class="custom-label-size"
@@ -393,7 +415,7 @@
                   </div>
                   <div>
                     <FormTitle title="伺服参数"></FormTitle>
-                    <el-tabs v-model="activeName" class="demo-tabs">
+                    <el-tabs v-model="ptzActiveName">
                       <el-tab-pane label="方位" name="yaw">
                         <el-form
                           class="custom-label-size"
@@ -428,7 +450,7 @@
                             class="save-button"
                             type="primary"
                             @click="confirmServoParams('yaw')"
-                            >保存
+                            >确定
                           </el-button>
                         </el-form>
                       </el-tab-pane>
@@ -466,7 +488,7 @@
                             class="save-button"
                             type="primary"
                             @click="confirmServoParams('pitch')"
-                            >保存
+                            >确定
                           </el-button>
                         </el-form>
                       </el-tab-pane>
@@ -506,7 +528,7 @@
                             class="save-button"
                             type="primary"
                             @click="confirmServoParams('roll')"
-                            >保存
+                            >确定
                           </el-button>
                         </el-form>
                       </el-tab-pane>
@@ -540,31 +562,120 @@
                     <el-form-item label="Zb" prop="zb">
                       <el-input type="number" v-model="systemMaintenance.ptz.zb" />
                     </el-form-item>
-                    <el-button
-                      :loading="loading.gyroscopeBtnLoding"
-                      class="save-button"
-                      type="primary"
-                      @click="confirmGyro"
-                    >
-                      确认
-                    </el-button>
+                    <el-form-item>
+                      <div :style="{ display: 'flex', justifyContent: 'flex-end', width: '100%' }">
+                        <el-button
+                          :loading="loading.gyroscopeAutoBtnLoding"
+                          type="primary"
+                          @click="confirmAutoGyro"
+                        >
+                          自动补偿
+                        </el-button>
+                        <el-button
+                          :loading="loading.gyroscopeBtnLoding"
+                          type="primary"
+                          @click="confirmGyro"
+                        >
+                          确定
+                        </el-button>
+                      </div>
+                    </el-form-item>
+                  </el-form>
+                  <FormTitle title="电机找零"></FormTitle>
+                  <el-form
+                    class="custom-label-size"
+                    :rules="systemMoterRule"
+                    :model="systemMaintenance.ptz"
+                    label-width="80px"
+                    ref="systemMoterZero"
+                  >
+                    <el-tabs v-model="ptzMoterActiveName">
+                      <el-tab-pane label="方位" name="0">
+                        <el-form-item label="零位" prop="moterYawZero">
+                          <el-input
+                            v-model="systemMaintenance.ptz.moterYawZero"
+                            type="number"
+                          ></el-input>
+                        </el-form-item>
+                      </el-tab-pane>
+
+                      <el-tab-pane label="俯仰" name="1">
+                        <el-form-item label="零位" prop="moterPitchZero">
+                          <el-input
+                            v-model="systemMaintenance.ptz.moterPitchZero"
+                            type="number"
+                          ></el-input>
+                        </el-form-item>
+                      </el-tab-pane>
+
+                      <el-tab-pane label="翻滚" name="4">
+                        <el-form-item label="零位" prop="moterRollZero">
+                          <el-input
+                            v-model="systemMaintenance.ptz.moterRollZero"
+                            type="number"
+                          ></el-input>
+                        </el-form-item>
+                      </el-tab-pane>
+                      <el-tab-pane label="外方位" name="2">
+                        <el-form-item label="零位" prop="moterOutYawZero">
+                          <el-input
+                            v-model="systemMaintenance.ptz.moterOutYawZero"
+                            type="number"
+                          ></el-input>
+                        </el-form-item>
+                      </el-tab-pane>
+                      <el-tab-pane label="外俯仰" name="3">
+                        <el-form-item label="零位" prop="moterOutPitchZero">
+                          <el-input
+                            v-model="systemMaintenance.ptz.moterOutPitchZero"
+                            type="number"
+                          ></el-input>
+                        </el-form-item>
+                      </el-tab-pane>
+                    </el-tabs>
+                    <div :style="{ display: 'flex', justifyContent: 'flex-end', width: '100%' }">
+                      <el-button
+                        @click="confirmSystemMoterBtn(2)"
+                        type="primary"
+                        :loading="loading.systemMoterBtnLoading"
+                        >找零停止</el-button
+                      >
+                      <el-button
+                        @click="confirmSystemMoterBtn(0)"
+                        type="primary"
+                        :loading="loading.systemMoterBtnLoading"
+                        >自动找零</el-button
+                      >
+
+                      <el-button
+                        @click="confirmSystemMoterBtn(1)"
+                        type="primary"
+                        :loading="loading.systemMoterBtnLoading"
+                        >确认</el-button
+                      >
+                    </div>
                   </el-form>
                 </div>
               </div>
               <div class="export-btn-box">
                 <el-button
-                  @click="confirmSystembtn(1)"
+                  @click="systemParam(0)"
                   type="primary"
-                  :loading="loading.systemBtnLoading1"
-                  >电机找零</el-button
+                  :loading="loading.systemParamBtnLoading"
+                  >参数获取</el-button
                 >
                 <el-button
-                  @click="confirmSystembtn(2)"
+                  @click="systemParam(1)"
                   type="primary"
-                  :loading="loading.systemBtnLoading2"
-                  >温度补偿</el-button
+                  :loading="loading.systemParamBtnLoading"
+                  >参数保存</el-button
                 >
-                <el-button @click="exportToFile" type="primary">导出文件</el-button>
+                <el-button
+                  @click="exportToFile"
+                  type="primary"
+                  :loading="loading.systemExportBtnLoading"
+                  >导出文件</el-button
+                >
               </div>
             </el-collapse-item>
           </el-collapse>
@@ -627,7 +738,8 @@ import type {
   SystemGyroscope,
   SystemYtPitch,
   SystemYtYaw,
-  SystemYtRoll
+  SystemYtRoll,
+  SystemMoter
 } from '@/common/apis/modelTypes'
 import type { StartWith } from '@/common/type'
 
@@ -681,13 +793,18 @@ const loading = ref({
   productInfoBtnLoding: false,
   productConfigBtnLoding: false,
   ytZeroBtnLoding: false,
+  ytZeroAutoBtnLoding: false,
   ytInstallBtnLoding: false,
   ptzServoBtnLoding: false,
   gyroscopeBtnLoding: false,
-  systemBtnLoading1: false,
-  systemBtnLoading2: false
+  gyroscopeAutoBtnLoding: false,
+  systemMoterBtnLoading: false,
+  systemParamBtnLoading: false,
+  systemExportBtnLoading: false
 })
-const activeName = ref('yaw') // 云台配置菜单控制
+const ptzActiveName = ref('yaw') // 云台配置菜单控制
+const zeroActiveName = ref('0') // 云台配置菜单控制
+const ptzMoterActiveName = ref<'0' | '1' | '2' | '3' | '4'>('0') // 电机
 const userCommConfigRules = reactive<FormRules<UserCommunicationForm>>({
   'udp.udpLocalPort': [{ validator: forms.checkNumber(0, 65535, '本机端口'), trigger: 'blur' }],
   'udp.udpDstIp': [{ validator: forms.checkIp('目的地址'), trigger: 'blur' }],
@@ -715,6 +832,7 @@ const systemYtYawRef = ref()
 const systemYtPitchRef = ref()
 const systemYtRollRef = ref()
 const systemGyroscopeRef = ref()
+const systemMoterZero = ref()
 const systemProductRules = reactive<FormRules<SystemProduct>>({
   productNo: [{ validator: forms.checkString('产品编码'), trigger: 'blur' }],
   productSn: [{ validator: forms.checkString('产品SN码'), trigger: 'blur' }],
@@ -731,7 +849,8 @@ const systemProductConfigRules = reactive<FormRules<SystemProductConfig>>({
 const systemPtzAngleZeroRules = reactive<FormRules<SystemPtzAngleZero>>({
   angleYaw: [{ validator: forms.checkNumber(0, 300, '方位', false), trigger: 'blur' }],
   anglePitch: [{ validator: forms.checkNumber(0, 300, '仰角', false), trigger: 'blur' }],
-  angleRoll: [{ validator: forms.checkNumber(0, 300, '翻滚', false), trigger: 'blur' }]
+  angleRoll: [{ validator: forms.checkNumber(0, 300, '翻滚', false), trigger: 'blur' }],
+  type: [{ validator: forms.checkSelect('模式'), trigger: 'change' }]
 })
 const systemPtzInstallZeroRules = reactive<FormRules<SystemPtzInstallZero>>({
   installYaw: [{ validator: forms.checkNumber(-5, 5, '方位', false), trigger: 'blur' }],
@@ -760,6 +879,14 @@ const systemGyroscopeRules = reactive<FormRules<SystemGyroscope>>({
   yb: [{ validator: forms.checkString('Yb'), trigger: 'blur' }],
   za: [{ validator: forms.checkString('Za'), trigger: 'blur' }],
   zb: [{ validator: forms.checkString('Zb'), trigger: 'blur' }]
+})
+
+const systemMoterRule = reactive<FormRules<SystemMoter>>({
+  moterYawZero: [{ validator: forms.checkNumber(-180, 180, '零位', false), trigger: 'blur' }],
+  moterPitchZero: [{ validator: forms.checkNumber(-180, 180, '零位', false), trigger: 'blur' }],
+  moterOutYawZero: [{ validator: forms.checkNumber(-180, 180, '零位', false), trigger: 'blur' }],
+  moterOutPitchZero: [{ validator: forms.checkNumber(-180, 180, '零位', false), trigger: 'blur' }],
+  moterRollZero: [{ validator: forms.checkNumber(-180, 180, '零位', false), trigger: 'blur' }]
 })
 /**
  * yawKp: number
@@ -945,6 +1072,16 @@ const confirmSystemProductConfig = () => {
   })
 }
 
+const confirmAutoAngleZero = () => {
+  loading.value.ytZeroAutoBtnLoding = true
+  apis
+    .submitSplitSystemMaintenanceForm('angle_zero', {
+      angleZero: { type: '2' }
+    })
+    .then((res) => util.resultHandler(res, '设置自动零位失败'))
+    .finally(() => (loading.value.ytZeroAutoBtnLoding = false))
+}
+
 const confirmAngleZero = () => {
   if (!systemYtAngleZeroRef.value) {
     return
@@ -1001,14 +1138,32 @@ const confirmServoParams = (type: keyof typeof servoRefMap) => {
       .finally(() => (loading.value.ptzServoBtnLoding = false))
   })
 }
-const confirmSystembtn = (type: 1 | 2) => {
-  loading.value[`systemBtnLoading${type}`] = true
+const confirmSystemMoterBtn = (type: 0 | 1 | 2) => {
+  loading.value.systemMoterBtnLoading = true
+  const active = ptzMoterActiveName.value
+  const activePropMap = {
+    '0': 'moterYawZero',
+    '1': 'moterPitchZero',
+    '2': 'moterOutYawZero',
+    '3': 'moterOutPitchZero',
+    '4': 'moterRollZero'
+  }
+  const prop = activePropMap[active] as keyof SystemMoter
   apis
     .submitSplitSystemMaintenanceForm('ext', {
-      ext: { op: type }
+      ext: { op: type, type: active, para: systemMaintenance.value.ptz[prop] }
     })
     .then((res) => util.resultHandler(res, '操作失败'))
-    .finally(() => (loading.value[`systemBtnLoading${type}`] = false))
+    .finally(() => (loading.value.systemMoterBtnLoading = false))
+}
+const confirmAutoGyro = () => {
+  loading.value.gyroscopeAutoBtnLoding = true
+  apis
+    .submitSplitSystemMaintenanceForm('gyro_compensation', {
+      para: { mode: 0 }
+    })
+    .then((res) => util.resultHandler(res, '设置自动补偿失败'))
+    .finally(() => (loading.value.gyroscopeAutoBtnLoding = false))
 }
 const confirmGyro = () => {
   if (!systemGyroscopeRef.value) {
@@ -1024,6 +1179,7 @@ const confirmGyro = () => {
         p[c as keyType] = v
         return p
       }, {} as any)
+    params.mode = 1
     apis
       .submitSplitSystemMaintenanceForm('gyro_compensation', {
         para: params
@@ -1059,21 +1215,41 @@ const getStorageInfo = () => {
     .then((res) => (storageForm.value = res))
     .finally(() => (loading.value.storageSectionLoading = false))
 }
-
+// systemMaintenance.ptz.angleZero.type
 const getSystemMaintenanceInfo = () => {
   loading.value.systemMaintenanceLoading = true
   apis
     .getSystemMaintenanceInfo()
-    .then((res) => (systemMaintenance.value = res))
+    .then((res) => {
+      systemMaintenance.value = res
+      const angleZeros = systemMaintenance.value.ptz.angleZero
+      if (angleZeros) {
+        for (const obj of angleZeros) {
+          obj.type = String(obj.type)
+        }
+      }
+    })
     .finally(() => (loading.value.systemMaintenanceLoading = false))
 }
+const systemParam = (type: 0 | 1) => {
+  loading.value.systemParamBtnLoading = true
+  apis.systemParam(type).finally(() => (loading.value.systemParamBtnLoading = false))
+}
 const exportToFile = () => {
-  const form = systemMaintenance.value
-  const content = `产品型号：${form.product.productNo}
+  loading.value.systemExportBtnLoading = true
+  try {
+    const form = systemMaintenance.value
+    const innerInfo = (form.ptz.angleZero.filter((o) => o.type === '0') || [{}])[0]
+    const outerInfo = (form.ptz.angleZero.filter((o) => o.type === '1') || [{}])[0]
+
+    const content = `产品型号：${form.product.productNo}
 产品SN码：${form.product.productSn}
-方位角度零位：${form.ptz.angleZero.angleYaw}
-俯仰角度零位：${form.ptz.angleZero.anglePitch}
-翻滚角度零位：${form.ptz.angleZero.angleRoll}
+方位角度零位-内：${innerInfo.angleYaw}
+俯仰角度零位-内：${innerInfo.anglePitch}
+翻滚角度零位-内：${innerInfo.angleRoll}
+方位角度零位-外：${outerInfo.angleYaw}
+俯仰角度零位-外：${outerInfo.anglePitch}
+翻滚角度零位-外：${outerInfo.angleRoll}
 方位安装误差角：${form.ptz.installZero.installYaw}
 俯仰安装误差角：${form.ptz.installZero.installPitch}
 翻滚安装误差角：${form.ptz.installZero.installRoll}
@@ -1093,16 +1269,19 @@ const exportToFile = () => {
 滚转Ki：${form.ptz.rollKi}
 滚转Fp：${form.ptz.rollFp}
   `
-  const blob = new Blob([content], { type: 'text/plain' })
-  const url = URL.createObjectURL(blob)
-  const link = document.createElement('a')
-  link.href = url
-  const now = new Date()
-  link.download = `${form.product.productNo}_${form.product.productSn}_${now.getFullYear()}-${now.getMonth() + 1}-${now.getDate()} ${now.getHours()}_${now.getMinutes()}_${now.getSeconds()}`
-  document.body.appendChild(link)
-  link.click()
-  document.body.removeChild(link)
-  URL.revokeObjectURL(url)
+    const blob = new Blob([content], { type: 'text/plain' })
+    const url = URL.createObjectURL(blob)
+    const link = document.createElement('a')
+    link.href = url
+    const now = new Date()
+    link.download = `${form.product.productNo}_${form.product.productSn}_${now.getFullYear()}-${now.getMonth() + 1}-${now.getDate()} ${now.getHours()}_${now.getMinutes()}_${now.getSeconds()}`
+    document.body.appendChild(link)
+    link.click()
+    document.body.removeChild(link)
+    URL.revokeObjectURL(url)
+  } finally {
+    loading.value.systemExportBtnLoading = false
+  }
 }
 onMounted(() => {
   getSystemInfo()
@@ -1142,6 +1321,5 @@ onMounted(() => {
 .export-btn-box {
   display: flex;
   justify-content: flex-end;
-  padding-right: 30px;
 }
 </style>

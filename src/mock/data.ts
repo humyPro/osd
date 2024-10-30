@@ -267,11 +267,18 @@ export default {
 			<user_protocol>X1</user_protocol>
 		</config>
 		<ptz> <!-- 云台参数 -->
-			<angle_zero> <!-- 角度零位 -->
+			<angle_zero_0> <!-- 角度零位 -->
 				<angle_yaw>232.16000</angle_yaw> 		<!-- 方位 -->
 				<angle_pitch>98.66000</angle_pitch>				<!-- 俯仰 -->
 				<angle_roll>15.55000</angle_roll>				<!-- 滚转 -->
-			</angle_zero>
+				<type>0</type>			
+			</angle_zero_0>
+            <angle_zero_1> <!-- 角度零位 -->
+				<angle_yaw>232.16000</angle_yaw> 		<!-- 方位 -->
+				<angle_pitch>98.66000</angle_pitch>				<!-- 俯仰 -->
+				<angle_roll>15.55000</angle_roll>				<!-- 滚转 -->
+				<type>1</type>			
+			</angle_zero_1>
 			<install_zero> <!-- 安装误差 -->
 				<install_yaw>0.00000</install_yaw> 	<!-- 方位 -->
 				<install_pitch>0.00000</install_pitch> 			<!-- 俯仰 -->
@@ -296,6 +303,12 @@ export default {
 			<yb>0.02602</yb>
 			<za>0.00000</za>
 			<zb>-0.01495</zb>
+
+            <moter_yaw_zero>1.2</moter_yaw_zero> <!-- 电机方位零 -->
+			<moter_pitch_zero>1.00</moter_pitch_zero> <!-- 电机方位零 -->
+			<moter_out_yaw_zero>2.00</moter_out_yaw_zero> <!-- 电机外方位零 -->
+			<moter_out_pitch_zero>3.00</moter_out_pitch_zero> <!-- 电机外俯仰零 -->
+			<moter_roll_zero>4.00</moter_roll_zero> <!-- 电机方位零 -->
 		</ptz>
 	</maintenance>`,
   loginForSystemInfo: `<?xml version="1.0" encoding="utf-8"?>

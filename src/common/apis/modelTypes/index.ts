@@ -148,6 +148,7 @@ type SystemPtzAngleZero = {
   angleYaw: number
   anglePitch: number
   angleRoll: number
+  type: '0' | '1' | String
 }
 type SystemYtYaw = {
   yawKp: number
@@ -172,16 +173,32 @@ type SystemGyroscope = {
   za: number
   zb: number
 }
+
+/**
+ *    <moter_yaw_zero>1.2</moter_yaw_zero> <!-- 电机方位零 -->
+			<moter_pitch_zero>0.00</moter_pitch_zero> <!-- 电机方位零 -->
+			<moter_out_yaw_zero>0.00</moter_out_yaw_zero> <!-- 电机外方位零 -->
+			<moter_out_pitch_zero>0.00</moter_out_pitch_zero> <!-- 电机外俯仰零 -->
+			<moter_roll_zero>0.00</moter_roll_zero> <!-- 电机方位零 -->
+ */
+type SystemMoter = {
+  moterYawZero: number
+  moterPitchZero: number
+  moterOutYawZero: number
+  moterOutPitchZero: number
+  moterRollZero: number
+}
 type SystemMaintenance = {
   product: SystemProduct
   config: SystemProductConfig
   ptz: {
-    angleZero: SystemPtzAngleZero
+    angleZero: SystemPtzAngleZero[]
     installZero: SystemPtzInstallZero
   } & SystemYtYaw &
     SystemYtPitch &
     SystemYtRoll &
-    SystemGyroscope
+    SystemGyroscope &
+    SystemMoter
 }
 type UpProgress = {
   upProgress: number
@@ -212,5 +229,6 @@ export type {
   SystemYtPitch,
   SystemYtRoll,
   SystemGyroscope,
-  UpProgress
+  UpProgress,
+  SystemMoter
 }
