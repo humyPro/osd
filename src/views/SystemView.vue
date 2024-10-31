@@ -322,20 +322,20 @@
                 <!-- <FormTitle title="云台参数"></FormTitle> -->
                 <div class="system-info-wrap">
                   <div>
-                    <el-form
-                      class="custom-label-size"
-                      :rules="systemPtzAngleZeroRules"
-                      :model="systemMaintenance.ptz.angleZero"
-                      label-width="80px"
-                      ref="systemYtAngleZeroRef"
-                    >
-                      <FormTitle title="角度零位"></FormTitle>
-                      <el-tabs v-model="zeroActiveName">
-                        <el-tab-pane
-                          :label="{ '0': '内角度', '1': '外角度' }[String(angleZero.type)]"
-                          :name="angleZero.type"
-                          :key="angleZero.type"
-                          v-for="angleZero in systemMaintenance.ptz.angleZero"
+                    <FormTitle title="角度零位"></FormTitle>
+                    <el-tabs v-model="zeroActiveName">
+                      <el-tab-pane
+                        :label="{ '0': '内角度', '1': '外角度' }[String(angleZero.type)]"
+                        :name="angleZero.type"
+                        :key="angleZero.type"
+                        v-for="(angleZero, index) in systemMaintenance.ptz.angleZero"
+                      >
+                        <el-form
+                          class="custom-label-size"
+                          :rules="systemPtzAngleZeroRules"
+                          :model="angleZero"
+                          label-width="80px"
+                          ref="systemYtAngleZeroRef"
                         >
                           <el-form-item label="方位" prop="angleYaw">
                             <el-input
@@ -358,31 +358,31 @@
                               v-model="angleZero.angleRoll"
                             />
                           </el-form-item>
-                        </el-tab-pane>
-                      </el-tabs>
-                      <el-form-item>
-                        <div
-                          :style="{
-                            display: 'flex',
-                            justifyContent: 'flex-end',
-                            width: '100%'
-                          }"
-                        >
-                          <el-button
-                            :loading="loading.ytZeroAutoBtnLoding"
-                            type="primary"
-                            @click="confirmAutoAngleZero"
-                            >自动零位
-                          </el-button>
-                          <el-button
-                            :loading="loading.ytZeroBtnLoding"
-                            type="primary"
-                            @click="confirmAngleZero"
-                            >确定
-                          </el-button>
-                        </div>
-                      </el-form-item>
-                    </el-form>
+                          <el-form-item>
+                            <div
+                              :style="{
+                                display: 'flex',
+                                justifyContent: 'flex-end',
+                                width: '100%'
+                              }"
+                            >
+                              <el-button
+                                :loading="loading.ytZeroAutoBtnLoding"
+                                type="primary"
+                                @click="confirmAutoAngleZero"
+                                >自动零位
+                              </el-button>
+                              <el-button
+                                :loading="loading.ytZeroBtnLoding"
+                                type="primary"
+                                @click="() => confirmAngleZero(index, angleZero)"
+                                >确定
+                              </el-button>
+                            </div>
+                          </el-form-item>
+                        </el-form>
+                      </el-tab-pane>
+                    </el-tabs>
                     <el-form
                       class="custom-label-size"
                       :rules="systemPtzInstallZeroRules"
@@ -417,7 +417,7 @@
                         class="save-button"
                         type="primary"
                         @click="confirmInstall"
-                        >保存
+                        >确定
                       </el-button>
                     </el-form>
                   </div>
@@ -1090,15 +1090,15 @@ const confirmAutoAngleZero = () => {
     .finally(() => (loading.value.ytZeroAutoBtnLoding = false))
 }
 
-const confirmAngleZero = () => {
+const confirmAngleZero = (index: number, param: SystemPtzAngleZero) => {
   if (!systemYtAngleZeroRef.value) {
     return
   }
-  forms.validateForm(systemYtAngleZeroRef.value as FormInstance, () => {
+  forms.validateForm(systemYtAngleZeroRef.value[index] as FormInstance, () => {
     loading.value.ytZeroBtnLoding = true
     apis
       .submitSplitSystemMaintenanceForm('angle_zero', {
-        angleZero: systemMaintenance.value.ptz.angleZero
+        angleZero: param
       })
       .then((res) => util.resultHandler(res, '提交角度零位信息失败'))
       .finally(() => (loading.value.ytZeroBtnLoding = false))

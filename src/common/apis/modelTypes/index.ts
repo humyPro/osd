@@ -149,7 +149,7 @@ type SystemPtzAngleZero = {
   angleYaw: number
   anglePitch: number
   angleRoll: number
-  type: '0' | '1' | String
+  type: '0' | '1' | string
 }
 type SystemYtYaw = {
   yawKp: number
