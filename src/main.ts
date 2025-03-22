@@ -19,13 +19,12 @@ fetch('/static/config.json')
     if (config) {
       useAppConfig().setBaseUrl(config.baseUrl)
     }
-    mock()
-    app.mount('#app')
+    mock().then(() => app.mount('#app'))
   })
 
-const mock = () => {
+const mock = async () => {
   if (env === 'development') {
-    import('@/mock')
+    await import('@/mock')
     console.warn('mock数据加载完毕')
   } else {
     console.warn('mock数据未加载')
