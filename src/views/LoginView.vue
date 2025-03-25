@@ -1,15 +1,15 @@
 <template>
   <div class="login-page">
     <div class="login-form-container">
-      <el-text style="font-size: 39px; padding-bottom: 49px">登录</el-text>
+      <el-text style="font-size: 39px; padding-bottom: 49px">{{$t('home.login')}}</el-text>
       <div class="login-form">
         <el-form ref="loginFormRef" :model="loginForm" :rules="loginFormRules">
-          <el-text>用户名</el-text>
+          <el-text>{{$t('home.username')}}</el-text>
           <el-form-item prop="account">
             <el-input maxlength="36" v-model="loginForm.account" @keyup.enter="login" />
           </el-form-item>
 
-          <el-text>密码</el-text>
+          <el-text>{{$t('home.password')}}</el-text>
           <el-form-item prop="password">
             <el-input
               maxlength="36"

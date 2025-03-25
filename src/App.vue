@@ -3,7 +3,7 @@ import { RouterView } from 'vue-router'
 </script>
 
 <template>
+  <LocaleBtn/>
   <RouterView />
 </template>
 
-<style scoped></style>

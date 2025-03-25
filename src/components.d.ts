@@ -34,6 +34,8 @@ declare module 'vue' {
     ElTooltip: typeof import('element-plus/es')['ElTooltip']
     ElUpload: typeof import('element-plus/es')['ElUpload']
     FormTitle: typeof import('./components/FormTitle.vue')['default']
+    Locale: typeof import('./components/Locale.vue')['default']
+    LocaleBtn: typeof import('./components/LocaleBtn.vue')['default']
     MenuBar: typeof import('./components/MenuBar.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
