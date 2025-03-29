@@ -1,6 +1,6 @@
 # osd
 
-This template should help get you started developing with Vue 3 in Vite.
+一个上位机控制程序，采用Typescript/Vue3/ElementUI Plus开发，拒绝AnyScript从我做起
 
 ## Recommended IDE Setup
 
