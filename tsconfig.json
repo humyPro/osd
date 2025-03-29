@@ -1,4 +1,10 @@
 {
+  "compilerOptions": {
+    "types": ["node"],
+    "noImplicitAny": false,
+    "lib": ["ES2021"]
+  },
+  "ts-node": {"esm": true},
   "files": [],
   "references": [
     {

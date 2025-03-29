@@ -1,24 +1,28 @@
 <template>
-  <div class="dot">
-    <div></div>
-    <el-text size="large" type="primary">{{ title }}</el-text>
+  <div class="form-title">
+    <div class="dot"></div>
+    <el-text size="large" :type="textType">{{ title }}</el-text>
   </div>
 </template>
 <script lang="ts">
 export default {
   props: {
-    title: String
+    title: String,
+    textType: {
+      type: String as any,
+      default: 'primary'
+    }
   }
 }
 </script>
 <style scoped>
-.dot {
+.form-title {
   display: flex;
   align-items: center;
   justify-content: flex-start;
   margin-bottom: 18px;
 }
-.dot div {
+.dot {
   display: inline-block;
   width: 6px;
   height: 6px;
