@@ -1,0 +1,339 @@
+{
+  "menu": {
+    "encoding": "编码设置",
+    "video": "视频设置",
+    "gimbal": "云台控制",
+    "network": "网络设置",
+    "system": "系统设置"
+  },
+  "user": {
+    "login": "登录",
+    "username": "账号",
+    "password": "密码"
+  },
+  "auth": {
+    "loginSuccess": "登录成功",
+    "authFailed": "认证失败",
+    "invalidCredentials": "用户名或密码错误",
+    "sessionExpired": "会话已过期"
+  },
+  "validation": {
+    "required": "请输入",
+    "requiredSelect": "请选择",
+    "enter": "请输入{field}",
+    "select": "请选择{field}",
+    "integer": "必须是整数",
+    "integerOnly": "{field}必须是整数",
+    "maxValue": "最大值为{max}",
+    "maxValueWithField": "{field}的值不能超过{max}",
+    "minValue": "最小值为{min}",
+    "minValueWithField": "{field}的值不能小于{min}",
+    "validIp": "请输入一个合法的{field}地址",
+    "formInvalid": "表单校验失败"
+  },
+  "gimbal": {
+    "title": "云台控制",
+    "buttons": {
+      "OFF": "OFF",
+      "HIDE": "HIDE",
+      "RES": "复位",
+      "RATF": "RATF",
+      "GIMF": "GIMF",
+      "EULF": "EULF",
+      "SCAN": "SCAN",
+      "GEO": "GEO",
+      "CEUL": "CEUL",
+      "CGEO": "CGEO",
+      "CGIM": "CGIM",
+      "DOWN": "DOWN",
+      "RGIM": "RGIM",
+      "TRA": "TRA",
+      "CTRA": "CTRA",
+      "ATRA": "ATRA"
+    }
+  },
+  "camera": {
+    "title": "镜头控制",
+    "device": {
+      "label": "设备选择",
+      "options": {
+        "TV1": "电视1",
+        "TV2": "电视2",
+        "IR": "红外"
+      }
+    },
+    "buttons": {
+      "zoomIn": "视场+",
+      "zoomOut": "视场-",
+      "zoomStop": "视场停止",
+      "zoomSet": "视场设置",
+      "focusIn": "调焦+",
+      "focusOut": "调焦-",
+      "autoFocus": "一键聚焦"
+    }
+  },
+  "common": {
+    "selectPlaceholder": "请选择",
+    "save": "保存",
+    "scanQRCode": "扫描下载app|扫描连接设备"
+  },
+  "encoding": {
+    "channelTitle": "编码通道{index}参数设置",
+    "playUrlTitle": "编码通道{index}播放地址",
+    "encodeType": "编码类型",
+    "resolution": "分辨率",
+    "frameRate": "帧率",
+    "frameRatePlaceholder": "[5-60]",
+    "keyFrameInterval": "关键帧间隔",
+    "keyFramePlaceholder": "[10-300]",
+    "bitrate": "码率(kbps)",
+    "bitratePlaceholder": "200-20000",
+    "dynamicBitrate": "动态码率",
+    "minQp": "MinQp",
+    "minQpPlaceholder": "[1-51]",
+    "maxQp": "MaxQp",
+    "maxQpPlaceholder": "[MinQp,51]",
+    "minIQp": "MinIQp",
+    "minIQpPlaceholder": "[MinQp,MaxQp]",
+    "profile": "Profile",
+    "baseline": "baseline",
+    "main": "main",
+    "high": "high"
+  },
+  "audio": {
+    "title": "音频参数",
+    "encodeType": "音频编码",
+    "aac": "AAC",
+    "mp3": "MP3",
+    "channelLayout": "声道布局",
+    "stereo": "立体声",
+    "leftChannel": "左声道",
+    "rightChannel": "右声道",
+    "aacFormat": "ACC格式",
+    "lcAac": "LC-ACC",
+    "heAac": "HE-ACC",
+    "bitrate": "音频比特率"
+  },
+  "network": {
+    "title": "有线网络参数",
+    "ip": "IP地址",
+    "mask": "子网掩码",
+    "gateway": "默认网关",
+    "mac": "mac地址",
+    "dhcp": "dhcp",
+    "wifi": "wifi"
+  },
+  "userCommunication": {
+    "title": "用户通信配置",
+    "udp": "UDP",
+    "localPort": "本机端口",
+    "destinationAddress": "目的地址",
+    "destinationPort": "目的端口",
+    "uart": "UART",
+    "baudRate": "波特率",
+    "dataBits": "数据位",
+    "stopBits": "停止位",
+    "parity": "校验位",
+    "parityOptions": {
+      "none": "无",
+      "odd": "奇校验",
+      "even": "偶校验"
+    },
+    "checkData": "检测数据",
+    "metadata": "元数据",
+    "save": "保存",
+    "submitFailed": "提交用户通信配置信息失败"
+  },
+  "storage": {
+    "title": "存储",
+    "format": "录像格式",
+    "formatOptions": {
+      "h26x": "H26X",
+      "mp4": "MP4",
+      "avi": "AVI",
+      "flv": "FLV"
+    },
+    "mode": "录像模式",
+    "modeOptions": {
+      "loop": "循环",
+      "nonLoop": "非循环"
+    },
+    "duration": "文件时长",
+    "durationOptions": {
+      "1min": "1分钟",
+      "3min": "3分钟",
+      "5min": "5分钟",
+      "10min": "10分钟",
+      "15min": "15分钟",
+      "20min": "20分钟",
+      "30min": "30分钟"
+    },
+    "freeSpace": "剩余容量",
+    "totalSpace": "磁盘容量",
+    "formatConfirm": "确定要格式化吗?",
+    "confirm": "确定",
+    "cancel": "取消",
+    "formatButton": "格式化",
+    "channel": "通道{index}",
+    "save": "保存",
+    "formatFailed": "格式化硬盘失败",
+    "submitFailed": "提交配置信息失败"
+  },
+  "system": {
+    "title": "系统信息",
+    "version": "系统版本",
+    "upgrade": "系统升级",
+    "selectFile": "选择文件",
+    "update": "更新",
+    "reset": "恢复出厂设置",
+    "restart": "重启",
+    "maintenance": "系统维护",
+    "productInfo": "产品信息",
+    "model": "产品型号",
+    "serialNumber": "产品编码",
+    "notes": "备注",
+    "productConfig": "产品配置",
+    "tv1Model": "TV1型号",
+    "tv2Model": "TV2型号",
+    "ir1Model": "IR1型号",
+    "ir2Model": "IR2型号",
+    "laModel": "LA型号",
+    "userProtocol": "用户协议",
+    "angleZero": "角度零位",
+    "angleTypes": {
+      "internal": "内角度",
+      "external": "外角度"
+    },
+    "azimuth": "方位",
+    "pitch": "俯仰",
+    "roll": "滚转",
+    "autoZero": "自动零位",
+    "confirm": "确定",
+    "installationError": "安装误差",
+    "servoParams": "伺服参数",
+    "yaw": "方位",
+    "kp": "Kp",
+    "ki": "Ki",
+    "fp": "Fp",
+    "gyroCompensation": "陀螺补偿",
+    "autoCompensation": "自动补偿",
+    "motorZero": "电机找零",
+    "motorTypes": {
+      "yaw": "方位",
+      "pitch": "俯仰",
+      "roll": "翻滚",
+      "externalYaw": "外方位",
+      "externalPitch": "外俯仰"
+    },
+    "zeroPosition": "零位",
+    "stopZero": "找零停止",
+    "confirmZero": "确认",
+    "paramOperations": {
+      "get": "参数获取",
+      "save": "参数保存",
+      "export": "导出文件"
+    },
+    "login": {
+      "title": "验证密码后显示系统维护页面",
+      "account": "账号",
+      "password": "密码",
+      "cancel": "取消",
+      "confirm": "确认"
+    },
+    "resetFailed": "恢复出厂设置失败",
+    "restartFailed": "重启系统失败",
+    "uploadFailed": "文件上传失败",
+    "uploadSuccess": "文件上传成功",
+    "authFailed": "认证失败",
+    "authSuccess": "认证成功",
+    "productSubmitFailed": "提交产品信息失败",
+    "configSubmitFailed": "提交产品配置信息失败",
+    "autoZeroFailed": "设置自动零位失败",
+    "angleZeroSubmitFailed": "提交角度零位信息失败",
+    "installErrorSubmitFailed": "提交安装误差信息失败",
+    "servoSubmitFailed": "提交伺服参数失败",
+    "operationFailed": "操作失败",
+    "autoCompensationFailed": "设置自动补偿失败",
+    "gyroSubmitFailed": "提交陀螺补偿信息失败",
+    "save": "保存"
+  },
+  "video": {
+    "title": "视频{index}参数设置",
+    "udpH26x": {
+      "label": "UDP H26X",
+      "mode": "模式",
+      "localPort": "本机端口",
+      "targetIp": "目的IP",
+      "targetPort": "目的端口",
+      "sendLength": "发送长度",
+      "sendInterval": "发送间隔"
+    },
+    "udpTs": {
+      "label": "UDP TS",
+      "mode": "模式",
+      "localPort": "本机端口",
+      "targetIp": "目的IP",
+      "targetPort": "目的端口",
+      "sendLength": "发送长度",
+      "sendInterval": "发送间隔"
+    },
+    "rtsp": {
+      "label": "RTSP",
+      "port": "服务端口",
+      "transMode": "传输模式",
+      "streamName": "流名称",
+      "userSize": "用户数",
+      "keepAlive": "保活时间(ms)",
+      "streamNamePlaceholder": "[格式：/stream0,重启生效]",
+      "keepAlivePlaceholder": "[毫秒]"
+    },
+    "rtmp": {
+      "label": "RTMP",
+      "url": "推流地址"
+    },
+    "gb28181": {
+      "label": "GB28181",
+      "serverIp": "SIP服务器地址",
+      "serverPort": "SIP服务器端口",
+      "serverId": "SIP服务器ID",
+      "period": "注册有效期",
+      "heartBeat": "心跳周期",
+      "localSipPort": "本地SIP端口",
+      "authId": "SIP认证ID",
+      "password": "SIP认证密码"
+    },
+    "modeOptions": {
+      "unicast": "单播",
+      "multicast": "组播",
+      "broadcast": "广播"
+    },
+    "transModeOptions": {
+      "udp": "UDP",
+      "tcp": "TCP"
+    },
+    "saveButton": "保存"
+  },
+  "placeholders": {
+    "model": "如:QP-125T",
+    "serial": "001-0001",
+    "number": "0/1/2/3/4",
+    "angle": "[0,360]",
+    "error": "[-5,5]",
+    "servoKp": "[0,500]",
+    "servoKi": "[0,50000]",
+    "servoFp": "[0,1000]",
+    "dataBits": "5/6/7/8",
+    "stopBits": "1/1.5/2"
+  },
+  "unknown": "unknown",
+  "error": {
+    "submitFailed": "提交数据失败",
+    "validationFailed": "表单校验失败"
+  },
+  "message": {
+    "submitSuccess": "表单提交成功"
+  },
+  "notFound": {
+    "message": "请点击左侧菜单栏返回正确的页面"
+  }
+}
