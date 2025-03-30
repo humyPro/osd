@@ -4,65 +4,69 @@
     <div class="main-content">
       <div class="forms-box">
         <div class="form-box bordered" v-loading="loading.userConmunicationSectionLoading">
-          <FormTitle title="用户通信配置"></FormTitle>
+          <FormTitle :title="$t('userCommunication.title')"></FormTitle>
           <el-form
             :model="userCommConfigForm"
             label-position="left"
             :rules="userCommConfigRules"
             ref="userCommConfigRef"
           >
-            <el-form-item label="UDP" prop="udp.udpEn">
+            <el-form-item :label="$t('userCommunication.udp')" prop="udp.udpEn">
               <el-switch
                 v-model="userCommConfigForm.udp.udpEn"
                 :active-value="1"
                 :inactive-value="0"
               />
             </el-form-item>
-            <el-form-item label="本机端口" prop="udp.udpLocalPort">
+            <el-form-item :label="$t('userCommunication.localPort')" prop="udp.udpLocalPort">
               <el-input type="number" v-model.number="userCommConfigForm.udp.udpLocalPort" />
             </el-form-item>
-            <el-form-item label="目的地址" prop="udp.udpDstIp">
+            <el-form-item :label="$t('userCommunication.destinationAddress')" prop="udp.udpDstIp">
               <el-input v-model.trim="userCommConfigForm.udp.udpDstIp" />
             </el-form-item>
-            <el-form-item label="目的端口" prop="udp.udpDstPort">
+            <el-form-item :label="$t('userCommunication.destinationPort')" prop="udp.udpDstPort">
               <el-input type="number" v-model.number="userCommConfigForm.udp.udpDstPort" />
             </el-form-item>
             <el-divider />
 
-            <el-form-item label="UART" prop="uart.uartEn">
+            <el-form-item :label="$t('userCommunication.uart')" prop="uart.uartEn">
               <el-switch
                 v-model="userCommConfigForm.uart.uartEn"
                 :active-value="1"
                 :inactive-value="0"
               />
             </el-form-item>
-            <el-form-item type="number" label="波特率" prop="uart.baudrate">
+            <el-form-item
+              type="number"
+              :label="$t('userCommunication.baudRate')"
+              prop="uart.baudrate"
+            >
               <el-input v-model.number="userCommConfigForm.uart.baudrate" />
             </el-form-item>
-            <el-form-item label="数据位" prop="uart.dataBit">
+            <el-form-item :label="$t('userCommunication.dataBits')" prop="uart.dataBit">
               <el-input
                 type="number"
-                placeholder="5/6/7/8"
+                :placeholder="$t('placeholders.dataBits')"
                 v-model.number="userCommConfigForm.uart.dataBit"
               />
             </el-form-item>
-            <el-form-item label="停止位" prop="uart.stopBit">
+            <el-form-item :label="$t('userCommunication.stopBits')" prop="uart.stopBit">
               <el-input
                 type="number"
-                placeholder="1/1.5/2"
+                :placeholder="$t('placeholders.stopBits')"
                 v-model.number="userCommConfigForm.uart.stopBit"
               />
             </el-form-item>
-            <el-form-item label="校验位" prop="uart.parityBit">
+            <el-form-item :label="$t('userCommunication.parity')" prop="uart.parityBit">
               <el-select v-model="userCommConfigForm.uart.parityBit">
-                <el-option label="无" :value="0" />
-                <el-option label="奇校验" :value="1" />
-                <el-option label="偶校验" :value="2" />
+                <el-option :label="$t('userCommunication.parityOptions.none')" :value="0" />
+                <el-option :label="$t('userCommunication.parityOptions.odd')" :value="1" />
+                <el-option :label="$t('userCommunication.parityOptions.even')" :value="2" />
               </el-select>
             </el-form-item>
             <el-divider />
 
-            <el-form-item label="检测数据">
+            <el-form-item :label="$t('userCommunication.checkData')">
               <el-switch
                 v-model="userCommConfigForm.checkData"
                 :active-value="1"
@@ -70,7 +74,7 @@
               />
             </el-form-item>
 
-            <el-form-item label="元数据">
+            <el-form-item :label="$t('userCommunication.metadata')">
               <el-switch
                 v-model="userCommConfigForm.metedata"
                 :active-value="1"
@@ -82,62 +86,64 @@
               class="save-button"
               @click="confirmUserCommConfig"
               :loading="loading.submitUserCommunicationBtnLoding"
-              >保存</el-button
+              >{{ $t('userCommunication.save') }}</el-button
             >
           </el-form>
         </div>
         <div class="form-box bordered" v-loading="loading.storageSectionLoading">
-          <FormTitle title="存储"></FormTitle>
+          <FormTitle :title="$t('storage.title')"></FormTitle>
           <el-form
             :model="storageForm"
             label-position="left"
             ref="storageRef"
             :rules="storageRules"
           >
-            <el-form-item label="录像格式" prop="recordType">
+            <el-form-item :label="$t('storage.format')" prop="recordType">
               <el-select v-model="storageForm.recordType">
-                <el-option label="H26X" :value="0" />
-                <el-option label="MP4" :value="1" />
-                <el-option label="AVI" :value="2" />
-                <el-option label="FLV" :value="3" />
+                <el-option :label="$t('storage.formatOptions.h26x')" :value="0" />
+                <el-option :label="$t('storage.formatOptions.mp4')" :value="1" />
+                <el-option :label="$t('storage.formatOptions.avi')" :value="2" />
+                <el-option :label="$t('storage.formatOptions.flv')" :value="3" />
               </el-select>
             </el-form-item>
-            <el-form-item label="录像模式" prop="recordMode">
+            <el-form-item :label="$t('storage.mode')" prop="recordMode">
               <el-radio-group v-model="storageForm.recordMode">
-                <el-radio label="1" :value="0">循环</el-radio>
-                <el-radio label="2" :value="1">非循环</el-radio>
+                <el-radio :label="$t('storage.modeOptions.loop')" :value="0"></el-radio>
+                <el-radio :label="$t('storage.modeOptions.nonLoop')" :value="1"></el-radio>
               </el-radio-group>
             </el-form-item>
-            <el-form-item label="文件时长" prop="recordDuration">
+            <el-form-item :label="$t('storage.duration')" prop="recordDuration">
               <el-select v-model="storageForm.recordDuration">
-                <el-option label="1分钟" :value="1" />
-                <el-option label="3分钟" :value="3" />
-                <el-option label="5分钟" :value="5" />
-                <el-option label="10分钟" :value="10" />
-                <el-option label="15分钟" :value="15" />
-                <el-option label="20分钟" :value="20" />
-                <el-option label="30分钟" :value="30" />
+                <el-option :label="$t('storage.durationOptions.1min')" :value="1" />
+                <el-option :label="$t('storage.durationOptions.3min')" :value="3" />
+                <el-option :label="$t('storage.durationOptions.5min')" :value="5" />
+                <el-option :label="$t('storage.durationOptions.10min')" :value="10" />
+                <el-option :label="$t('storage.durationOptions.15min')" :value="15" />
+                <el-option :label="$t('storage.durationOptions.20min')" :value="20" />
+                <el-option :label="$t('storage.durationOptions.30min')" :value="30" />
               </el-select>
             </el-form-item>
-            <el-form-item label="剩余容量">
+            <el-form-item :label="$t('storage.freeSpace')">
               <el-text>{{ storageForm.diskFreeSize }}MB</el-text>
             </el-form-item>
-            <el-form-item label="磁盘容量">
+            <el-form-item :label="$t('storage.totalSpace')">
               <el-text>{{ storageForm.diskTotalSize }}MB</el-text>
             </el-form-item>
             <el-form-item label=" ">
               <el-popconfirm
-                title="确定要格式化吗?"
+                :title="$t('storage.formatConfirm')"
                 @confirm="confirmFormat"
-                confirm-button-text="确定"
-                cancel-button-text="取消"
+                :confirm-button-text="$t('storage.confirm')"
+                :cancel-button-text="$t('storage.cancel')"
               >
                 <template #reference>
-                  <el-button type="danger" :loading="loading.formatBtnLoading">格式化</el-button>
+                  <el-button type="danger" :loading="loading.formatBtnLoading">{{
+                    $t('storage.formatButton')
+                  }}</el-button>
                 </template>
               </el-popconfirm>
             </el-form-item>
-            <el-form-item label="通道0">
+            <el-form-item :label="$t('storage.channel', { index: 0 })">
               <div class="channel-content">
                 <el-switch
                   v-model="storageForm.ch0RecordEn"
@@ -147,7 +153,7 @@
                 <el-button :icon="CameraFilled" circle />
               </div>
             </el-form-item>
-            <el-form-item label="通道1">
+            <el-form-item :label="$t('storage.channel', { index: 1 })">
               <div class="channel-content">
                 <el-switch
                   v-model="storageForm.ch1RecordEn"
@@ -157,7 +163,7 @@
                 <el-button :icon="CameraFilled" circle />
               </div>
             </el-form-item>
-            <el-form-item label="通道2">
+            <el-form-item :label="$t('storage.channel', { index: 2 })">
               <div class="channel-content">
                 <el-switch
                   v-model="storageForm.ch2RecordEn"
@@ -172,20 +178,21 @@
               class="save-button"
               @click="confirmStorage"
               :loading="loading.submitStorageInfoBtnLoading"
-              >保存</el-button
+              >{{ $t('storage.save') }}</el-button
             >
           </el-form>
         </div>
         <div class="form-box bordered" v-loading="loading.systemSectionLoading">
-          <FormTitle title="系统信息"></FormTitle>
+          <FormTitle :title="$t('system.title')"></FormTitle>
           <el-form :model="systemInfo" label-position="left" class="system-form">
-            <el-form-item label="系统版本">
+            <el-form-item :label="$t('system.version')">
               <el-text :title="systemInfo.version" :line-clamp="5">{{
-                systemInfo.version || 'unknown'
+                systemInfo.version || $t('unknown')
               }}</el-text>
             </el-form-item>
-            <el-form-item label="系统升级" class="upload">
+            <el-form-item :label="$t('system.upgrade')" class="upload">
               <el-upload
+                style="display: flex; justify-content: center; flex-wrap: wrap"
                 ref="upload"
                 v-model:file-list="fileList"
                 :action="upgradeUrl"
@@ -197,30 +204,33 @@
                 :on-change="handleChange"
               >
                 <template #trigger>
-                  <el-button type="primary" :loading="loading.selectFileBtnLoding"
-                    >选择文件</el-button
+                  <el-button type="primary" :loading="loading.selectFileBtnLoding">{{
+                    $t('system.selectFile')
+                  }}</el-button>
+                  <el-button
+                    style="margin-left: 20px"
+                    type="success"
+                    @click="submitUpload"
+                    :loading="loading.updateSystemBtnLoading"
+                    :disabled="upgradeBtnDisabled"
                   >
+                    {{ $t('system.update') }}
+                  </el-button>
                 </template>
-                <el-button
-                  style="margin-left: 20px; margin-top: -2px"
-                  type="success"
-                  @click="submitUpload"
-                  :loading="loading.updateSystemBtnLoading"
-                  :disabled="upgradeBtnDisabled"
-                >
-                  更新
-                </el-button>
               </el-upload>
               <el-progress v-if="showUploadProgress" :percentage="upProgress" />
             </el-form-item>
             <el-divider />
             <div style="width: 100%; display: flex; justify-content: space-around">
-              <el-button type="danger" :loading="loading.resetSystemBtnLoading" @click="resetSystem"
-                >恢复出厂设置</el-button
+              <el-button
+                type="danger"
+                :loading="loading.resetSystemBtnLoading"
+                @click="resetSystem"
+                >{{ $t('system.reset') }}</el-button
               >
-              <el-button type="danger" :loading="loading.restartBtnLoding" @click="restartSystem"
-                >重启</el-button
-              >
+              <el-button type="danger" :loading="loading.restartBtnLoding" @click="restartSystem">{{
+                $t('system.restart')
+              }}</el-button>
             </div>
           </el-form>
         </div>
@@ -232,10 +242,10 @@
             @change="handSystemFormExpand"
             style="border: none"
           >
-            <el-collapse-item name="1" title="系统维护">
+            <el-collapse-item name="1" :title="$t('system.maintenance')">
               <template #title>
                 <div style="width: 309px; display: flex; align-items: flex-start">
-                  <el-text type="primary" size="large">系统维护</el-text>
+                  <el-text type="primary" size="large">{{ $t('system.maintenance') }}</el-text>
                 </div>
               </template>
               <div v-if="showMaintenanceForm" class="system-info-box">
@@ -248,22 +258,22 @@
                       label-width="80px"
                       ref="systemProductRef"
                     >
-                      <FormTitle title="产品信息"></FormTitle>
-                      <el-form-item label="产品型号" prop="productNo">
+                      <FormTitle :title="$t('system.productInfo')"></FormTitle>
+                      <el-form-item :label="$t('system.model')" prop="productNo">
                         <el-input
-                          placeholder="如:QP-125T"
+                          :placeholder="$t('placeholders.model')"
                           :disabled="systemMaintenance.product.lock === 'true'"
                           v-model="systemMaintenance.product.productNo"
                         />
                       </el-form-item>
-                      <el-form-item label="产品编码" prop="productSn">
+                      <el-form-item :label="$t('system.serialNumber')" prop="productSn">
                         <el-input
-                          placeholder="001-0001"
+                          :placeholder="$t('placeholders.serial')"
                           :disabled="systemMaintenance.product.lock === 'true'"
                           v-model="systemMaintenance.product.productSn"
                         />
                       </el-form-item>
-                      <el-form-item label="备注" prop="note">
+                      <el-form-item :label="$t('system.notes')" prop="note">
                         <el-input
                           v-model="systemMaintenance.product.note"
                           type="textarea"
@@ -274,7 +284,7 @@
                         class="save-button"
                         type="primary"
                         @click="confirmSystemProduct"
-                        >保存</el-button
+                        >{{ $t('system.save') }}</el-button
                       >
                     </el-form>
                   </div>
@@ -286,25 +296,40 @@
                       label-width="80px"
                       ref="systemProductConfigRef"
                     >
-                      <FormTitle title="产品配置"></FormTitle>
-                      <el-form-item label="TV1型号" prop="tv1">
-                        <el-input placeholder="0/1/2/3/4" v-model="systemMaintenance.config.tv1" />
-                      </el-form-item>
-                      <el-form-item label="TV2型号" prop="tv2">
-                        <el-input placeholder="0/1/2/3/4" v-model="systemMaintenance.config.tv2" />
-                      </el-form-item>
-                      <el-form-item label="IR1型号" prop="ir1">
-                        <el-input placeholder="0/1/2/3/4" v-model="systemMaintenance.config.ir1" />
-                      </el-form-item>
-                      <el-form-item label="IR2型号" prop="ir2">
-                        <el-input placeholder="0/1/2/3/4" v-model="systemMaintenance.config.ir2" />
-                      </el-form-item>
-                      <el-form-item label="LA型号" prop="la">
-                        <el-input placeholder="0/1/2/3/4" v-model="systemMaintenance.config.la" />
-                      </el-form-item>
-                      <el-form-item label="用户协议" prop="userProtocol">
+                      <FormTitle :title="$t('system.productConfig')"></FormTitle>
+                      <el-form-item :label="$t('system.tv1Model')" prop="tv1">
                         <el-input
-                          placeholder="0/1/2/3/4"
+                          :placeholder="$t('placeholders.number')"
+                          v-model="systemMaintenance.config.tv1"
+                        />
+                      </el-form-item>
+                      <el-form-item :label="$t('system.tv2Model')" prop="tv2">
+                        <el-input
+                          :placeholder="$t('placeholders.number')"
+                          v-model="systemMaintenance.config.tv2"
+                        />
+                      </el-form-item>
+                      <el-form-item :label="$t('system.ir1Model')" prop="ir1">
+                        <el-input
+                          :placeholder="$t('placeholders.number')"
+                          v-model="systemMaintenance.config.ir1"
+                        />
+                      </el-form-item>
+                      <el-form-item :label="$t('system.ir2Model')" prop="ir2">
+                        <el-input
+                          :placeholder="$t('placeholders.number')"
+                          v-model="systemMaintenance.config.ir2"
+                        />
+                      </el-form-item>
+                      <el-form-item :label="$t('system.laModel')" prop="la">
+                        <el-input
+                          :placeholder="$t('placeholders.number')"
+                          v-model="systemMaintenance.config.la"
+                        />
+                      </el-form-item>
+                      <el-form-item :label="$t('system.userProtocol')" prop="userProtocol">
+                        <el-input
+                          :placeholder="$t('placeholders.number')"
                           v-model="systemMaintenance.config.userProtocol"
                         />
                       </el-form-item>
@@ -313,19 +338,22 @@
                         class="save-button"
                         type="primary"
                         @click="confirmSystemProductConfig"
-                        >保存
+                        >{{ $t('system.save') }}
                       </el-button>
                     </el-form>
                   </div>
                 </div>
 
-                <!-- <FormTitle title="云台参数"></FormTitle> -->
                 <div class="system-info-wrap">
                   <div>
-                    <FormTitle title="角度零位"></FormTitle>
+                    <FormTitle :title="$t('system.angleZero')"></FormTitle>
                     <el-tabs v-model="zeroActiveName">
                       <el-tab-pane
-                        :label="{ '0': '内角度', '1': '外角度' }[String(angleZero.type)]"
+                        :label="
+                          $t(
+                            `system.angleTypes.${angleZero.type === '0' ? 'internal' : 'external'}`
+                          )
+                        "
                         :name="angleZero.type"
                         :key="angleZero.type"
                         v-for="(angleZero, index) in systemMaintenance.ptz.angleZero"
@@ -337,23 +365,23 @@
                           label-width="80px"
                           ref="systemYtAngleZeroRef"
                         >
-                          <el-form-item label="方位" prop="angleYaw">
+                          <el-form-item :label="$t('system.azimuth')" prop="angleYaw">
                             <el-input
-                              placeholder="[0,360]"
+                              :placeholder="$t('placeholders.angle')"
                               type="number"
                               v-model="angleZero.angleYaw"
                             />
                           </el-form-item>
-                          <el-form-item label="俯仰" prop="anglePitch">
+                          <el-form-item :label="$t('system.pitch')" prop="anglePitch">
                             <el-input
-                              placeholder="[0,360]"
+                              :placeholder="$t('placeholders.angle')"
                               type="number"
                               v-model="angleZero.anglePitch"
                             />
                           </el-form-item>
-                          <el-form-item label="滚转" prop="angleRoll">
+                          <el-form-item :label="$t('system.roll')" prop="angleRoll">
                             <el-input
-                              placeholder="[0,360]"
+                              :placeholder="$t('placeholders.angle')"
                               type="number"
                               v-model="angleZero.angleRoll"
                             />
@@ -370,13 +398,13 @@
                                 :loading="loading.ytZeroAutoBtnLoding"
                                 type="primary"
                                 @click="confirmAutoAngleZero"
-                                >自动零位
+                                >{{ $t('system.autoZero') }}
                               </el-button>
                               <el-button
                                 :loading="loading.ytZeroBtnLoding"
                                 type="primary"
                                 @click="() => confirmAngleZero(index, angleZero)"
-                                >确定
+                                >{{ $t('system.confirm') }}
                               </el-button>
                             </div>
                           </el-form-item>
@@ -390,24 +418,24 @@
                       label-width="80px"
                       ref="systemYtInstallRef"
                     >
-                      <FormTitle title="安装误差"></FormTitle>
-                      <el-form-item label="方位" prop="installYaw">
+                      <FormTitle :title="$t('system.installationError')"></FormTitle>
+                      <el-form-item :label="$t('system.azimuth')" prop="installYaw">
                         <el-input
-                          placeholder="[-5,5]"
+                          :placeholder="$t('placeholders.error')"
                           type="number"
                           v-model="systemMaintenance.ptz.installZero.installYaw"
                         />
                       </el-form-item>
-                      <el-form-item label="俯仰" prop="installPitch">
+                      <el-form-item :label="$t('system.pitch')" prop="installPitch">
                         <el-input
-                          placeholder="[-5,5]"
+                          :placeholder="$t('placeholders.error')"
                           type="number"
                           v-model="systemMaintenance.ptz.installZero.installPitch"
                         />
                       </el-form-item>
-                      <el-form-item label="滚转" prop="installRoll">
+                      <el-form-item :label="$t('system.roll')" prop="installRoll">
                         <el-input
-                          placeholder="[-5,5]"
+                          :placeholder="$t('placeholders.error')"
                           type="number"
                           v-model="systemMaintenance.ptz.installZero.installRoll"
                         />
@@ -417,14 +445,14 @@
                         class="save-button"
                         type="primary"
                         @click="confirmInstall"
-                        >确定
+                        >{{ $t('system.confirm') }}
                       </el-button>
                     </el-form>
                   </div>
                   <div>
-                    <FormTitle title="伺服参数"></FormTitle>
+                    <FormTitle :title="$t('system.servoParams')"></FormTitle>
                     <el-tabs v-model="ptzActiveName">
-                      <el-tab-pane label="方位" name="yaw">
+                      <el-tab-pane :label="$t('system.yaw')" name="yaw">
                         <el-form
                           class="custom-label-size"
                           :rules="systemYtYawRules"
@@ -432,23 +460,32 @@
                           label-width="80px"
                           ref="systemYtYawRef"
                         >
-                          <el-form-item label="方位Kp" prop="yawKp">
+                          <el-form-item
+                            :label="`${$t('system.yaw')}${$t('system.kp')}`"
+                            prop="yawKp"
+                          >
                             <el-input
-                              placeholder="[0,500]"
+                              :placeholder="$t('placeholders.servoKp')"
                               type="number"
                               v-model="systemMaintenance.ptz.yawKp"
                             />
                           </el-form-item>
-                          <el-form-item label="方位Ki" prop="yawKi">
+                          <el-form-item
+                            :label="`${$t('system.yaw')}${$t('system.ki')}`"
+                            prop="yawKi"
+                          >
                             <el-input
-                              placeholder="[0,50000]"
+                              :placeholder="$t('placeholders.servoKi')"
                               type="number"
                               v-model="systemMaintenance.ptz.yawKi"
                             />
                           </el-form-item>
-                          <el-form-item label="方位Fp" prop="yawFp">
+                          <el-form-item
+                            :label="`${$t('system.yaw')}${$t('system.fp')}`"
+                            prop="yawFp"
+                          >
                             <el-input
-                              placeholder="[0,1000]"
+                              :placeholder="$t('placeholders.servoFp')"
                               type="number"
                               v-model="systemMaintenance.ptz.yawFp"
                             />
@@ -458,11 +495,11 @@
                             class="save-button"
                             type="primary"
                             @click="confirmServoParams('yaw')"
-                            >确定
+                            >{{ $t('system.confirm') }}
                           </el-button>
                         </el-form>
                       </el-tab-pane>
-                      <el-tab-pane label="俯仰" name="pitch">
+                      <el-tab-pane :label="$t('system.pitch')" name="pitch">
                         <el-form
                           class="custom-label-size"
                           :rules="systemYtPitchRules"
@@ -470,23 +507,32 @@
                           label-width="80px"
                           ref="systemYtPitchRef"
                         >
-                          <el-form-item label="俯仰Kp" prop="pitchKp">
+                          <el-form-item
+                            :label="`${$t('system.pitch')}${$t('system.kp')}`"
+                            prop="pitchKp"
+                          >
                             <el-input
-                              placeholder="[0,500]"
+                              :placeholder="$t('placeholders.servoKp')"
                               type="number"
                               v-model="systemMaintenance.ptz.pitchKp"
                             />
                           </el-form-item>
-                          <el-form-item label="俯仰Ki" prop="pitchKi">
+                          <el-form-item
+                            :label="`${$t('system.pitch')}${$t('system.ki')}`"
+                            prop="pitchKi"
+                          >
                             <el-input
-                              placeholder="[0,50000]"
+                              :placeholder="$t('placeholders.servoKi')"
                               type="number"
                               v-model="systemMaintenance.ptz.pitchKi"
                             />
                           </el-form-item>
-                          <el-form-item label="俯仰Fp" prop="pitchFp">
+                          <el-form-item
+                            :label="`${$t('system.pitch')}${$t('system.fp')}`"
+                            prop="pitchFp"
+                          >
                             <el-input
-                              placeholder="[0,1000]"
+                              :placeholder="$t('placeholders.servoFp')"
                               type="number"
                               v-model="systemMaintenance.ptz.pitchFp"
                             />
@@ -496,11 +542,11 @@
                             class="save-button"
                             type="primary"
                             @click="confirmServoParams('pitch')"
-                            >确定
+                            >{{ $t('system.confirm') }}
                           </el-button>
                         </el-form>
                       </el-tab-pane>
-                      <el-tab-pane label="滚转" name="roll">
+                      <el-tab-pane :label="$t('system.roll')" name="roll">
                         <el-form
                           class="custom-label-size"
                           :rules="systemYtRollRules"
@@ -509,24 +555,27 @@
                           ref="systemYtRollRef"
                         >
                           <el-form-item
-                            placeholder="[0,500]"
+                            :placeholder="$t('placeholders.servoKp')"
                             type="number"
-                            label="滚转Kp"
+                            :label="`${$t('system.roll')}${$t('system.kp')}`"
                             prop="rollKp"
                           >
                             <el-input v-model="systemMaintenance.ptz.rollKp" />
                           </el-form-item>
                           <el-form-item
-                            placeholder="[0,50000]"
+                            :placeholder="$t('placeholders.servoKi')"
                             type="number"
-                            label="滚转Ki"
+                            :label="`${$t('system.roll')}${$t('system.ki')}`"
                             prop="rollKi"
                           >
                             <el-input v-model="systemMaintenance.ptz.rollKi" />
                           </el-form-item>
-                          <el-form-item label="滚转Fp" prop="rollFp">
+                          <el-form-item
+                            :label="`${$t('system.roll')}${$t('system.fp')}`"
+                            prop="rollFp"
+                          >
                             <el-input
-                              placeholder="[0,1000]"
+                              :placeholder="$t('placeholders.servoFp')"
                               type="number"
                               v-model="systemMaintenance.ptz.rollFp"
                             />
@@ -536,7 +585,7 @@
                             class="save-button"
                             type="primary"
                             @click="confirmServoParams('roll')"
-                            >确定
+                            >{{ $t('system.confirm') }}
                           </el-button>
                         </el-form>
                       </el-tab-pane>
@@ -544,7 +593,7 @@
                   </div>
                 </div>
                 <div>
-                  <FormTitle title="陀螺补偿"></FormTitle>
+                  <FormTitle :title="$t('system.gyroCompensation')"></FormTitle>
                   <el-form
                     class="custom-label-size"
                     :rules="systemGyroscopeRules"
@@ -577,19 +626,19 @@
                           type="primary"
                           @click="confirmAutoGyro"
                         >
-                          自动补偿
+                          {{ $t('system.autoCompensation') }}
                         </el-button>
                         <el-button
                           :loading="loading.gyroscopeBtnLoding"
                           type="primary"
                           @click="confirmGyro"
                         >
-                          确定
+                          {{ $t('system.confirm') }}
                         </el-button>
                       </div>
                     </el-form-item>
                   </el-form>
-                  <FormTitle title="电机找零"></FormTitle>
+                  <FormTitle :title="$t('system.motorZero')"></FormTitle>
                   <el-form
                     class="custom-label-size"
                     :rules="systemMoterRule"
@@ -598,8 +647,8 @@
                     ref="systemMoterZero"
                   >
                     <el-tabs v-model="ptzMoterActiveName">
-                      <el-tab-pane label="方位" name="0">
-                        <el-form-item label="零位" prop="moterYawZero">
+                      <el-tab-pane :label="$t('system.motorTypes.yaw')" name="0">
+                        <el-form-item :label="$t('system.zeroPosition')" prop="moterYawZero">
                           <el-input
                             v-model="systemMaintenance.ptz.moterYawZero"
                             type="number"
@@ -607,8 +656,8 @@
                         </el-form-item>
                       </el-tab-pane>
 
-                      <el-tab-pane label="俯仰" name="1">
-                        <el-form-item label="零位" prop="moterPitchZero">
+                      <el-tab-pane :label="$t('system.motorTypes.pitch')" name="1">
+                        <el-form-item :label="$t('system.zeroPosition')" prop="moterPitchZero">
                           <el-input
                             v-model="systemMaintenance.ptz.moterPitchZero"
                             type="number"
@@ -616,24 +665,24 @@
                         </el-form-item>
                       </el-tab-pane>
 
-                      <el-tab-pane label="翻滚" name="4">
-                        <el-form-item label="零位" prop="moterRollZero">
+                      <el-tab-pane :label="$t('system.motorTypes.roll')" name="4">
+                        <el-form-item :label="$t('system.zeroPosition')" prop="moterRollZero">
                           <el-input
                             v-model="systemMaintenance.ptz.moterRollZero"
                             type="number"
                           ></el-input>
                         </el-form-item>
                       </el-tab-pane>
-                      <el-tab-pane label="外方位" name="2">
-                        <el-form-item label="零位" prop="moterOutYawZero">
+                      <el-tab-pane :label="$t('system.motorTypes.externalYaw')" name="2">
+                        <el-form-item :label="$t('system.zeroPosition')" prop="moterOutYawZero">
                           <el-input
                             v-model="systemMaintenance.ptz.moterOutYawZero"
                             type="number"
                           ></el-input>
                         </el-form-item>
                       </el-tab-pane>
-                      <el-tab-pane label="外俯仰" name="3">
-                        <el-form-item label="零位" prop="moterOutPitchZero">
+                      <el-tab-pane :label="$t('system.motorTypes.externalPitch')" name="3">
+                        <el-form-item :label="$t('system.zeroPosition')" prop="moterOutPitchZero">
                           <el-input
                             v-model="systemMaintenance.ptz.moterOutPitchZero"
                             type="number"
@@ -646,20 +695,20 @@
                         @click="confirmSystemMoterBtn(2)"
                         type="primary"
                         :loading="loading.systemMoterBtnLoading"
-                        >找零停止</el-button
+                        >{{ $t('system.stopZero') }}</el-button
                       >
                       <el-button
                         @click="confirmSystemMoterBtn(0)"
                         type="primary"
                         :loading="loading.systemMoterBtnLoading"
-                        >自动找零</el-button
+                        >{{ $t('system.autoZero') }}</el-button
                       >
 
                       <el-button
                         @click="confirmSystemMoterBtn(1)"
                         type="primary"
                         :loading="loading.systemMoterBtnLoading"
-                        >确认</el-button
+                        >{{ $t('system.confirmZero') }}</el-button
                       >
                     </div>
                   </el-form>
@@ -670,19 +719,19 @@
                   @click="systemParam(0)"
                   type="primary"
                   :loading="loading.systemParamBtnLoading"
-                  >参数获取</el-button
+                  >{{ $t('system.paramOperations.get') }}</el-button
                 >
                 <el-button
                   @click="systemParam(1)"
                   type="primary"
                   :loading="loading.systemParamBtnLoading"
-                  >参数保存</el-button
+                  >{{ $t('system.paramOperations.save') }}</el-button
                 >
                 <el-button
                   @click="exportToFile"
                   type="primary"
                   :loading="loading.systemExportBtnLoading"
-                  >导出文件</el-button
+                  >{{ $t('system.paramOperations.export') }}</el-button
                 >
               </div>
             </el-collapse-item>
@@ -691,7 +740,10 @@
       </div>
     </div>
     <el-dialog v-model="showMaintenanceLogin" width="30%" :show-close="false" style="width: 360px">
-      <template #header> <el-text>验证密码后显示系统维护页面</el-text><br /> </template>
+      <template #header>
+        <el-text>{{ $t('system.login.title') }}</el-text
+        ><br />
+      </template>
       <el-form
         class="custom-label-size"
         :model="loginForm"
@@ -699,18 +751,20 @@
         ref="loginFormRef"
         :rules="loginFormRules"
       >
-        <el-form-item label="账号" label-width="50px" prop="account">
+        <el-form-item :label="$t('system.login.account')" label-width="70px" prop="account">
           <el-input v-model.trim="loginForm.account" @keyup.enter="confirmLogin" />
         </el-form-item>
-        <el-form-item label="密码" label-width="50px" prop="password">
+        <el-form-item :label="$t('system.login.password')" label-width="70px" prop="password">
           <el-input v-model="loginForm.password" @keyup.enter="confirmLogin" type="password" />
         </el-form-item>
       </el-form>
       <template #footer>
         <span class="dialog-footer">
-          <el-button @click="showMaintenanceLogin = false">取消</el-button>
+          <el-button @click="showMaintenanceLogin = false">{{
+            $t('system.login.cancel')
+          }}</el-button>
           <el-button type="primary" @click="confirmLogin" :loading="loading.systemLoginBtnLoading">
-            确认
+            {{ $t('system.login.confirm') }}
           </el-button>
         </span>
       </template>
@@ -729,9 +783,10 @@ import {
 } from 'element-plus'
 import util from '@/common/util'
 import { CameraFilled } from '@element-plus/icons-vue'
-import forms from '@/common/forms'
+import useFormValidation from '@/common/forms/formValidator'
 import apis from '@/common/apis'
 import { useAppConfig } from '@/store/AppStore'
+import { useI18n } from 'vue-i18n'
 import type {
   StorageForm,
   VersionInfo,
@@ -750,6 +805,8 @@ import type {
   SystemMoter
 } from '@/common/apis/modelTypes'
 import type { StartWith } from '@/common/type'
+const forms = useFormValidation()
+const { t } = useI18n()
 
 type LoginFormType = { account: string; password: string }
 const upload = ref<UploadInstance>()
@@ -781,7 +838,6 @@ const loginFormRef = ref()
 const fileList = ref([])
 const upgradeBtnDisabled = ref(true)
 const upgradeUrl = useAppConfig().config.upgradeSystemFileUrl
-// const upgradeUrl = 'http://192.168.144.1:8080/upload'
 const loading = ref({
   systemSectionLoading: false,
   userConmunicationSectionLoading: false,
@@ -814,22 +870,39 @@ const ptzActiveName = ref('yaw') // 云台配置菜单控制
 const zeroActiveName = ref('0') // 云台配置菜单控制
 const ptzMoterActiveName = ref<'0' | '1' | '2' | '3' | '4'>('0') // 电机
 const userCommConfigRules = reactive<FormRules<UserCommunicationForm>>({
-  'udp.udpLocalPort': [{ validator: forms.checkNumber(0, 65535, '本机端口'), trigger: 'blur' }],
-  'udp.udpDstIp': [{ validator: forms.checkIp('目的地址'), trigger: 'blur' }],
-  'udp.udpDstPort': [{ validator: forms.checkNumber(0, 65535, '目的端口'), trigger: 'blur' }],
-  'uart.baudrate': [{ validator: forms.checkNumber(0, 1000000, '波特率'), trigger: 'blur' }],
-  'uart.dataBit': [{ validator: forms.checkNumber(0, 10, '数据位'), trigger: 'blur' }],
-  'uart.stopBit': [{ validator: forms.checkNumber(0, 10, '停止位'), trigger: 'blur' }],
-  'uart.parityBit': [{ validator: forms.checkNumber(0, 10, '校验位'), trigger: 'blur' }]
+  'udp.udpLocalPort': [
+    { validator: forms.checkNumber(0, 65535, t('userCommunication.localPort')), trigger: 'blur' }
+  ],
+  'udp.udpDstIp': [
+    { validator: forms.checkIp(t('userCommunication.destinationAddress')), trigger: 'blur' }
+  ],
+  'udp.udpDstPort': [
+    {
+      validator: forms.checkNumber(0, 65535, t('userCommunication.destinationPort')),
+      trigger: 'blur'
+    }
+  ],
+  'uart.baudrate': [
+    { validator: forms.checkNumber(0, 1000000, t('userCommunication.baudRate')), trigger: 'blur' }
+  ],
+  'uart.dataBit': [
+    { validator: forms.checkNumber(0, 10, t('userCommunication.dataBits')), trigger: 'blur' }
+  ],
+  'uart.stopBit': [
+    { validator: forms.checkNumber(0, 10, t('userCommunication.stopBits')), trigger: 'blur' }
+  ],
+  'uart.parityBit': [
+    { validator: forms.checkNumber(0, 10, t('userCommunication.parity')), trigger: 'blur' }
+  ]
 })
 const storageRules = reactive<FormRules<StorageForm>>({
-  recordType: [{ validator: forms.checkSelect('录像格式'), trigger: 'change' }],
-  recordMode: [{ validator: forms.checkSelect('录像模式'), trigger: 'change' }],
-  recordDuration: [{ validator: forms.checkSelect('文件时长'), trigger: 'change' }]
+  recordType: [{ validator: forms.checkSelect(t('storage.format')), trigger: 'change' }],
+  recordMode: [{ validator: forms.checkSelect(t('storage.mode')), trigger: 'change' }],
+  recordDuration: [{ validator: forms.checkSelect(t('storage.duration')), trigger: 'change' }]
 })
 const loginFormRules = reactive<FormRules<LoginFormType>>({
-  account: [{ validator: forms.checkString('账号'), trigger: 'blur' }],
-  password: [{ validator: forms.checkString('密码'), trigger: 'blur' }]
+  account: [{ validator: forms.checkString(t('system.login.account')), trigger: 'blur' }],
+  password: [{ validator: forms.checkString(t('system.login.password')), trigger: 'blur' }]
 })
 
 const systemProductRef = ref()
@@ -842,43 +915,92 @@ const systemYtRollRef = ref()
 const systemGyroscopeRef = ref()
 const systemMoterZero = ref()
 const systemProductRules = reactive<FormRules<SystemProduct>>({
-  productNo: [{ validator: forms.checkString('产品编码'), trigger: 'blur' }],
-  productSn: [{ validator: forms.checkString('产品SN码'), trigger: 'blur' }],
-  note: [{ validator: forms.checkString('备注'), trigger: 'blur' }]
+  productNo: [{ validator: forms.checkString(t('system.model')), trigger: 'blur' }],
+  productSn: [{ validator: forms.checkString(t('system.serialNumber')), trigger: 'blur' }],
+  note: [{ validator: forms.checkString(t('system.notes')), trigger: 'blur' }]
 })
 const systemProductConfigRules = reactive<FormRules<SystemProductConfig>>({
-  tv1: [{ validator: forms.checkString('TV1型号'), trigger: 'blur' }],
-  tv2: [{ validator: forms.checkString('TV2型号'), trigger: 'blur' }],
-  ir1: [{ validator: forms.checkString('IR1型号'), trigger: 'blur' }],
-  ir2: [{ validator: forms.checkString('IR2型号'), trigger: 'blur' }],
-  la: [{ validator: forms.checkString('LA型号'), trigger: 'blur' }],
-  userProtocol: [{ validator: forms.checkString('用户协议'), trigger: 'blur' }]
+  tv1: [{ validator: forms.checkString(t('system.tv1Model')), trigger: 'blur' }],
+  tv2: [{ validator: forms.checkString(t('system.tv2Model')), trigger: 'blur' }],
+  ir1: [{ validator: forms.checkString(t('system.ir1Model')), trigger: 'blur' }],
+  ir2: [{ validator: forms.checkString(t('system.ir2Model')), trigger: 'blur' }],
+  la: [{ validator: forms.checkString(t('system.laModel')), trigger: 'blur' }],
+  userProtocol: [{ validator: forms.checkString(t('system.userProtocol')), trigger: 'blur' }]
 })
 const systemPtzAngleZeroRules = reactive<FormRules<SystemPtzAngleZero>>({
-  angleYaw: [{ validator: forms.checkNumber(0, 300, '方位', false), trigger: 'blur' }],
-  anglePitch: [{ validator: forms.checkNumber(0, 300, '仰角', false), trigger: 'blur' }],
-  angleRoll: [{ validator: forms.checkNumber(0, 300, '翻滚', false), trigger: 'blur' }],
-  type: [{ validator: forms.checkSelect('模式'), trigger: 'change' }]
+  angleYaw: [{ validator: forms.checkNumber(0, 300, t('system.azimuth'), false), trigger: 'blur' }],
+  anglePitch: [{ validator: forms.checkNumber(0, 300, t('system.pitch'), false), trigger: 'blur' }],
+  angleRoll: [{ validator: forms.checkNumber(0, 300, t('system.roll'), false), trigger: 'blur' }],
+  type: [{ validator: forms.checkSelect(t('system.angleTypes.mode')), trigger: 'change' }]
 })
 const systemPtzInstallZeroRules = reactive<FormRules<SystemPtzInstallZero>>({
-  installYaw: [{ validator: forms.checkNumber(-5, 5, '方位', false), trigger: 'blur' }],
-  installPitch: [{ validator: forms.checkNumber(-5, 5, '仰角', false), trigger: 'blur' }],
-  installRoll: [{ validator: forms.checkNumber(-5, 5, '翻滚', false), trigger: 'blur' }]
+  installYaw: [
+    { validator: forms.checkNumber(-5, 5, t('system.azimuth'), false), trigger: 'blur' }
+  ],
+  installPitch: [
+    { validator: forms.checkNumber(-5, 5, t('system.pitch'), false), trigger: 'blur' }
+  ],
+  installRoll: [{ validator: forms.checkNumber(-5, 5, t('system.roll'), false), trigger: 'blur' }]
 })
 const systemYtYawRules = reactive<FormRules<SystemYtYaw>>({
-  yawKp: [{ validator: forms.checkNumber(0, 500, '方位Kp', false), trigger: 'blur' }],
-  yawKi: [{ validator: forms.checkNumber(0, 50000, '方位Ki', false), trigger: 'blur' }],
-  yawFp: [{ validator: forms.checkNumber(0, 1000, '方位Fp', false), trigger: 'blur' }]
+  yawKp: [
+    {
+      validator: forms.checkNumber(0, 500, `${t('system.yaw')}${t('system.kp')}`, false),
+      trigger: 'blur'
+    }
+  ],
+  yawKi: [
+    {
+      validator: forms.checkNumber(0, 50000, `${t('system.yaw')}${t('system.ki')}`, false),
+      trigger: 'blur'
+    }
+  ],
+  yawFp: [
+    {
+      validator: forms.checkNumber(0, 1000, `${t('system.yaw')}${t('system.fp')}`, false),
+      trigger: 'blur'
+    }
+  ]
 })
 const systemYtPitchRules = reactive<FormRules<SystemYtPitch>>({
-  pitchKp: [{ validator: forms.checkNumber(0, 500, '俯仰Kp', false), trigger: 'blur' }],
-  pitchKi: [{ validator: forms.checkNumber(0, 50000, '俯仰Ki', false), trigger: 'blur' }],
-  pitchFp: [{ validator: forms.checkNumber(0, 1000, '俯仰Fp', false), trigger: 'blur' }]
+  pitchKp: [
+    {
+      validator: forms.checkNumber(0, 500, `${t('system.pitch')}${t('system.kp')}`, false),
+      trigger: 'blur'
+    }
+  ],
+  pitchKi: [
+    {
+      validator: forms.checkNumber(0, 50000, `${t('system.pitch')}${t('system.ki')}`, false),
+      trigger: 'blur'
+    }
+  ],
+  pitchFp: [
+    {
+      validator: forms.checkNumber(0, 1000, `${t('system.pitch')}${t('system.fp')}`, false),
+      trigger: 'blur'
+    }
+  ]
 })
 const systemYtRollRules = reactive<FormRules<SystemYtRoll>>({
-  rollKp: [{ validator: forms.checkNumber(0, 500, '滚转Kp', false), trigger: 'blur' }],
-  rollKi: [{ validator: forms.checkNumber(0, 50000, '滚转Ki', false), trigger: 'blur' }],
-  rollFp: [{ validator: forms.checkNumber(0, 1000, '滚转Fp', false), trigger: 'blur' }]
+  rollKp: [
+    {
+      validator: forms.checkNumber(0, 500, `${t('system.roll')}${t('system.kp')}`, false),
+      trigger: 'blur'
+    }
+  ],
+  rollKi: [
+    {
+      validator: forms.checkNumber(0, 50000, `${t('system.roll')}${t('system.ki')}`, false),
+      trigger: 'blur'
+    }
+  ],
+  rollFp: [
+    {
+      validator: forms.checkNumber(0, 1000, `${t('system.roll')}${t('system.fp')}`, false),
+      trigger: 'blur'
+    }
+  ]
 })
 const systemGyroscopeRules = reactive<FormRules<SystemGyroscope>>({
   xa: [{ validator: forms.checkString('Xa'), trigger: 'blur' }],
@@ -890,17 +1012,23 @@ const systemGyroscopeRules = reactive<FormRules<SystemGyroscope>>({
 })
 
 const systemMoterRule = reactive<FormRules<SystemMoter>>({
-  moterYawZero: [{ validator: forms.checkNumber(-180, 180, '零位', false), trigger: 'blur' }],
-  moterPitchZero: [{ validator: forms.checkNumber(-180, 180, '零位', false), trigger: 'blur' }],
-  moterOutYawZero: [{ validator: forms.checkNumber(-180, 180, '零位', false), trigger: 'blur' }],
-  moterOutPitchZero: [{ validator: forms.checkNumber(-180, 180, '零位', false), trigger: 'blur' }],
-  moterRollZero: [{ validator: forms.checkNumber(-180, 180, '零位', false), trigger: 'blur' }]
+  moterYawZero: [
+    { validator: forms.checkNumber(-180, 180, t('system.zeroPosition'), false), trigger: 'blur' }
+  ],
+  moterPitchZero: [
+    { validator: forms.checkNumber(-180, 180, t('system.zeroPosition'), false), trigger: 'blur' }
+  ],
+  moterOutYawZero: [
+    { validator: forms.checkNumber(-180, 180, t('system.zeroPosition'), false), trigger: 'blur' }
+  ],
+  moterOutPitchZero: [
+    { validator: forms.checkNumber(-180, 180, t('system.zeroPosition'), false), trigger: 'blur' }
+  ],
+  moterRollZero: [
+    { validator: forms.checkNumber(-180, 180, t('system.zeroPosition'), false), trigger: 'blur' }
+  ]
 })
-/**
- * yawKp: number
-  yawKi: number
-  yawFp: number
- */
+
 watch(fileList, (newValue) => {
   upgradeBtnDisabled.value = newValue == null || newValue.length == 0
   upProgress.value = 0
@@ -917,34 +1045,40 @@ const resetSystem = () => {
   loading.value.resetSystemBtnLoading = true
   apis
     .systemSetting(2)
-    .then((res) => util.resultHandler(res, '恢复出厂设置失败'))
+    .then((res) => util.resultHandler(res, t('system.resetFailed')))
     .finally(() => (loading.value.resetSystemBtnLoading = false))
 }
+
 const restartSystem = () => {
   loading.value.restartBtnLoding = true
   apis
     .systemSetting(1)
-    .then((res) => util.resultHandler(res, '重启系统失败'))
+    .then((res) => util.resultHandler(res, t('system.restartFailed')))
     .finally(() => (loading.value.restartBtnLoding = false))
 }
+
 let uploadProgressTimer: number | null = null
 const onUploadError = (error: Error) => {
   console.error(error)
-  util.showMessage('文件上传失败', 'error')
+  util.showMessage(t('system.uploadFailed'), 'error')
   fileList.value = []
   if (uploadProgressTimer) {
     clearTimeout(uploadProgressTimer)
   }
 }
+
 const onUploadSuccess = () => {
-  util.showMessage('文件上传成功')
+  util.showMessage(t('system.uploadSuccess'))
   getSystemInfo()
 }
+
 const handleRemove: UploadProps['onRemove'] = () => {
   upload.value!.clearFiles()
   showUploadProgress.value = false
 }
+
 const handleChange = () => {}
+
 const handleExceed: UploadProps['onExceed'] = (files: File[]) => {
   upload.value!.clearFiles()
   const file = files[0] as UploadRawFile
@@ -976,13 +1110,15 @@ const submitUpload = () => {
   }
   getProgress()
 }
+
 const confirmFormat = () => {
   loading.value.formatBtnLoading = true
   apis
     .formatDisk()
-    .then((res) => util.resultHandler(res, '格式化硬盘失败'))
+    .then((res) => util.resultHandler(res, t('storage.formatFailed')))
     .finally(() => (loading.value.formatBtnLoading = false))
 }
+
 const confirmUserCommConfig = () => {
   if (!userCommConfigRef.value) {
     return
@@ -992,15 +1128,16 @@ const confirmUserCommConfig = () => {
       loading.value.submitUserCommunicationBtnLoding = true
       apis
         .submitUserCommunicationForm(userCommConfigForm.value)
-        .then((res) => util.resultHandler(res, '提交用户通信配置信息失败'))
+        .then((res) => util.resultHandler(res, t('userCommunication.submitFailed')))
         .finally(() => {
           loading.value.submitUserCommunicationBtnLoding = false
         })
     } else {
-      util.showMessage('表单校验失败', 'error')
+      util.showMessage(t('validation.formInvalid'), 'error')
     }
   })
 }
+
 const confirmStorage = () => {
   if (!storageRef.value) {
     return
@@ -1010,10 +1147,10 @@ const confirmStorage = () => {
       loading.value.submitStorageInfoBtnLoading = true
       apis
         .submitStorageForm(storageForm.value)
-        .then((res) => util.resultHandler(res, '提交配置信息失败'))
+        .then((res) => util.resultHandler(res, t('storage.submitFailed')))
         .finally(() => (loading.value.submitStorageInfoBtnLoading = false))
     } else {
-      util.showMessage('表单校验失败', 'error')
+      util.showMessage(t('validation.formInvalid'), 'error')
     }
   })
 }
@@ -1037,8 +1174,8 @@ const confirmLogin = () => {
           }
         })
         .then((res) =>
-          util.resultHandler(res, '认证失败', () => {
-            util.showMessage('认证成功')
+          util.resultHandler(res, t('system.login.authFailed'), () => {
+            util.showMessage(t('system.login.authSuccess'))
             showMaintenanceLogin.value = false
             showMaintenanceForm.value = true
             systemConfigModel.value = ['1']
@@ -1060,7 +1197,7 @@ const confirmSystemProduct = () => {
       .submitSplitSystemMaintenanceForm('product', {
         product: systemMaintenance.value.product
       })
-      .then((res) => util.resultHandler(res, '提交产品信息失败'))
+      .then((res) => util.resultHandler(res, t('system.productSubmitFailed')))
       .finally(() => (loading.value.productInfoBtnLoding = false))
   })
 }
@@ -1075,7 +1212,7 @@ const confirmSystemProductConfig = () => {
       .submitSplitSystemMaintenanceForm('product_config', {
         productConfig: systemMaintenance.value.config
       })
-      .then((res) => util.resultHandler(res, '提交产品配置信息失败'))
+      .then((res) => util.resultHandler(res, t('system.configSubmitFailed')))
       .finally(() => (loading.value.productConfigBtnLoding = false))
   })
 }
@@ -1086,7 +1223,7 @@ const confirmAutoAngleZero = () => {
     .submitSplitSystemMaintenanceForm('angle_zero', {
       angleZero: { type: '2' }
     })
-    .then((res) => util.resultHandler(res, '设置自动零位失败'))
+    .then((res) => util.resultHandler(res, t('system.autoZeroFailed')))
     .finally(() => (loading.value.ytZeroAutoBtnLoding = false))
 }
 
@@ -1100,7 +1237,7 @@ const confirmAngleZero = (index: number, param: SystemPtzAngleZero) => {
       .submitSplitSystemMaintenanceForm('angle_zero', {
         angleZero: param
       })
-      .then((res) => util.resultHandler(res, '提交角度零位信息失败'))
+      .then((res) => util.resultHandler(res, t('system.angleZeroSubmitFailed')))
       .finally(() => (loading.value.ytZeroBtnLoding = false))
   })
 }
@@ -1115,7 +1252,7 @@ const confirmInstall = () => {
       .submitSplitSystemMaintenanceForm('install_zero', {
         installZero: systemMaintenance.value.ptz.installZero
       })
-      .then((res) => util.resultHandler(res, '提交安装误差信息失败'))
+      .then((res) => util.resultHandler(res, t('system.installErrorSubmitFailed')))
       .finally(() => (loading.value.ytInstallBtnLoding = false))
   })
 }
@@ -1142,10 +1279,11 @@ const confirmServoParams = (type: keyof typeof servoRefMap) => {
       .submitSplitSystemMaintenanceForm('servo_' + type, {
         [type]: params
       })
-      .then((res) => util.resultHandler(res, '提交伺服参数失败'))
+      .then((res) => util.resultHandler(res, t('system.servoSubmitFailed')))
       .finally(() => (loading.value.ptzServoBtnLoding = false))
   })
 }
+
 const confirmSystemMoterBtn = (type: 0 | 1 | 2) => {
   loading.value.systemMoterBtnLoading = true
   const active = ptzMoterActiveName.value
@@ -1161,18 +1299,20 @@ const confirmSystemMoterBtn = (type: 0 | 1 | 2) => {
     .submitSplitSystemMaintenanceForm('ext', {
       ext: { op: type, type: active, para: systemMaintenance.value.ptz[prop] }
     })
-    .then((res) => util.resultHandler(res, '操作失败'))
+    .then((res) => util.resultHandler(res, t('system.operationFailed')))
     .finally(() => (loading.value.systemMoterBtnLoading = false))
 }
+
 const confirmAutoGyro = () => {
   loading.value.gyroscopeAutoBtnLoding = true
   apis
     .submitSplitSystemMaintenanceForm('gyro_compensation', {
       para: { mode: 0 }
     })
-    .then((res) => util.resultHandler(res, '设置自动补偿失败'))
+    .then((res) => util.resultHandler(res, t('system.autoCompensationFailed')))
     .finally(() => (loading.value.gyroscopeAutoBtnLoding = false))
 }
+
 const confirmGyro = () => {
   if (!systemGyroscopeRef.value) {
     return
@@ -1192,7 +1332,7 @@ const confirmGyro = () => {
       .submitSplitSystemMaintenanceForm('gyro_compensation', {
         para: params
       })
-      .then((res) => util.resultHandler(res, '提交陀螺补偿信息失败'))
+      .then((res) => util.resultHandler(res, t('system.gyroSubmitFailed')))
       .finally(() => (loading.value.gyroscopeBtnLoding = false))
   })
 }
@@ -1206,6 +1346,7 @@ const getSystemInfo = () => {
       loading.value.systemSectionLoading = false
     })
 }
+
 const getUserCommunicationInfo = () => {
   loading.value.userConmunicationSectionLoading = true
   apis
@@ -1215,15 +1356,15 @@ const getUserCommunicationInfo = () => {
       loading.value.userConmunicationSectionLoading = false
     })
 }
+
 const getStorageInfo = () => {
   loading.value.storageSectionLoading = true
-
   apis
     .getStorageInfo()
     .then((res) => (storageForm.value = res))
     .finally(() => (loading.value.storageSectionLoading = false))
 }
-// systemMaintenance.ptz.angleZero.type
+
 const getSystemMaintenanceInfo = () => {
   loading.value.systemMaintenanceLoading = true
   apis
@@ -1239,10 +1380,12 @@ const getSystemMaintenanceInfo = () => {
     })
     .finally(() => (loading.value.systemMaintenanceLoading = false))
 }
+
 const systemParam = (type: 0 | 1) => {
   loading.value.systemParamBtnLoading = true
   apis.systemParam(type).finally(() => (loading.value.systemParamBtnLoading = false))
 }
+
 const exportToFile = () => {
   loading.value.systemExportBtnLoading = true
   try {
@@ -1250,33 +1393,33 @@ const exportToFile = () => {
     const innerInfo = (form.ptz.angleZero.filter((o) => o.type === '0') || [{}])[0]
     const outerInfo = (form.ptz.angleZero.filter((o) => o.type === '1') || [{}])[0]
 
-    const content = `产品型号：${form.product.productNo}
-产品SN码：${form.product.productSn}
-方位角度零位-内：${innerInfo.angleYaw}
-俯仰角度零位-内：${innerInfo.anglePitch}
-翻滚角度零位-内：${innerInfo.angleRoll}
-方位角度零位-外：${outerInfo.angleYaw}
-俯仰角度零位-外：${outerInfo.anglePitch}
-翻滚角度零位-外：${outerInfo.angleRoll}
-方位安装误差角：${form.ptz.installZero.installYaw}
-俯仰安装误差角：${form.ptz.installZero.installPitch}
-翻滚安装误差角：${form.ptz.installZero.installRoll}
-陀螺补偿参数xa：${form.ptz.xa}
-陀螺补偿参数xb：${form.ptz.xb}
-陀螺补偿参数ya：${form.ptz.ya}
-陀螺补偿参数yb：${form.ptz.yb}
-陀螺补偿参数za：${form.ptz.za}
-陀螺补偿参数zb：${form.ptz.zb}
-方位Kp：${form.ptz.yawKp}
-方位Ki：${form.ptz.yawKi}
-方位Fp：${form.ptz.yawFp}
-俯仰Kp：${form.ptz.pitchKp}
-俯仰Ki：${form.ptz.pitchKi}
-俯仰Fp：${form.ptz.pitchFp}
-滚转Kp：${form.ptz.rollKp}
-滚转Ki：${form.ptz.rollKi}
-滚转Fp：${form.ptz.rollFp}
-  `
+    const content = `${t('system.model')}：${form.product.productNo}
+${t('system.serialNumber')}：${form.product.productSn}
+${t('system.azimuth')}${t('system.angleZero')}-${t('system.angleTypes.internal')}：${innerInfo.angleYaw}
+${t('system.pitch')}${t('system.angleZero')}-${t('system.angleTypes.internal')}：${innerInfo.anglePitch}
+${t('system.roll')}${t('system.angleZero')}-${t('system.angleTypes.internal')}：${innerInfo.angleRoll}
+${t('system.azimuth')}${t('system.angleZero')}-${t('system.angleTypes.external')}：${outerInfo.angleYaw}
+${t('system.pitch')}${t('system.angleZero')}-${t('system.angleTypes.external')}：${outerInfo.anglePitch}
+${t('system.roll')}${t('system.angleZero')}-${t('system.angleTypes.external')}：${outerInfo.angleRoll}
+${t('system.azimuth')}${t('system.installationError')}：${form.ptz.installZero.installYaw}
+${t('system.pitch')}${t('system.installationError')}：${form.ptz.installZero.installPitch}
+${t('system.roll')}${t('system.installationError')}：${form.ptz.installZero.installRoll}
+${t('system.gyroCompensation')}xa：${form.ptz.xa}
+${t('system.gyroCompensation')}xb：${form.ptz.xb}
+${t('system.gyroCompensation')}ya：${form.ptz.ya}
+${t('system.gyroCompensation')}yb：${form.ptz.yb}
+${t('system.gyroCompensation')}za：${form.ptz.za}
+${t('system.gyroCompensation')}zb：${form.ptz.zb}
+${t('system.yaw')}${t('system.kp')}：${form.ptz.yawKp}
+${t('system.yaw')}${t('system.ki')}：${form.ptz.yawKi}
+${t('system.yaw')}${t('system.fp')}：${form.ptz.yawFp}
+${t('system.pitch')}${t('system.kp')}：${form.ptz.pitchKp}
+${t('system.pitch')}${t('system.ki')}：${form.ptz.pitchKi}
+${t('system.pitch')}${t('system.fp')}：${form.ptz.pitchFp}
+${t('system.roll')}${t('system.kp')}：${form.ptz.rollKp}
+${t('system.roll')}${t('system.ki')}：${form.ptz.rollKi}
+${t('system.roll')}${t('system.fp')}：${form.ptz.rollFp}`
+
     const blob = new Blob([content], { type: 'text/plain' })
     const url = URL.createObjectURL(blob)
     const link = document.createElement('a')
@@ -1291,6 +1434,7 @@ const exportToFile = () => {
     loading.value.systemExportBtnLoading = false
   }
 }
+
 onMounted(() => {
   getSystemInfo()
   getUserCommunicationInfo()

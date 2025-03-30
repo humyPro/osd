@@ -5,7 +5,10 @@
       <div class="forms-box" v-for="(channel, index) in channelInfo.encode.venc" :key="index">
         <div class="form-box bordered">
           <div class="title" style="margin-bottom: 10px">
-            <FormTitle :title="'编码通道' + index + '参数设置'" text-type="primary" />
+            <FormTitle
+              :title="$t('encoding.channelTitle', { index: index + 1 })"
+              text-type="primary"
+            />
           </div>
           <el-form
             :inline="true"
@@ -15,79 +18,101 @@
             :rules="channelRules"
             :ref="(el: unknown) => (channelRefs[index] = el as FormInstance)"
           >
-            <el-form-item label="编码类型" prop="enType">
-              <el-select v-model="channel.enType" placeholder="">
+            <el-form-item :label="$t('encoding.encodeType')" prop="enType">
+              <el-select v-model="channel.enType" :placeholder="$t('common.selectPlaceholder')">
                 <el-option label="H264" :value="96" />
                 <el-option label="H265" :value="265" />
               </el-select>
             </el-form-item>
-            <el-form-item label="分辨率" prop="resolutionRatio">
-              <el-select v-model="channel.resolutionRatio" placeholder="">
+            <el-form-item :label="$t('encoding.resolution')" prop="resolutionRatio">
+              <el-select
+                v-model="channel.resolutionRatio"
+                :placeholder="$t('common.selectPlaceholder')"
+              >
                 <el-option label="640x480" value="640x480" />
                 <el-option label="1280x720" value="1280x720" />
                 <el-option label="1920x1080" value="1920x1080" />
                 <el-option label="4096x2304" value="4096x2304" />
               </el-select>
             </el-form-item>
-            <el-form-item label="帧率" prop="vencFramerate">
-              <el-input type="number" placeholder="[5-60]" v-model.number="channel.vencFramerate" />
-            </el-form-item>
-            <el-form-item label="关键帧间隔" prop="vencGop">
-              <el-input type="number" placeholder="[10-300]" v-model.number="channel.vencGop" />
-            </el-form-item>
-            <el-form-item label="码率(kbps)" prop="vencBitrate">
+            <el-form-item :label="$t('encoding.frameRate')" prop="vencFramerate">
               <el-input
                 type="number"
-                placeholder="200-20000"
+                :placeholder="$t('encoding.frameRatePlaceholder')"
+                v-model.number="channel.vencFramerate"
+              />
+            </el-form-item>
+            <el-form-item :label="$t('encoding.keyFrameInterval')" prop="vencGop">
+              <el-input
+                type="number"
+                :placeholder="$t('encoding.keyFramePlaceholder')"
+                v-model.number="channel.vencGop"
+              />
+            </el-form-item>
+            <el-form-item :label="$t('encoding.bitrate')" prop="vencBitrate">
+              <el-input
+                type="number"
+                :placeholder="$t('encoding.bitratePlaceholder')"
                 v-model.number="channel.vencBitrate"
               />
             </el-form-item>
-            <el-form-item label="动态码率" prop="vencRcMode">
-              <el-select v-model="channel.vencRcMode" placeholder="">
+            <el-form-item :label="$t('encoding.dynamicBitrate')" prop="vencRcMode">
+              <el-select v-model="channel.vencRcMode" :placeholder="$t('common.selectPlaceholder')">
                 <el-option label="CBR" :value="0" />
                 <el-option label="VBR" :value="1" />
               </el-select>
             </el-form-item>
-            <el-form-item label="MinQp" prop="vencMinQp">
-              <el-input placeholder="[1-51]" type="number" v-model.number="channel.vencMinQp" />
+            <el-form-item :label="$t('encoding.minQp')" prop="vencMinQp">
+              <el-input
+                :placeholder="$t('encoding.minQpPlaceholder')"
+                type="number"
+                v-model.number="channel.vencMinQp"
+              />
             </el-form-item>
             <el-form-item
-              label="MaxQp"
+              :label="$t('encoding.maxQp')"
               prop="vencMaxQp"
               :rules="[
                 {
-                  validator: forms.checkNumber(() => channel.vencMinQp, 51, 'MinIQq'),
+                  validator: forms.checkNumber(() => channel.vencMinQp, 51, $t('encoding.minQp')),
                   trigger: 'blur'
                 }
               ]"
             >
-              <el-input placeholder="[MinQp,51]" type="number" v-model.number="channel.vencMaxQp" />
+              <el-input
+                :placeholder="$t('encoding.maxQpPlaceholder')"
+                type="number"
+                v-model.number="channel.vencMaxQp"
+              />
             </el-form-item>
             <el-form-item
-              label="MinIQp"
+              :label="$t('encoding.minIQp')"
               prop="vencMinIQp"
               :rules="[
                 {
                   validator: forms.checkNumber(
                     () => channel.vencMinQp,
                     () => channel.vencMaxQp,
-                    'MinIQq'
+                    $t('encoding.minIQp')
                   ),
                   trigger: 'blur'
                 }
               ]"
             >
               <el-input
-                placeholder="[MinQp,MaxQp]"
+                :placeholder="$t('encoding.minIQpPlaceholder')"
                 type="number"
                 v-model.number="channel.vencMinIQp"
               />
             </el-form-item>
-            <el-form-item label="Profile" prop="vencProfile">
-              <el-select v-model="channel.vencProfile" placeholder="">
-                <el-option label="baseline" :value="0" />
-                <el-option label="main" :value="1" />
-                <el-option label="high" :value="2" />
+            <el-form-item :label="$t('encoding.profile')" prop="vencProfile">
+              <el-select
+                v-model="channel.vencProfile"
+                :placeholder="$t('common.selectPlaceholder')"
+              >
+                <el-option :label="$t('encoding.baseline')" :value="0" />
+                <el-option :label="$t('encoding.main')" :value="1" />
+                <el-option :label="$t('encoding.high')" :value="2" />
               </el-select>
             </el-form-item>
             <el-button
@@ -95,13 +120,13 @@
               :loading="encodingFormLoading[index]"
               type="primary"
               @click="submitChannelForm(index)"
-              >保存</el-button
+              >{{ $t('common.save') }}</el-button
             >
           </el-form>
         </div>
         <div class="form-box bordered form-right" style="width: 660px">
           <div class="title" style="margin-bottom: 10px">
-            <FormTitle :title="'编码通道' + index + '播放地址'" />
+            <FormTitle :title="$t('encoding.playUrlTitle', { index: index + 1 })" />
             <el-tooltip :content="channelInfo.url.rtsp[index]" placement="top" effect="light">
               <el-text class="mx-1" truncated>{{ channelInfo.url.rtsp[index] }}</el-text>
             </el-tooltip>
@@ -111,7 +136,7 @@
       <div class="forms-box">
         <div class="form-box bordered">
           <div class="title" style="margin-bottom: 10px">
-            <FormTitle title="音频参数" text-type="primary" />
+            <FormTitle :title="$t('audio.title')" text-type="primary" />
           </div>
           <el-form
             :inline="true"
@@ -121,37 +146,38 @@
             :rules="audioRules"
             ref="audioFormRef"
           >
-            <el-form-item label="音频编码" prop="encoding">
-              <el-select v-model="audioProp.encoding" placeholder="">
-                <el-option label="ACC" :value="1" />
-                <el-option label="MP3" :value="2" />
+            <el-form-item :label="$t('audio.encodeType')" prop="encoding">
+              <el-select v-model="audioProp.encoding" :placeholder="$t('common.selectPlaceholder')">
+                <el-option :label="$t('audio.aac')" :value="1" />
+                <el-option :label="$t('audio.mp3')" :value="2" />
               </el-select>
             </el-form-item>
-            <el-form-item label="声道布局" prop="layout">
-              <el-select v-model="audioProp.layout" placeholder="">
-                <el-option label="立体声" :value="0" />
-                <el-option label="左声道" :value="1" />
-                <el-option label="右声道" :value="2" />
+            <el-form-item :label="$t('audio.channelLayout')" prop="layout">
+              <el-select v-model="audioProp.layout" :placeholder="$t('common.selectPlaceholder')">
+                <el-option :label="$t('audio.stereo')" :value="0" />
+                <el-option :label="$t('audio.leftChannel')" :value="1" />
+                <el-option :label="$t('audio.rightChannel')" :value="2" />
               </el-select>
             </el-form-item>
-            <el-form-item label="ACC格式" prop="accFormat">
-              <el-select v-model="audioProp.accFormat" placeholder="">
-                <el-option label="LC-ACC" :value="0" />
-                <el-option label="HE-ACC" :value="1" />
+            <el-form-item :label="$t('audio.aacFormat')" prop="accFormat">
+              <el-select
+                v-model="audioProp.accFormat"
+                :placeholder="$t('common.selectPlaceholder')"
+              >
+                <el-option :label="$t('audio.lcAac')" :value="0" />
+                <el-option :label="$t('audio.heAac')" :value="1" />
               </el-select>
             </el-form-item>
-            <el-form-item label="音频比特率" prop="auditBit">
-              <el-select v-model="audioProp.auditBit" placeholder="">
-                <el-option label="24000" :value="24000" />
-                <el-option label="32000" :value="32000" />
-                <el-option label="48000" :value="48000" />
-                <el-option label="64000" :value="64000" />
-                <el-option label="96000" :value="96000" />
-                <el-option label="128000" :value="128000" />
-                <el-option label="160000" :value="160000" />
-                <el-option label="192000" :value="192000" />
-                <el-option label="256000" :value="256000" />
-                <el-option label="320000" :value="320000" />
+            <el-form-item :label="$t('audio.bitrate')" prop="auditBit">
+              <el-select v-model="audioProp.auditBit" :placeholder="$t('common.selectPlaceholder')">
+                <el-option
+                  v-for="rate in [
+                    24000, 32000, 48000, 64000, 96000, 128000, 160000, 192000, 256000, 320000
+                  ]"
+                  :key="rate"
+                  :label="rate"
+                  :value="rate"
+                />
               </el-select>
             </el-form-item>
             <el-button
@@ -159,7 +185,7 @@
               type="primary"
               :loading="auditFormLoading"
               @click="submitAudioForm"
-              >保存</el-button
+              >{{ $t('common.save') }}</el-button
             >
           </el-form>
         </div>
@@ -172,22 +198,28 @@
                 </div>
               </template>
             </el-image>
-            <el-text>扫描下载app|扫描连接设备</el-text>
+            <el-text>{{ $t('common.scanQRCode') }}</el-text>
           </div>
         </div>
       </div>
     </div>
   </div>
 </template>
+
 <script lang="ts" setup>
 import apis from '@/common/apis'
-import forms from '@/common/forms'
 import type { AudioForm, EncodingForm, VencForm } from '@/common/apis/modelTypes'
 import MenuBar from '@/components/MenuBar.vue'
 import { Picture as IconPicture } from '@element-plus/icons-vue'
 import { ref, onMounted, reactive } from 'vue'
 import type { FormInstance, FormRules } from 'element-plus'
 import util from '@/common/util'
+import useFormValidation from '@/common/forms/formValidator'
+import { useI18n } from 'vue-i18n'
+
+const { t } = useI18n()
+const forms = useFormValidation()
+
 type ChannelType = EncodingForm
 type AuditPropType = {
   encoding: string
@@ -195,11 +227,13 @@ type AuditPropType = {
   accFormat: string
   auditBit: string
 }
+
 const channelInfo = ref<ChannelType>({
   url: { rtsp: [] },
   encode: { venc: [{} as VencForm, {} as VencForm, {} as VencForm] },
   audio: {} as AudioForm
 } as ChannelType)
+
 const channelRefs = ref<FormInstance[]>([])
 const audioFormRef = ref<FormInstance>()
 const audioProp = ref<AuditPropType>({} as AuditPropType)
@@ -207,6 +241,7 @@ const qrCode = ref<string>()
 const loadEncodingForm = ref(false)
 const encodingFormLoading = ref([] as boolean[])
 const auditFormLoading = ref(false)
+
 onMounted(() => {
   loadEncodingForm.value = true
   apis
@@ -219,21 +254,29 @@ onMounted(() => {
     })
     .finally(() => (loadEncodingForm.value = false))
 })
+
 const channelRules = reactive<FormRules>({
-  enType: [{ validator: forms.checkSelect('编码类型'), trigger: 'change' }],
-  resolutionRatio: [{ validator: forms.checkSelect('分辨率'), trigger: 'change' }],
-  vencRcMode: [{ validator: forms.checkSelect('动态码率'), trigger: 'change' }],
-  vencProfile: [{ validator: forms.checkSelect('Profile'), trigger: 'change' }],
-  vencFramerate: [{ validator: forms.checkNumber(5, 60, '帧率'), trigger: 'blur' }],
-  vencGop: [{ validator: forms.checkNumber(10, 300, '关键帧间隔'), trigger: 'blur' }],
-  vencBitrate: [{ validator: forms.checkNumber(200, 20000, '码率'), trigger: 'blur' }],
-  vencMinQp: [{ validator: forms.checkNumber(1, 51, 'MinQq'), trigger: 'blur' }]
+  enType: [{ validator: forms.checkSelect(t('encoding.encodeType')), trigger: 'change' }],
+  resolutionRatio: [{ validator: forms.checkSelect(t('encoding.resolution')), trigger: 'change' }],
+  vencRcMode: [{ validator: forms.checkSelect(t('encoding.dynamicBitrate')), trigger: 'change' }],
+  vencProfile: [{ validator: forms.checkSelect(t('encoding.profile')), trigger: 'change' }],
+  vencFramerate: [
+    { validator: forms.checkNumber(5, 60, t('encoding.frameRate')), trigger: 'blur' }
+  ],
+  vencGop: [
+    { validator: forms.checkNumber(10, 300, t('encoding.keyFrameInterval')), trigger: 'blur' }
+  ],
+  vencBitrate: [
+    { validator: forms.checkNumber(200, 20000, t('encoding.bitrate')), trigger: 'blur' }
+  ],
+  vencMinQp: [{ validator: forms.checkNumber(1, 51, t('encoding.minQp')), trigger: 'blur' }]
 })
+
 const audioRules = reactive<FormRules<AuditPropType>>({
-  encoding: [{ validator: forms.checkSelect('音频编码'), trigger: 'change' }],
-  layout: [{ validator: forms.checkSelect('升到布局'), trigger: 'change' }],
-  accFormat: [{ validator: forms.checkSelect('ACC格式'), trigger: 'change' }],
-  auditBit: [{ validator: forms.checkSelect('音频比特率'), trigger: 'change' }]
+  encoding: [{ validator: forms.checkSelect(t('audio.encodeType')), trigger: 'change' }],
+  layout: [{ validator: forms.checkSelect(t('audio.channelLayout')), trigger: 'change' }],
+  accFormat: [{ validator: forms.checkSelect(t('audio.aacFormat')), trigger: 'change' }],
+  auditBit: [{ validator: forms.checkSelect(t('audio.bitrate')), trigger: 'change' }]
 })
 
 const submitChannelForm = (index: number) => {
@@ -254,14 +297,15 @@ const submitChannelForm = (index: number) => {
         .catch((e) => {
           console.error(e)
           encodingFormLoading.value[index] = false
-          util.showMessage('提交数据失败', 'error')
+          util.showMessage(t('error.submitFailed'), 'error')
         })
     } else {
       encodingFormLoading.value[index] = false
-      util.showMessage('表单校验失败', 'warning')
+      util.showMessage(t('error.validationFailed'), 'warning')
     }
   })
 }
+
 const submitAudioForm = () => {
   if (!audioFormRef.value) {
     return
@@ -270,9 +314,9 @@ const submitAudioForm = () => {
   audioFormRef.value
     .validate((valid) => {
       if (valid) {
-        alert('表单提交成功')
+        alert(t('message.submitSuccess'))
       } else {
-        alert('表单校验失败')
+        alert(t('error.validationFailed'))
       }
     })
     .finally(() => {

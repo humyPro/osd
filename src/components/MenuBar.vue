@@ -10,43 +10,38 @@
     </el-col>
   </el-row>
 </template>
-<script lang="ts">
+<script lang="ts" setup>
 import { ScaleToOriginal, VideoPlay, Link, Setting, HelpFilled } from '@element-plus/icons-vue'
 import { markRaw } from 'vue'
-export default {
-  data() {
-    return {
-      activeIndex: '/encoding',
-      menus: [
-        {
-          label: '编码设置',
-          path: '/encoding',
-          icon: markRaw(ScaleToOriginal)
-        },
-        {
-          label: '视频设置',
-          path: '/video',
-          icon: markRaw(VideoPlay)
-        },
-        {
-          label: '云台控制',
-          path: '/control',
-          icon: markRaw(HelpFilled)
-        },
-        {
-          label: '网络设置',
-          path: '/network',
-          icon: markRaw(Link)
-        },
-        {
-          label: '系统设置',
-          path: '/system',
-          icon: markRaw(Setting)
-        }
-      ]
-    }
+import { useI18n } from 'vue-i18n'
+const { t } = useI18n()
+const menus = [
+  {
+    label: t('menu.encoding'),
+    path: '/encoding',
+    icon: markRaw(ScaleToOriginal)
+  },
+  {
+    label: t('menu.video'),
+    path: '/video',
+    icon: markRaw(VideoPlay)
+  },
+  {
+    label: t('menu.gimbal'),
+    path: '/control',
+    icon: markRaw(HelpFilled)
+  },
+  {
+    label: t('menu.network'),
+    path: '/network',
+    icon: markRaw(Link)
+  },
+  {
+    label: t('menu.system'),
+    path: '/system',
+    icon: markRaw(Setting)
   }
-}
+]
 </script>
 <style scoped>
 .menu-bar {

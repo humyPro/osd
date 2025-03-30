@@ -4,7 +4,7 @@
     <div class="main-content">
       <div class="forms-box">
         <div class="form-box bordered">
-          <FormTitle title="云台控制"></FormTitle>
+          <FormTitle :title="$t('gimbal.title')"></FormTitle>
           <div class="buttons">
             <div>
               <el-button @click="submitBtnAction('OFF')">OFF</el-button>
@@ -46,9 +46,9 @@
           </div>
         </div>
         <div class="form-box bordered">
-          <FormTitle title="镜头控制"></FormTitle>
+          <FormTitle :title="$t('camera.title')"></FormTitle>
           <el-form label-position="left">
-            <el-form-item label="设备选择">
+            <el-form-item :title="$t('camera.title')">
               <el-select v-model="deviceSelected">
                 <el-option label="TV1" :value="0" />
                 <el-option label="TV2" :value="1" />
@@ -57,15 +57,29 @@
             </el-form-item>
             <div class="buttons">
               <div>
-                <el-button @click="submitCameraAction(1)">视场+</el-button>
-                <el-button @click="submitCameraAction(2)">视场-</el-button>
-                <el-button @click="submitCameraAction(0)">视场停止</el-button>
-                <el-button @click="submitCameraAction(3)">视场设置</el-button>
+                <el-button @click="submitCameraAction(1)">{{
+                  $t('camera.buttons.zoomIn')
+                }}</el-button>
+                <el-button @click="submitCameraAction(2)">{{
+                  $t('camera.buttons.zoomOut')
+                }}</el-button>
+                <el-button @click="submitCameraAction(0)">{{
+                  $t('camera.buttons.zoomStop')
+                }}</el-button>
+                <el-button @click="submitCameraAction(3)">{{
+                  $t('camera.buttons.zoomSet')
+                }}</el-button>
               </div>
               <div>
-                <el-button @click="submitCameraAction(4)">调焦+</el-button>
-                <el-button @click="submitCameraAction(5)">调焦-</el-button>
-                <el-button @click="submitCameraAction(6)">一键聚焦</el-button>
+                <el-button @click="submitCameraAction(4)">{{
+                  $t('camera.buttons.focusIn')
+                }}</el-button>
+                <el-button @click="submitCameraAction(5)">{{
+                  $t('camera.buttons.focusOut')
+                }}</el-button>
+                <el-button @click="submitCameraAction(6)">{{
+                  $t('camera.buttons.autoFocus')
+                }}</el-button>
               </div>
             </div>
           </el-form>

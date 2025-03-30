@@ -1,7 +1,316 @@
 {
-  "home": {
+  "menu": {
+    "encoding": "Encoding Settings",
+    "video": "Video Settings",
+    "gimbal": "Gimbal Control",
+    "network": "Network Settings",
+    "system": "System Settings"
+  },
+  "user": {
     "login": "Sign In",
     "username": "Username",
     "password": "Password"
+  },
+  "auth": {
+    "loginSuccess": "Login successful",
+    "authFailed": "Authentication failed",
+    "invalidCredentials": "Invalid username or password",
+    "sessionExpired": "Your session has expired"
+  },
+  "validation": {
+    "required": "Please input",
+    "requiredSelect": "Please select",
+    "enter": "Please enter {field}",
+    "select": "Please select {field}",
+    "integer": "Must be an integer",
+    "integerOnly": "{field} must be an integer",
+    "maxValue": "Maximum value is {max}",
+    "maxValueWithField": "{field} cannot exceed {max}",
+    "minValue": "Minimum value is {min}",
+    "minValueWithField": "{field} cannot be less than {min}",
+    "validIp": "Please enter a valid {field} address",
+    "formInvalid": "Form validation failed"
+  },
+  "gimbal": {
+    "title": "Gimbal Control"
+  },
+  "camera": {
+    "title": "Lens Control",
+    "device": {
+      "label": "Device Selection"
+    },
+    "buttons": {
+      "zoomIn": "Zoom+",
+      "zoomOut": "Zoom-",
+      "zoomStop": "Stop Zoom",
+      "zoomSet": "Set Zoom",
+      "focusIn": "Focus+",
+      "focusOut": "Focus-",
+      "autoFocus": "Auto Focus"
+    }
+  },
+  "common": {
+    "selectPlaceholder": "Please select",
+    "save": "Save",
+    "scanQRCode": "Scan to download app | Scan to connect device"
+  },
+  "encoding": {
+    "channelTitle": "Encoding Channel {index} Settings",
+    "playUrlTitle": "Encoding Channel {index} Play URL",
+    "encodeType": "Encode Type",
+    "resolution": "Resolution",
+    "frameRate": "Frame Rate",
+    "frameRatePlaceholder": "[5-60]",
+    "keyFrameInterval": "Key Frame Interval",
+    "keyFramePlaceholder": "[10-300]",
+    "bitrate": "Bitrate (kbps)",
+    "bitratePlaceholder": "200-20000",
+    "dynamicBitrate": "Dynamic Bitrate",
+    "minQp": "MinQp",
+    "minQpPlaceholder": "[1-51]",
+    "maxQp": "MaxQp",
+    "maxQpPlaceholder": "[MinQp,51]",
+    "minIQp": "MinIQp",
+    "minIQpPlaceholder": "[MinQp,MaxQp]",
+    "profile": "Profile",
+    "baseline": "baseline",
+    "main": "main",
+    "high": "high"
+  },
+  "audio": {
+    "title": "Audio Settings",
+    "encodeType": "Audio Encode",
+    "aac": "AAC",
+    "mp3": "MP3",
+    "channelLayout": "Channel Layout",
+    "stereo": "Stereo",
+    "leftChannel": "Left Channel",
+    "rightChannel": "Right Channel",
+    "aacFormat": "AAC Format",
+    "lcAac": "LC-AAC",
+    "heAac": "HE-AAC",
+    "bitrate": "Audio Bitrate"
+  },
+  "network": {
+    "title": "Wired Network Parameters",
+    "ip": "IP Address",
+    "mask": "Subnet Mask",
+    "gateway": "Default Gateway",
+    "mac": "MAC Address",
+    "dhcp": "DHCP",
+    "wifi": "WiFi"
+  },
+  "userCommunication": {
+    "title": "User Communication Configuration",
+    "udp": "UDP",
+    "localPort": "Local Port",
+    "destinationAddress": "Destination Address",
+    "destinationPort": "Destination Port",
+    "uart": "UART",
+    "baudRate": "Baud Rate",
+    "dataBits": "Data Bits",
+    "stopBits": "Stop Bits",
+    "parity": "Parity",
+    "parityOptions": {
+      "none": "None",
+      "odd": "Odd",
+      "even": "Even"
+    },
+    "checkData": "Check Data",
+    "metadata": "Metadata",
+    "save": "Save",
+    "submitFailed": "Failed to submit user communication configuration"
+  },
+  "storage": {
+    "title": "Storage",
+    "format": "Recording Format",
+    "formatOptions": {
+      "h26x": "H26X",
+      "mp4": "MP4",
+      "avi": "AVI",
+      "flv": "FLV"
+    },
+    "mode": "Recording Mode",
+    "modeOptions": {
+      "loop": "Loop",
+      "nonLoop": "Non-loop"
+    },
+    "duration": "File Duration",
+    "durationOptions": {
+      "1min": "1 minute",
+      "3min": "3 minutes",
+      "5min": "5 minutes",
+      "10min": "10 minutes",
+      "15min": "15 minutes",
+      "20min": "20 minutes",
+      "30min": "30 minutes"
+    },
+    "freeSpace": "Free Space",
+    "totalSpace": "Total Space",
+    "formatConfirm": "Are you sure to format?",
+    "confirm": "Confirm",
+    "cancel": "Cancel",
+    "formatButton": "Format",
+    "channel": "Channel {index}",
+    "save": "Save",
+    "formatFailed": "Failed to format disk",
+    "submitFailed": "Failed to submit configuration"
+  },
+  "system": {
+    "title": "System Information",
+    "version": "System Version",
+    "upgrade": "System Upgrade",
+    "selectFile": "Select File",
+    "update": "Update",
+    "reset": "Factory Reset",
+    "restart": "Restart",
+    "maintenance": "System Maintenance",
+    "productInfo": "Product Information",
+    "model": "Product Model",
+    "serialNumber": "Serial Number",
+    "notes": "Notes",
+    "productConfig": "Product Configuration",
+    "tv1Model": "TV1 Model",
+    "tv2Model": "TV2 Model",
+    "ir1Model": "IR1 Model",
+    "ir2Model": "IR2 Model",
+    "laModel": "LA Model",
+    "userProtocol": "User Protocol",
+    "angleZero": "Angle Zero",
+    "angleTypes": {
+      "internal": "Internal Angle",
+      "external": "External Angle"
+    },
+    "azimuth": "Azimuth",
+    "pitch": "Pitch",
+    "roll": "Roll",
+    "autoZero": "Auto Zero",
+    "confirm": "Confirm",
+    "installationError": "Installation Error",
+    "servoParams": "Servo Parameters",
+    "yaw": "Yaw",
+    "kp": "Kp",
+    "ki": "Ki",
+    "fp": "Fp",
+    "gyroCompensation": "Gyro Compensation",
+    "autoCompensation": "Auto Compensation",
+    "motorZero": "Motor Zero",
+    "motorTypes": {
+      "yaw": "Yaw",
+      "pitch": "Pitch",
+      "roll": "Roll",
+      "externalYaw": "External Yaw",
+      "externalPitch": "External Pitch"
+    },
+    "zeroPosition": "Zero Position",
+    "stopZero": "Stop Zero",
+    "confirmZero": "Confirm",
+    "paramOperations": {
+      "get": "Get Parameters",
+      "save": "Save Parameters",
+      "export": "Export File"
+    },
+    "login": {
+      "title": "Enter password to show system maintenance page",
+      "account": "Account",
+      "password": "Password",
+      "cancel": "Cancel",
+      "confirm": "Confirm"
+    },
+    "resetFailed": "Failed to reset to factory settings",
+    "restartFailed": "Failed to restart system",
+    "uploadFailed": "File upload failed",
+    "uploadSuccess": "File uploaded successfully",
+    "authFailed": "Authentication failed",
+    "authSuccess": "Authentication successful",
+    "productSubmitFailed": "Failed to submit product information",
+    "configSubmitFailed": "Failed to submit product configuration",
+    "autoZeroFailed": "Failed to set auto zero",
+    "angleZeroSubmitFailed": "Failed to submit angle zero information",
+    "installErrorSubmitFailed": "Failed to submit installation error information",
+    "servoSubmitFailed": "Failed to submit servo parameters",
+    "operationFailed": "Operation failed",
+    "autoCompensationFailed": "Failed to set auto compensation",
+    "gyroSubmitFailed": "Failed to submit gyro compensation information",
+    "save": "Save"
+  },
+  "video": {
+    "title": "Video {index} Settings",
+    "udpH26x": {
+      "label": "UDP H26X",
+      "mode": "Mode",
+      "localPort": "Local Port",
+      "targetIp": "Target IP",
+      "targetPort": "Target Port",
+      "sendLength": "Send Length",
+      "sendInterval": "Send Interval"
+    },
+    "udpTs": {
+      "label": "UDP TS",
+      "mode": "Mode",
+      "localPort": "Local Port",
+      "targetIp": "Target IP",
+      "targetPort": "Target Port",
+      "sendLength": "Send Length",
+      "sendInterval": "Send Interval"
+    },
+    "rtsp": {
+      "label": "RTSP",
+      "port": "Service Port",
+      "transMode": "Transport Mode",
+      "streamName": "Stream Name",
+      "userSize": "User Count",
+      "keepAlive": "Keep Alive(ms)",
+      "streamNamePlaceholder": "[Format: /stream0, restart required]",
+      "keepAlivePlaceholder": "[milliseconds]"
+    },
+    "rtmp": {
+      "label": "RTMP",
+      "url": "Push URL"
+    },
+    "gb28181": {
+      "label": "GB28181",
+      "serverIp": "SIP Server IP",
+      "serverPort": "SIP Server Port",
+      "serverId": "SIP Server ID",
+      "period": "Registration Period",
+      "heartBeat": "Heartbeat Interval",
+      "localSipPort": "Local SIP Port",
+      "authId": "SIP Auth ID",
+      "password": "SIP Password"
+    },
+    "modeOptions": {
+      "unicast": "Unicast",
+      "multicast": "Multicast",
+      "broadcast": "Broadcast"
+    },
+    "transModeOptions": {
+      "udp": "UDP",
+      "tcp": "TCP"
+    },
+    "saveButton": "Save"
+  },
+  "placeholders": {
+    "model": "e.g. QP-125T",
+    "serial": "001-0001",
+    "number": "0/1/2/3/4",
+    "angle": "[0,360]",
+    "error": "[-5,5]",
+    "servoKp": "[0,500]",
+    "servoKi": "[0,50000]",
+    "servoFp": "[0,1000]",
+    "dataBits": "5/6/7/8",
+    "stopBits": "1/1.5/2"
+  },
+  "unknown": "unknown",
+  "error": {
+    "submitFailed": "Submit failed",
+    "validationFailed": "Validation failed"
+  },
+  "message": {
+    "submitSuccess": "Submit success"
+  },
+  "notFound": {
+    "message": "Please click the left menu to return to the correct page"
   }
 }
