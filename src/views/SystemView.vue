@@ -4,32 +4,32 @@
     <div class="main-content">
       <div class="forms-box">
         <div class="form-box bordered" v-loading="loading.userConmunicationSectionLoading">
-          <FormTitle :title="$t('userCommunication.title')"></FormTitle>
+          <FormTitle :title="t('userCommunication.title')"></FormTitle>
           <el-form
             :model="userCommConfigForm"
             label-position="left"
             :rules="userCommConfigRules"
             ref="userCommConfigRef"
           >
-            <el-form-item :label="$t('userCommunication.udp')" prop="udp.udpEn">
+            <el-form-item :label="t('userCommunication.udp')" prop="udp.udpEn">
               <el-switch
                 v-model="userCommConfigForm.udp.udpEn"
                 :active-value="1"
                 :inactive-value="0"
               />
             </el-form-item>
-            <el-form-item :label="$t('userCommunication.localPort')" prop="udp.udpLocalPort">
+            <el-form-item :label="t('userCommunication.localPort')" prop="udp.udpLocalPort">
               <el-input type="number" v-model.number="userCommConfigForm.udp.udpLocalPort" />
             </el-form-item>
-            <el-form-item :label="$t('userCommunication.destinationAddress')" prop="udp.udpDstIp">
+            <el-form-item :label="t('userCommunication.destinationAddress')" prop="udp.udpDstIp">
               <el-input v-model.trim="userCommConfigForm.udp.udpDstIp" />
             </el-form-item>
-            <el-form-item :label="$t('userCommunication.destinationPort')" prop="udp.udpDstPort">
+            <el-form-item :label="t('userCommunication.destinationPort')" prop="udp.udpDstPort">
               <el-input type="number" v-model.number="userCommConfigForm.udp.udpDstPort" />
             </el-form-item>
             <el-divider />
 
-            <el-form-item :label="$t('userCommunication.uart')" prop="uart.uartEn">
+            <el-form-item :label="t('userCommunication.uart')" prop="uart.uartEn">
               <el-switch
                 v-model="userCommConfigForm.uart.uartEn"
                 :active-value="1"
@@ -38,35 +38,35 @@
             </el-form-item>
             <el-form-item
               type="number"
-              :label="$t('userCommunication.baudRate')"
+              :label="t('userCommunication.baudRate')"
               prop="uart.baudrate"
             >
               <el-input v-model.number="userCommConfigForm.uart.baudrate" />
             </el-form-item>
-            <el-form-item :label="$t('userCommunication.dataBits')" prop="uart.dataBit">
+            <el-form-item :label="t('userCommunication.dataBits')" prop="uart.dataBit">
               <el-input
                 type="number"
-                :placeholder="$t('placeholders.dataBits')"
+                :placeholder="t('placeholders.dataBits')"
                 v-model.number="userCommConfigForm.uart.dataBit"
               />
             </el-form-item>
-            <el-form-item :label="$t('userCommunication.stopBits')" prop="uart.stopBit">
+            <el-form-item :label="t('userCommunication.stopBits')" prop="uart.stopBit">
               <el-input
                 type="number"
-                :placeholder="$t('placeholders.stopBits')"
+                :placeholder="t('placeholders.stopBits')"
                 v-model.number="userCommConfigForm.uart.stopBit"
               />
             </el-form-item>
-            <el-form-item :label="$t('userCommunication.parity')" prop="uart.parityBit">
+            <el-form-item :label="t('userCommunication.parity')" prop="uart.parityBit">
               <el-select v-model="userCommConfigForm.uart.parityBit">
-                <el-option :label="$t('userCommunication.parityOptions.none')" :value="0" />
-                <el-option :label="$t('userCommunication.parityOptions.odd')" :value="1" />
-                <el-option :label="$t('userCommunication.parityOptions.even')" :value="2" />
+                <el-option :label="t('userCommunication.parityOptions.none')" :value="0" />
+                <el-option :label="t('userCommunication.parityOptions.odd')" :value="1" />
+                <el-option :label="t('userCommunication.parityOptions.even')" :value="2" />
               </el-select>
             </el-form-item>
             <el-divider />
 
-            <el-form-item :label="$t('userCommunication.checkData')">
+            <el-form-item :label="t('userCommunication.checkData')">
               <el-switch
                 v-model="userCommConfigForm.checkData"
                 :active-value="1"
@@ -74,7 +74,7 @@
               />
             </el-form-item>
 
-            <el-form-item :label="$t('userCommunication.metadata')">
+            <el-form-item :label="t('userCommunication.metadata')">
               <el-switch
                 v-model="userCommConfigForm.metedata"
                 :active-value="1"
@@ -86,64 +86,64 @@
               class="save-button"
               @click="confirmUserCommConfig"
               :loading="loading.submitUserCommunicationBtnLoding"
-              >{{ $t('userCommunication.save') }}</el-button
+              >{{ t('userCommunication.save') }}</el-button
             >
           </el-form>
         </div>
         <div class="form-box bordered" v-loading="loading.storageSectionLoading">
-          <FormTitle :title="$t('storage.title')"></FormTitle>
+          <FormTitle :title="t('storage.title')"></FormTitle>
           <el-form
             :model="storageForm"
             label-position="left"
             ref="storageRef"
             :rules="storageRules"
           >
-            <el-form-item :label="$t('storage.format')" prop="recordType">
+            <el-form-item :label="t('storage.format')" prop="recordType">
               <el-select v-model="storageForm.recordType">
-                <el-option :label="$t('storage.formatOptions.h26x')" :value="0" />
-                <el-option :label="$t('storage.formatOptions.mp4')" :value="1" />
-                <el-option :label="$t('storage.formatOptions.avi')" :value="2" />
-                <el-option :label="$t('storage.formatOptions.flv')" :value="3" />
+                <el-option :label="t('storage.formatOptions.h26x')" :value="0" />
+                <el-option :label="t('storage.formatOptions.mp4')" :value="1" />
+                <el-option :label="t('storage.formatOptions.avi')" :value="2" />
+                <el-option :label="t('storage.formatOptions.flv')" :value="3" />
               </el-select>
             </el-form-item>
-            <el-form-item :label="$t('storage.mode')" prop="recordMode">
+            <el-form-item :label="t('storage.mode')" prop="recordMode">
               <el-radio-group v-model="storageForm.recordMode">
-                <el-radio :label="$t('storage.modeOptions.loop')" :value="0"></el-radio>
-                <el-radio :label="$t('storage.modeOptions.nonLoop')" :value="1"></el-radio>
+                <el-radio :label="t('storage.modeOptions.loop')" :value="0"></el-radio>
+                <el-radio :label="t('storage.modeOptions.nonLoop')" :value="1"></el-radio>
               </el-radio-group>
             </el-form-item>
-            <el-form-item :label="$t('storage.duration')" prop="recordDuration">
+            <el-form-item :label="t('storage.duration')" prop="recordDuration">
               <el-select v-model="storageForm.recordDuration">
-                <el-option :label="$t('storage.durationOptions.1min')" :value="1" />
-                <el-option :label="$t('storage.durationOptions.3min')" :value="3" />
-                <el-option :label="$t('storage.durationOptions.5min')" :value="5" />
-                <el-option :label="$t('storage.durationOptions.10min')" :value="10" />
-                <el-option :label="$t('storage.durationOptions.15min')" :value="15" />
-                <el-option :label="$t('storage.durationOptions.20min')" :value="20" />
-                <el-option :label="$t('storage.durationOptions.30min')" :value="30" />
+                <el-option :label="t('storage.durationOptions.1min')" :value="1" />
+                <el-option :label="t('storage.durationOptions.3min')" :value="3" />
+                <el-option :label="t('storage.durationOptions.5min')" :value="5" />
+                <el-option :label="t('storage.durationOptions.10min')" :value="10" />
+                <el-option :label="t('storage.durationOptions.15min')" :value="15" />
+                <el-option :label="t('storage.durationOptions.20min')" :value="20" />
+                <el-option :label="t('storage.durationOptions.30min')" :value="30" />
               </el-select>
             </el-form-item>
-            <el-form-item :label="$t('storage.freeSpace')">
+            <el-form-item :label="t('storage.freeSpace')">
               <el-text>{{ storageForm.diskFreeSize }}MB</el-text>
             </el-form-item>
-            <el-form-item :label="$t('storage.totalSpace')">
+            <el-form-item :label="t('storage.totalSpace')">
               <el-text>{{ storageForm.diskTotalSize }}MB</el-text>
             </el-form-item>
             <el-form-item label=" ">
               <el-popconfirm
-                :title="$t('storage.formatConfirm')"
+                :title="t('storage.formatConfirm')"
                 @confirm="confirmFormat"
-                :confirm-button-text="$t('storage.confirm')"
-                :cancel-button-text="$t('storage.cancel')"
+                :confirm-button-text="t('storage.confirm')"
+                :cancel-button-text="t('storage.cancel')"
               >
                 <template #reference>
                   <el-button type="danger" :loading="loading.formatBtnLoading">{{
-                    $t('storage.formatButton')
+                    t('storage.formatButton')
                   }}</el-button>
                 </template>
               </el-popconfirm>
             </el-form-item>
-            <el-form-item :label="$t('storage.channel', { index: 0 })">
+            <el-form-item :label="t('storage.channel', { index: 0 })">
               <div class="channel-content">
                 <el-switch
                   v-model="storageForm.ch0RecordEn"
@@ -153,7 +153,7 @@
                 <el-button :icon="CameraFilled" circle />
               </div>
             </el-form-item>
-            <el-form-item :label="$t('storage.channel', { index: 1 })">
+            <el-form-item :label="t('storage.channel', { index: 1 })">
               <div class="channel-content">
                 <el-switch
                   v-model="storageForm.ch1RecordEn"
@@ -163,7 +163,7 @@
                 <el-button :icon="CameraFilled" circle />
               </div>
             </el-form-item>
-            <el-form-item :label="$t('storage.channel', { index: 2 })">
+            <el-form-item :label="t('storage.channel', { index: 2 })">
               <div class="channel-content">
                 <el-switch
                   v-model="storageForm.ch2RecordEn"
@@ -178,19 +178,19 @@
               class="save-button"
               @click="confirmStorage"
               :loading="loading.submitStorageInfoBtnLoading"
-              >{{ $t('storage.save') }}</el-button
+              >{{ t('storage.save') }}</el-button
             >
           </el-form>
         </div>
         <div class="form-box bordered" v-loading="loading.systemSectionLoading">
-          <FormTitle :title="$t('system.title')"></FormTitle>
+          <FormTitle :title="t('system.title')"></FormTitle>
           <el-form :model="systemInfo" label-position="left" class="system-form">
-            <el-form-item :label="$t('system.version')">
+            <el-form-item :label="t('system.version')">
               <el-text :title="systemInfo.version" :line-clamp="5">{{
-                systemInfo.version || $t('unknown')
+                systemInfo.version || t('unknown')
               }}</el-text>
             </el-form-item>
-            <el-form-item :label="$t('system.upgrade')" class="upload">
+            <el-form-item :label="t('system.upgrade')" class="upload">
               <el-upload
                 style="display: flex; justify-content: center; flex-wrap: wrap"
                 ref="upload"
@@ -205,7 +205,7 @@
               >
                 <template #trigger>
                   <el-button type="primary" :loading="loading.selectFileBtnLoding">{{
-                    $t('system.selectFile')
+                    t('system.selectFile')
                   }}</el-button>
                   <el-button
                     style="margin-left: 20px"
@@ -214,7 +214,7 @@
                     :loading="loading.updateSystemBtnLoading"
                     :disabled="upgradeBtnDisabled"
                   >
-                    {{ $t('system.update') }}
+                    {{ t('system.update') }}
                   </el-button>
                 </template>
               </el-upload>
@@ -226,10 +226,10 @@
                 type="danger"
                 :loading="loading.resetSystemBtnLoading"
                 @click="resetSystem"
-                >{{ $t('system.reset') }}</el-button
+                >{{ t('system.reset') }}</el-button
               >
               <el-button type="danger" :loading="loading.restartBtnLoding" @click="restartSystem">{{
-                $t('system.restart')
+                t('system.restart')
               }}</el-button>
             </div>
           </el-form>
@@ -242,10 +242,10 @@
             @change="handSystemFormExpand"
             style="border: none"
           >
-            <el-collapse-item name="1" :title="$t('system.maintenance')">
+            <el-collapse-item name="1" :title="t('system.maintenance')">
               <template #title>
                 <div style="width: 309px; display: flex; align-items: flex-start">
-                  <el-text type="primary" size="large">{{ $t('system.maintenance') }}</el-text>
+                  <el-text type="primary" size="large">{{ t('system.maintenance') }}</el-text>
                 </div>
               </template>
               <div v-if="showMaintenanceForm" class="system-info-box">
@@ -258,22 +258,22 @@
                       label-width="80px"
                       ref="systemProductRef"
                     >
-                      <FormTitle :title="$t('system.productInfo')"></FormTitle>
-                      <el-form-item :label="$t('system.model')" prop="productNo">
+                      <FormTitle :title="t('system.productInfo')"></FormTitle>
+                      <el-form-item :label="t('system.model')" prop="productNo">
                         <el-input
-                          :placeholder="$t('placeholders.model')"
+                          :placeholder="t('placeholders.model')"
                           :disabled="systemMaintenance.product.lock === 'true'"
                           v-model="systemMaintenance.product.productNo"
                         />
                       </el-form-item>
-                      <el-form-item :label="$t('system.serialNumber')" prop="productSn">
+                      <el-form-item :label="t('system.serialNumber')" prop="productSn">
                         <el-input
-                          :placeholder="$t('placeholders.serial')"
+                          :placeholder="t('placeholders.serial')"
                           :disabled="systemMaintenance.product.lock === 'true'"
                           v-model="systemMaintenance.product.productSn"
                         />
                       </el-form-item>
-                      <el-form-item :label="$t('system.notes')" prop="note">
+                      <el-form-item :label="t('system.notes')" prop="note">
                         <el-input
                           v-model="systemMaintenance.product.note"
                           type="textarea"
@@ -284,7 +284,7 @@
                         class="save-button"
                         type="primary"
                         @click="confirmSystemProduct"
-                        >{{ $t('system.save') }}</el-button
+                        >{{ t('system.save') }}</el-button
                       >
                     </el-form>
                   </div>
@@ -296,40 +296,40 @@
                       label-width="80px"
                       ref="systemProductConfigRef"
                     >
-                      <FormTitle :title="$t('system.productConfig')"></FormTitle>
-                      <el-form-item :label="$t('system.tv1Model')" prop="tv1">
+                      <FormTitle :title="t('system.productConfig')"></FormTitle>
+                      <el-form-item :label="t('system.tv1Model')" prop="tv1">
                         <el-input
-                          :placeholder="$t('placeholders.number')"
+                          :placeholder="t('placeholders.number')"
                           v-model="systemMaintenance.config.tv1"
                         />
                       </el-form-item>
-                      <el-form-item :label="$t('system.tv2Model')" prop="tv2">
+                      <el-form-item :label="t('system.tv2Model')" prop="tv2">
                         <el-input
-                          :placeholder="$t('placeholders.number')"
+                          :placeholder="t('placeholders.number')"
                           v-model="systemMaintenance.config.tv2"
                         />
                       </el-form-item>
-                      <el-form-item :label="$t('system.ir1Model')" prop="ir1">
+                      <el-form-item :label="t('system.ir1Model')" prop="ir1">
                         <el-input
-                          :placeholder="$t('placeholders.number')"
+                          :placeholder="t('placeholders.number')"
                           v-model="systemMaintenance.config.ir1"
                         />
                       </el-form-item>
-                      <el-form-item :label="$t('system.ir2Model')" prop="ir2">
+                      <el-form-item :label="t('system.ir2Model')" prop="ir2">
                         <el-input
-                          :placeholder="$t('placeholders.number')"
+                          :placeholder="t('placeholders.number')"
                           v-model="systemMaintenance.config.ir2"
                         />
                       </el-form-item>
-                      <el-form-item :label="$t('system.laModel')" prop="la">
+                      <el-form-item :label="t('system.laModel')" prop="la">
                         <el-input
-                          :placeholder="$t('placeholders.number')"
+                          :placeholder="t('placeholders.number')"
                           v-model="systemMaintenance.config.la"
                         />
                       </el-form-item>
-                      <el-form-item :label="$t('system.userProtocol')" prop="userProtocol">
+                      <el-form-item :label="t('system.userProtocol')" prop="userProtocol">
                         <el-input
-                          :placeholder="$t('placeholders.number')"
+                          :placeholder="t('placeholders.number')"
                           v-model="systemMaintenance.config.userProtocol"
                         />
                       </el-form-item>
@@ -338,7 +338,7 @@
                         class="save-button"
                         type="primary"
                         @click="confirmSystemProductConfig"
-                        >{{ $t('system.save') }}
+                        >{{ t('system.save') }}
                       </el-button>
                     </el-form>
                   </div>
@@ -346,13 +346,11 @@
 
                 <div class="system-info-wrap">
                   <div>
-                    <FormTitle :title="$t('system.angleZero')"></FormTitle>
+                    <FormTitle :title="t('system.angleZero')"></FormTitle>
                     <el-tabs v-model="zeroActiveName">
                       <el-tab-pane
                         :label="
-                          $t(
-                            `system.angleTypes.${angleZero.type === '0' ? 'internal' : 'external'}`
-                          )
+                          t(`system.angleTypes.${angleZero.type === '0' ? 'internal' : 'external'}`)
                         "
                         :name="angleZero.type"
                         :key="angleZero.type"
@@ -365,23 +363,23 @@
                           label-width="80px"
                           ref="systemYtAngleZeroRef"
                         >
-                          <el-form-item :label="$t('system.azimuth')" prop="angleYaw">
+                          <el-form-item :label="t('system.azimuth')" prop="angleYaw">
                             <el-input
-                              :placeholder="$t('placeholders.angle')"
+                              :placeholder="t('placeholders.angle')"
                               type="number"
                               v-model="angleZero.angleYaw"
                             />
                           </el-form-item>
-                          <el-form-item :label="$t('system.pitch')" prop="anglePitch">
+                          <el-form-item :label="t('system.pitch')" prop="anglePitch">
                             <el-input
-                              :placeholder="$t('placeholders.angle')"
+                              :placeholder="t('placeholders.angle')"
                               type="number"
                               v-model="angleZero.anglePitch"
                             />
                           </el-form-item>
-                          <el-form-item :label="$t('system.roll')" prop="angleRoll">
+                          <el-form-item :label="t('system.roll')" prop="angleRoll">
                             <el-input
-                              :placeholder="$t('placeholders.angle')"
+                              :placeholder="t('placeholders.angle')"
                               type="number"
                               v-model="angleZero.angleRoll"
                             />
@@ -398,13 +396,13 @@
                                 :loading="loading.ytZeroAutoBtnLoding"
                                 type="primary"
                                 @click="confirmAutoAngleZero"
-                                >{{ $t('system.autoZero') }}
+                                >{{ t('system.autoZero') }}
                               </el-button>
                               <el-button
                                 :loading="loading.ytZeroBtnLoding"
                                 type="primary"
                                 @click="() => confirmAngleZero(index, angleZero)"
-                                >{{ $t('system.confirm') }}
+                                >{{ t('system.confirm') }}
                               </el-button>
                             </div>
                           </el-form-item>
@@ -418,24 +416,24 @@
                       label-width="80px"
                       ref="systemYtInstallRef"
                     >
-                      <FormTitle :title="$t('system.installationError')"></FormTitle>
-                      <el-form-item :label="$t('system.azimuth')" prop="installYaw">
+                      <FormTitle :title="t('system.installationError')"></FormTitle>
+                      <el-form-item :label="t('system.azimuth')" prop="installYaw">
                         <el-input
-                          :placeholder="$t('placeholders.error')"
+                          :placeholder="t('placeholders.error')"
                           type="number"
                           v-model="systemMaintenance.ptz.installZero.installYaw"
                         />
                       </el-form-item>
-                      <el-form-item :label="$t('system.pitch')" prop="installPitch">
+                      <el-form-item :label="t('system.pitch')" prop="installPitch">
                         <el-input
-                          :placeholder="$t('placeholders.error')"
+                          :placeholder="t('placeholders.error')"
                           type="number"
                           v-model="systemMaintenance.ptz.installZero.installPitch"
                         />
                       </el-form-item>
-                      <el-form-item :label="$t('system.roll')" prop="installRoll">
+                      <el-form-item :label="t('system.roll')" prop="installRoll">
                         <el-input
-                          :placeholder="$t('placeholders.error')"
+                          :placeholder="t('placeholders.error')"
                           type="number"
                           v-model="systemMaintenance.ptz.installZero.installRoll"
                         />
@@ -445,14 +443,14 @@
                         class="save-button"
                         type="primary"
                         @click="confirmInstall"
-                        >{{ $t('system.confirm') }}
+                        >{{ t('system.confirm') }}
                       </el-button>
                     </el-form>
                   </div>
                   <div>
-                    <FormTitle :title="$t('system.servoParams')"></FormTitle>
+                    <FormTitle :title="t('system.servoParams')"></FormTitle>
                     <el-tabs v-model="ptzActiveName">
-                      <el-tab-pane :label="$t('system.yaw')" name="yaw">
+                      <el-tab-pane :label="t('system.yaw')" name="yaw">
                         <el-form
                           class="custom-label-size"
                           :rules="systemYtYawRules"
@@ -460,32 +458,23 @@
                           label-width="80px"
                           ref="systemYtYawRef"
                         >
-                          <el-form-item
-                            :label="`${$t('system.yaw')}${$t('system.kp')}`"
-                            prop="yawKp"
-                          >
+                          <el-form-item :label="`${t('system.yaw')}${t('system.kp')}`" prop="yawKp">
                             <el-input
-                              :placeholder="$t('placeholders.servoKp')"
+                              :placeholder="t('placeholders.servoKp')"
                               type="number"
                               v-model="systemMaintenance.ptz.yawKp"
                             />
                           </el-form-item>
-                          <el-form-item
-                            :label="`${$t('system.yaw')}${$t('system.ki')}`"
-                            prop="yawKi"
-                          >
+                          <el-form-item :label="`${t('system.yaw')}${t('system.ki')}`" prop="yawKi">
                             <el-input
-                              :placeholder="$t('placeholders.servoKi')"
+                              :placeholder="t('placeholders.servoKi')"
                               type="number"
                               v-model="systemMaintenance.ptz.yawKi"
                             />
                           </el-form-item>
-                          <el-form-item
-                            :label="`${$t('system.yaw')}${$t('system.fp')}`"
-                            prop="yawFp"
-                          >
+                          <el-form-item :label="`${t('system.yaw')}${t('system.fp')}`" prop="yawFp">
                             <el-input
-                              :placeholder="$t('placeholders.servoFp')"
+                              :placeholder="t('placeholders.servoFp')"
                               type="number"
                               v-model="systemMaintenance.ptz.yawFp"
                             />
@@ -495,11 +484,11 @@
                             class="save-button"
                             type="primary"
                             @click="confirmServoParams('yaw')"
-                            >{{ $t('system.confirm') }}
+                            >{{ t('system.confirm') }}
                           </el-button>
                         </el-form>
                       </el-tab-pane>
-                      <el-tab-pane :label="$t('system.pitch')" name="pitch">
+                      <el-tab-pane :label="t('system.pitch')" name="pitch">
                         <el-form
                           class="custom-label-size"
                           :rules="systemYtPitchRules"
@@ -508,31 +497,31 @@
                           ref="systemYtPitchRef"
                         >
                           <el-form-item
-                            :label="`${$t('system.pitch')}${$t('system.kp')}`"
+                            :label="`${t('system.pitch')}${t('system.kp')}`"
                             prop="pitchKp"
                           >
                             <el-input
-                              :placeholder="$t('placeholders.servoKp')"
+                              :placeholder="t('placeholders.servoKp')"
                               type="number"
                               v-model="systemMaintenance.ptz.pitchKp"
                             />
                           </el-form-item>
                           <el-form-item
-                            :label="`${$t('system.pitch')}${$t('system.ki')}`"
+                            :label="`${t('system.pitch')}${t('system.ki')}`"
                             prop="pitchKi"
                           >
                             <el-input
-                              :placeholder="$t('placeholders.servoKi')"
+                              :placeholder="t('placeholders.servoKi')"
                               type="number"
                               v-model="systemMaintenance.ptz.pitchKi"
                             />
                           </el-form-item>
                           <el-form-item
-                            :label="`${$t('system.pitch')}${$t('system.fp')}`"
+                            :label="`${t('system.pitch')}${t('system.fp')}`"
                             prop="pitchFp"
                           >
                             <el-input
-                              :placeholder="$t('placeholders.servoFp')"
+                              :placeholder="t('placeholders.servoFp')"
                               type="number"
                               v-model="systemMaintenance.ptz.pitchFp"
                             />
@@ -542,11 +531,11 @@
                             class="save-button"
                             type="primary"
                             @click="confirmServoParams('pitch')"
-                            >{{ $t('system.confirm') }}
+                            >{{ t('system.confirm') }}
                           </el-button>
                         </el-form>
                       </el-tab-pane>
-                      <el-tab-pane :label="$t('system.roll')" name="roll">
+                      <el-tab-pane :label="t('system.roll')" name="roll">
                         <el-form
                           class="custom-label-size"
                           :rules="systemYtRollRules"
@@ -555,27 +544,27 @@
                           ref="systemYtRollRef"
                         >
                           <el-form-item
-                            :placeholder="$t('placeholders.servoKp')"
+                            :placeholder="t('placeholders.servoKp')"
                             type="number"
-                            :label="`${$t('system.roll')}${$t('system.kp')}`"
+                            :label="`${t('system.roll')}${t('system.kp')}`"
                             prop="rollKp"
                           >
                             <el-input v-model="systemMaintenance.ptz.rollKp" />
                           </el-form-item>
                           <el-form-item
-                            :placeholder="$t('placeholders.servoKi')"
+                            :placeholder="t('placeholders.servoKi')"
                             type="number"
-                            :label="`${$t('system.roll')}${$t('system.ki')}`"
+                            :label="`${t('system.roll')}${t('system.ki')}`"
                             prop="rollKi"
                           >
                             <el-input v-model="systemMaintenance.ptz.rollKi" />
                           </el-form-item>
                           <el-form-item
-                            :label="`${$t('system.roll')}${$t('system.fp')}`"
+                            :label="`${t('system.roll')}${t('system.fp')}`"
                             prop="rollFp"
                           >
                             <el-input
-                              :placeholder="$t('placeholders.servoFp')"
+                              :placeholder="t('placeholders.servoFp')"
                               type="number"
                               v-model="systemMaintenance.ptz.rollFp"
                             />
@@ -585,7 +574,7 @@
                             class="save-button"
                             type="primary"
                             @click="confirmServoParams('roll')"
-                            >{{ $t('system.confirm') }}
+                            >{{ t('system.confirm') }}
                           </el-button>
                         </el-form>
                       </el-tab-pane>
@@ -593,7 +582,7 @@
                   </div>
                 </div>
                 <div>
-                  <FormTitle :title="$t('system.gyroCompensation')"></FormTitle>
+                  <FormTitle :title="t('system.gyroCompensation')"></FormTitle>
                   <el-form
                     class="custom-label-size"
                     :rules="systemGyroscopeRules"
@@ -626,19 +615,19 @@
                           type="primary"
                           @click="confirmAutoGyro"
                         >
-                          {{ $t('system.autoCompensation') }}
+                          {{ t('system.autoCompensation') }}
                         </el-button>
                         <el-button
                           :loading="loading.gyroscopeBtnLoding"
                           type="primary"
                           @click="confirmGyro"
                         >
-                          {{ $t('system.confirm') }}
+                          {{ t('system.confirm') }}
                         </el-button>
                       </div>
                     </el-form-item>
                   </el-form>
-                  <FormTitle :title="$t('system.motorZero')"></FormTitle>
+                  <FormTitle :title="t('system.motorZero')"></FormTitle>
                   <el-form
                     class="custom-label-size"
                     :rules="systemMoterRule"
@@ -647,8 +636,8 @@
                     ref="systemMoterZero"
                   >
                     <el-tabs v-model="ptzMoterActiveName">
-                      <el-tab-pane :label="$t('system.motorTypes.yaw')" name="0">
-                        <el-form-item :label="$t('system.zeroPosition')" prop="moterYawZero">
+                      <el-tab-pane :label="t('system.motorTypes.yaw')" name="0">
+                        <el-form-item :label="t('system.zeroPosition')" prop="moterYawZero">
                           <el-input
                             v-model="systemMaintenance.ptz.moterYawZero"
                             type="number"
@@ -656,8 +645,8 @@
                         </el-form-item>
                       </el-tab-pane>
 
-                      <el-tab-pane :label="$t('system.motorTypes.pitch')" name="1">
-                        <el-form-item :label="$t('system.zeroPosition')" prop="moterPitchZero">
+                      <el-tab-pane :label="t('system.motorTypes.pitch')" name="1">
+                        <el-form-item :label="t('system.zeroPosition')" prop="moterPitchZero">
                           <el-input
                             v-model="systemMaintenance.ptz.moterPitchZero"
                             type="number"
@@ -665,24 +654,24 @@
                         </el-form-item>
                       </el-tab-pane>
 
-                      <el-tab-pane :label="$t('system.motorTypes.roll')" name="4">
-                        <el-form-item :label="$t('system.zeroPosition')" prop="moterRollZero">
+                      <el-tab-pane :label="t('system.motorTypes.roll')" name="4">
+                        <el-form-item :label="t('system.zeroPosition')" prop="moterRollZero">
                           <el-input
                             v-model="systemMaintenance.ptz.moterRollZero"
                             type="number"
                           ></el-input>
                         </el-form-item>
                       </el-tab-pane>
-                      <el-tab-pane :label="$t('system.motorTypes.externalYaw')" name="2">
-                        <el-form-item :label="$t('system.zeroPosition')" prop="moterOutYawZero">
+                      <el-tab-pane :label="t('system.motorTypes.externalYaw')" name="2">
+                        <el-form-item :label="t('system.zeroPosition')" prop="moterOutYawZero">
                           <el-input
                             v-model="systemMaintenance.ptz.moterOutYawZero"
                             type="number"
                           ></el-input>
                         </el-form-item>
                       </el-tab-pane>
-                      <el-tab-pane :label="$t('system.motorTypes.externalPitch')" name="3">
-                        <el-form-item :label="$t('system.zeroPosition')" prop="moterOutPitchZero">
+                      <el-tab-pane :label="t('system.motorTypes.externalPitch')" name="3">
+                        <el-form-item :label="t('system.zeroPosition')" prop="moterOutPitchZero">
                           <el-input
                             v-model="systemMaintenance.ptz.moterOutPitchZero"
                             type="number"
@@ -695,20 +684,20 @@
                         @click="confirmSystemMoterBtn(2)"
                         type="primary"
                         :loading="loading.systemMoterBtnLoading"
-                        >{{ $t('system.stopZero') }}</el-button
+                        >{{ t('system.stopZero') }}</el-button
                       >
                       <el-button
                         @click="confirmSystemMoterBtn(0)"
                         type="primary"
                         :loading="loading.systemMoterBtnLoading"
-                        >{{ $t('system.autoZero') }}</el-button
+                        >{{ t('system.autoZero') }}</el-button
                       >
 
                       <el-button
                         @click="confirmSystemMoterBtn(1)"
                         type="primary"
                         :loading="loading.systemMoterBtnLoading"
-                        >{{ $t('system.confirmZero') }}</el-button
+                        >{{ t('system.confirmZero') }}</el-button
                       >
                     </div>
                   </el-form>
@@ -719,19 +708,19 @@
                   @click="systemParam(0)"
                   type="primary"
                   :loading="loading.systemParamBtnLoading"
-                  >{{ $t('system.paramOperations.get') }}</el-button
+                  >{{ t('system.paramOperations.get') }}</el-button
                 >
                 <el-button
                   @click="systemParam(1)"
                   type="primary"
                   :loading="loading.systemParamBtnLoading"
-                  >{{ $t('system.paramOperations.save') }}</el-button
+                  >{{ t('system.paramOperations.save') }}</el-button
                 >
                 <el-button
                   @click="exportToFile"
                   type="primary"
                   :loading="loading.systemExportBtnLoading"
-                  >{{ $t('system.paramOperations.export') }}</el-button
+                  >{{ t('system.paramOperations.export') }}</el-button
                 >
               </div>
             </el-collapse-item>
@@ -741,7 +730,7 @@
     </div>
     <el-dialog v-model="showMaintenanceLogin" width="30%" :show-close="false" style="width: 360px">
       <template #header>
-        <el-text>{{ $t('system.login.title') }}</el-text
+        <el-text>{{ t('system.login.title') }}</el-text
         ><br />
       </template>
       <el-form
@@ -751,20 +740,20 @@
         ref="loginFormRef"
         :rules="loginFormRules"
       >
-        <el-form-item :label="$t('system.login.account')" label-width="70px" prop="account">
+        <el-form-item :label="t('system.login.account')" label-width="70px" prop="account">
           <el-input v-model.trim="loginForm.account" @keyup.enter="confirmLogin" />
         </el-form-item>
-        <el-form-item :label="$t('system.login.password')" label-width="70px" prop="password">
+        <el-form-item :label="t('system.login.password')" label-width="70px" prop="password">
           <el-input v-model="loginForm.password" @keyup.enter="confirmLogin" type="password" />
         </el-form-item>
       </el-form>
       <template #footer>
         <span class="dialog-footer">
           <el-button @click="showMaintenanceLogin = false">{{
-            $t('system.login.cancel')
+            t('system.login.cancel')
           }}</el-button>
           <el-button type="primary" @click="confirmLogin" :loading="loading.systemLoginBtnLoading">
-            {{ $t('system.login.confirm') }}
+            {{ t('system.login.confirm') }}
           </el-button>
         </span>
       </template>

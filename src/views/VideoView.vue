@@ -5,7 +5,7 @@
       <div class="forms-box">
         <div class="form-box bordered" v-for="(video, index) in videos" :key="index">
           <div class="title" style="margin-bottom: 10px">
-            <FormTitle :title="$t('video.title', { index: index + 1 })" text-type="primary" />
+            <FormTitle :title="t('video.title', { index: index + 1 })" text-type="primary" />
           </div>
           <el-form
             :model="video"
@@ -14,21 +14,21 @@
             :rules="videoFormRules"
             :ref="(el: unknown) => (videoRefs[index] = el as FormInstance)"
           >
-            <el-form-item :label="$t('video.udpH26x.label')" class="dot-left" prop="udpH26x.h26xEn">
+            <el-form-item :label="t('video.udpH26x.label')" class="dot-left" prop="udpH26x.h26xEn">
               <el-switch v-model="video.udpH26x.h26xEn" :active-value="1" :inactive-value="0" />
             </el-form-item>
             <template v-if="video.udpH26x.h26xEn">
-              <el-form-item :label="$t('video.udpH26x.mode')" prop="udpH26x.h26xMode">
+              <el-form-item :label="t('video.udpH26x.mode')" prop="udpH26x.h26xMode">
                 <el-select
                   v-model="video.udpH26x.h26xMode"
-                  :placeholder="$t('common.selectPlaceholder')"
+                  :placeholder="t('common.selectPlaceholder')"
                 >
-                  <el-option :label="$t('video.modeOptions.unicast')" :value="0" />
-                  <el-option :label="$t('video.modeOptions.multicast')" :value="1" />
-                  <el-option :label="$t('video.modeOptions.broadcast')" :value="2" />
+                  <el-option :label="t('video.modeOptions.unicast')" :value="0" />
+                  <el-option :label="t('video.modeOptions.multicast')" :value="1" />
+                  <el-option :label="t('video.modeOptions.broadcast')" :value="2" />
                 </el-select>
               </el-form-item>
-              <el-form-item :label="$t('video.udpH26x.localPort')" prop="udpH26x.h26xSrcPort">
+              <el-form-item :label="t('video.udpH26x.localPort')" prop="udpH26x.h26xSrcPort">
                 <el-input
                   type="number"
                   v-model.number="video.udpH26x.h26xSrcPort"
@@ -47,7 +47,7 @@
               type="primary"
               @click="submitVideoForm(index)"
             >
-              {{ $t('video.saveButton') }}
+              {{ t('video.saveButton') }}
             </el-button>
           </el-form>
         </div>

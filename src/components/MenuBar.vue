@@ -1,7 +1,7 @@
 <template>
   <el-row class="menu-box">
     <el-col :span="24">
-      <el-menu :default-active="$route.path" class="menu-bar" :router="true">
+      <el-menu :default-active="route.path" class="menu-bar" :router="true">
         <el-menu-item :index="menu.path" v-for="menu in menus" :key="menu.label">
           <el-icon><component :is="menu.icon"></component></el-icon>
           <span>{{ menu.label }}</span>
@@ -14,8 +14,10 @@
 import { ScaleToOriginal, VideoPlay, Link, Setting, HelpFilled } from '@element-plus/icons-vue'
 import { markRaw } from 'vue'
 import { useI18n } from 'vue-i18n'
+import { useRoute } from 'vue-router'
+const route = useRoute()
 const { t } = useI18n()
-const menus = [
+const menus = computed(() => [
   {
     label: t('menu.encoding'),
     path: '/encoding',
@@ -41,10 +43,11 @@ const menus = [
     path: '/system',
     icon: markRaw(Setting)
   }
-]
+])
 </script>
 <style scoped>
 .menu-bar {
   height: 100vh;
+  width: 200px;
 }
 </style>

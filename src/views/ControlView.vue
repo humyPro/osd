@@ -4,7 +4,7 @@
     <div class="main-content">
       <div class="forms-box">
         <div class="form-box bordered">
-          <FormTitle :title="$t('gimbal.title')"></FormTitle>
+          <FormTitle :title="t('gimbal.title')"></FormTitle>
           <div class="buttons">
             <div>
               <el-button @click="submitBtnAction('OFF')">OFF</el-button>
@@ -46,9 +46,9 @@
           </div>
         </div>
         <div class="form-box bordered">
-          <FormTitle :title="$t('camera.title')"></FormTitle>
+          <FormTitle :title="t('camera.title')"></FormTitle>
           <el-form label-position="left">
-            <el-form-item :title="$t('camera.title')">
+            <el-form-item :title="t('camera.title')">
               <el-select v-model="deviceSelected">
                 <el-option label="TV1" :value="0" />
                 <el-option label="TV2" :value="1" />
@@ -58,27 +58,27 @@
             <div class="buttons">
               <div>
                 <el-button @click="submitCameraAction(1)">{{
-                  $t('camera.buttons.zoomIn')
+                  t('camera.buttons.zoomIn')
                 }}</el-button>
                 <el-button @click="submitCameraAction(2)">{{
-                  $t('camera.buttons.zoomOut')
+                  t('camera.buttons.zoomOut')
                 }}</el-button>
                 <el-button @click="submitCameraAction(0)">{{
-                  $t('camera.buttons.zoomStop')
+                  t('camera.buttons.zoomStop')
                 }}</el-button>
                 <el-button @click="submitCameraAction(3)">{{
-                  $t('camera.buttons.zoomSet')
+                  t('camera.buttons.zoomSet')
                 }}</el-button>
               </div>
               <div>
                 <el-button @click="submitCameraAction(4)">{{
-                  $t('camera.buttons.focusIn')
+                  t('camera.buttons.focusIn')
                 }}</el-button>
                 <el-button @click="submitCameraAction(5)">{{
-                  $t('camera.buttons.focusOut')
+                  t('camera.buttons.focusOut')
                 }}</el-button>
                 <el-button @click="submitCameraAction(6)">{{
-                  $t('camera.buttons.autoFocus')
+                  t('camera.buttons.autoFocus')
                 }}</el-button>
               </div>
             </div>
@@ -92,6 +92,9 @@
 import apis from '@/common/apis'
 import util from '@/common/util'
 import { ref } from 'vue'
+import { useI18n } from 'vue-i18n'
+
+const { t } = useI18n()
 const deviceSelected = ref(0)
 const keyMap: { [key: string]: string } = {
   '1': 'up',

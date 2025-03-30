@@ -1,15 +1,15 @@
 <template>
   <div class="login-page">
     <div class="login-form-container">
-      <el-text style="font-size: 39px; padding-bottom: 49px">{{ $t('user.login') }}</el-text>
+      <el-text style="font-size: 39px; padding-bottom: 49px">{{ t('user.login') }}</el-text>
       <div class="login-form">
         <el-form ref="loginFormRef" :model="loginForm" :rules="loginFormRules">
-          <el-text>{{ $t('user.username') }}</el-text>
+          <el-text>{{ t('user.username') }}</el-text>
           <el-form-item prop="account">
             <el-input maxlength="36" v-model="loginForm.account" @keyup.enter="login" />
           </el-form-item>
 
-          <el-text>{{ $t('user.password') }}</el-text>
+          <el-text>{{ t('user.password') }}</el-text>
           <el-form-item prop="password">
             <el-input
               maxlength="36"
@@ -26,7 +26,7 @@
         type="primary"
         style="width: 100%; margin-top: 30px"
         round
-        >{{ $t('user.login') }}</el-button
+        >{{ t('user.login') }}</el-button
       >
     </div>
   </div>

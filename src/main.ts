@@ -6,13 +6,13 @@ import App from './App.vue'
 import router from './router'
 import { useAppConfig } from './store/AppStore'
 import { createPinia } from 'pinia'
-import locales from './locales'
+import { setupI18n } from './plugins/i18n'
 const env = import.meta.env.VITE_ENV
 const app = createApp(App)
 app.use(router)
 const pinia = createPinia()
 app.use(pinia)
-app.use(locales)
+
 fetch('/static/config.json')
   .then((res) => {
     return res.json()
@@ -21,7 +21,8 @@ fetch('/static/config.json')
     if (config) {
       useAppConfig().setBaseUrl(config.baseUrl)
     }
-    mock().then(() => {
+    mock().then(async () => {
+      await setupI18n(app)
       app.mount('#app')
     })
   })

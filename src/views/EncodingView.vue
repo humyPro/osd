@@ -6,7 +6,7 @@
         <div class="form-box bordered">
           <div class="title" style="margin-bottom: 10px">
             <FormTitle
-              :title="$t('encoding.channelTitle', { index: index + 1 })"
+              :title="t('encoding.channelTitle', { index: index + 1 })"
               text-type="primary"
             />
           </div>
@@ -18,16 +18,16 @@
             :rules="channelRules"
             :ref="(el: unknown) => (channelRefs[index] = el as FormInstance)"
           >
-            <el-form-item :label="$t('encoding.encodeType')" prop="enType">
-              <el-select v-model="channel.enType" :placeholder="$t('common.selectPlaceholder')">
+            <el-form-item :label="t('encoding.encodeType')" prop="enType">
+              <el-select v-model="channel.enType" :placeholder="t('common.selectPlaceholder')">
                 <el-option label="H264" :value="96" />
                 <el-option label="H265" :value="265" />
               </el-select>
             </el-form-item>
-            <el-form-item :label="$t('encoding.resolution')" prop="resolutionRatio">
+            <el-form-item :label="t('encoding.resolution')" prop="resolutionRatio">
               <el-select
                 v-model="channel.resolutionRatio"
-                :placeholder="$t('common.selectPlaceholder')"
+                :placeholder="t('common.selectPlaceholder')"
               >
                 <el-option label="640x480" value="640x480" />
                 <el-option label="1280x720" value="1280x720" />
@@ -35,84 +35,81 @@
                 <el-option label="4096x2304" value="4096x2304" />
               </el-select>
             </el-form-item>
-            <el-form-item :label="$t('encoding.frameRate')" prop="vencFramerate">
+            <el-form-item :label="t('encoding.frameRate')" prop="vencFramerate">
               <el-input
                 type="number"
-                :placeholder="$t('encoding.frameRatePlaceholder')"
+                :placeholder="t('encoding.frameRatePlaceholder')"
                 v-model.number="channel.vencFramerate"
               />
             </el-form-item>
-            <el-form-item :label="$t('encoding.keyFrameInterval')" prop="vencGop">
+            <el-form-item :label="t('encoding.keyFrameInterval')" prop="vencGop">
               <el-input
                 type="number"
-                :placeholder="$t('encoding.keyFramePlaceholder')"
+                :placeholder="t('encoding.keyFramePlaceholder')"
                 v-model.number="channel.vencGop"
               />
             </el-form-item>
-            <el-form-item :label="$t('encoding.bitrate')" prop="vencBitrate">
+            <el-form-item :label="t('encoding.bitrate')" prop="vencBitrate">
               <el-input
                 type="number"
-                :placeholder="$t('encoding.bitratePlaceholder')"
+                :placeholder="t('encoding.bitratePlaceholder')"
                 v-model.number="channel.vencBitrate"
               />
             </el-form-item>
-            <el-form-item :label="$t('encoding.dynamicBitrate')" prop="vencRcMode">
-              <el-select v-model="channel.vencRcMode" :placeholder="$t('common.selectPlaceholder')">
+            <el-form-item :label="t('encoding.dynamicBitrate')" prop="vencRcMode">
+              <el-select v-model="channel.vencRcMode" :placeholder="t('common.selectPlaceholder')">
                 <el-option label="CBR" :value="0" />
                 <el-option label="VBR" :value="1" />
               </el-select>
             </el-form-item>
-            <el-form-item :label="$t('encoding.minQp')" prop="vencMinQp">
+            <el-form-item :label="t('encoding.minQp')" prop="vencMinQp">
               <el-input
-                :placeholder="$t('encoding.minQpPlaceholder')"
+                :placeholder="t('encoding.minQpPlaceholder')"
                 type="number"
                 v-model.number="channel.vencMinQp"
               />
             </el-form-item>
             <el-form-item
-              :label="$t('encoding.maxQp')"
+              :label="t('encoding.maxQp')"
               prop="vencMaxQp"
               :rules="[
                 {
-                  validator: forms.checkNumber(() => channel.vencMinQp, 51, $t('encoding.minQp')),
+                  validator: forms.checkNumber(() => channel.vencMinQp, 51, t('encoding.minQp')),
                   trigger: 'blur'
                 }
               ]"
             >
               <el-input
-                :placeholder="$t('encoding.maxQpPlaceholder')"
+                :placeholder="t('encoding.maxQpPlaceholder')"
                 type="number"
                 v-model.number="channel.vencMaxQp"
               />
             </el-form-item>
             <el-form-item
-              :label="$t('encoding.minIQp')"
+              :label="t('encoding.minIQp')"
               prop="vencMinIQp"
               :rules="[
                 {
                   validator: forms.checkNumber(
                     () => channel.vencMinQp,
                     () => channel.vencMaxQp,
-                    $t('encoding.minIQp')
+                    t('encoding.minIQp')
                   ),
                   trigger: 'blur'
                 }
               ]"
             >
               <el-input
-                :placeholder="$t('encoding.minIQpPlaceholder')"
+                :placeholder="t('encoding.minIQpPlaceholder')"
                 type="number"
                 v-model.number="channel.vencMinIQp"
               />
             </el-form-item>
-            <el-form-item :label="$t('encoding.profile')" prop="vencProfile">
-              <el-select
-                v-model="channel.vencProfile"
-                :placeholder="$t('common.selectPlaceholder')"
-              >
-                <el-option :label="$t('encoding.baseline')" :value="0" />
-                <el-option :label="$t('encoding.main')" :value="1" />
-                <el-option :label="$t('encoding.high')" :value="2" />
+            <el-form-item :label="t('encoding.profile')" prop="vencProfile">
+              <el-select v-model="channel.vencProfile" :placeholder="t('common.selectPlaceholder')">
+                <el-option :label="t('encoding.baseline')" :value="0" />
+                <el-option :label="t('encoding.main')" :value="1" />
+                <el-option :label="t('encoding.high')" :value="2" />
               </el-select>
             </el-form-item>
             <el-button
@@ -120,13 +117,13 @@
               :loading="encodingFormLoading[index]"
               type="primary"
               @click="submitChannelForm(index)"
-              >{{ $t('common.save') }}</el-button
+              >{{ t('common.save') }}</el-button
             >
           </el-form>
         </div>
         <div class="form-box bordered form-right" style="width: 660px">
           <div class="title" style="margin-bottom: 10px">
-            <FormTitle :title="$t('encoding.playUrlTitle', { index: index + 1 })" />
+            <FormTitle :title="t('encoding.playUrlTitle', { index: index + 1 })" />
             <el-tooltip :content="channelInfo.url.rtsp[index]" placement="top" effect="light">
               <el-text class="mx-1" truncated>{{ channelInfo.url.rtsp[index] }}</el-text>
             </el-tooltip>
@@ -136,7 +133,7 @@
       <div class="forms-box">
         <div class="form-box bordered">
           <div class="title" style="margin-bottom: 10px">
-            <FormTitle :title="$t('audio.title')" text-type="primary" />
+            <FormTitle :title="t('audio.title')" text-type="primary" />
           </div>
           <el-form
             :inline="true"
@@ -146,30 +143,27 @@
             :rules="audioRules"
             ref="audioFormRef"
           >
-            <el-form-item :label="$t('audio.encodeType')" prop="encoding">
-              <el-select v-model="audioProp.encoding" :placeholder="$t('common.selectPlaceholder')">
-                <el-option :label="$t('audio.aac')" :value="1" />
-                <el-option :label="$t('audio.mp3')" :value="2" />
+            <el-form-item :label="t('audio.encodeType')" prop="encoding">
+              <el-select v-model="audioProp.encoding" :placeholder="t('common.selectPlaceholder')">
+                <el-option :label="t('audio.aac')" :value="1" />
+                <el-option :label="t('audio.mp3')" :value="2" />
               </el-select>
             </el-form-item>
-            <el-form-item :label="$t('audio.channelLayout')" prop="layout">
-              <el-select v-model="audioProp.layout" :placeholder="$t('common.selectPlaceholder')">
-                <el-option :label="$t('audio.stereo')" :value="0" />
-                <el-option :label="$t('audio.leftChannel')" :value="1" />
-                <el-option :label="$t('audio.rightChannel')" :value="2" />
+            <el-form-item :label="t('audio.channelLayout')" prop="layout">
+              <el-select v-model="audioProp.layout" :placeholder="t('common.selectPlaceholder')">
+                <el-option :label="t('audio.stereo')" :value="0" />
+                <el-option :label="t('audio.leftChannel')" :value="1" />
+                <el-option :label="t('audio.rightChannel')" :value="2" />
               </el-select>
             </el-form-item>
-            <el-form-item :label="$t('audio.aacFormat')" prop="accFormat">
-              <el-select
-                v-model="audioProp.accFormat"
-                :placeholder="$t('common.selectPlaceholder')"
-              >
-                <el-option :label="$t('audio.lcAac')" :value="0" />
-                <el-option :label="$t('audio.heAac')" :value="1" />
+            <el-form-item :label="t('audio.aacFormat')" prop="accFormat">
+              <el-select v-model="audioProp.accFormat" :placeholder="t('common.selectPlaceholder')">
+                <el-option :label="t('audio.lcAac')" :value="0" />
+                <el-option :label="t('audio.heAac')" :value="1" />
               </el-select>
             </el-form-item>
-            <el-form-item :label="$t('audio.bitrate')" prop="auditBit">
-              <el-select v-model="audioProp.auditBit" :placeholder="$t('common.selectPlaceholder')">
+            <el-form-item :label="t('audio.bitrate')" prop="auditBit">
+              <el-select v-model="audioProp.auditBit" :placeholder="t('common.selectPlaceholder')">
                 <el-option
                   v-for="rate in [
                     24000, 32000, 48000, 64000, 96000, 128000, 160000, 192000, 256000, 320000
@@ -185,7 +179,7 @@
               type="primary"
               :loading="auditFormLoading"
               @click="submitAudioForm"
-              >{{ $t('common.save') }}</el-button
+              >{{ t('common.save') }}</el-button
             >
           </el-form>
         </div>
@@ -198,7 +192,7 @@
                 </div>
               </template>
             </el-image>
-            <el-text>{{ $t('common.scanQRCode') }}</el-text>
+            <el-text>{{ t('common.scanQRCode') }}</el-text>
           </div>
         </div>
       </div>
