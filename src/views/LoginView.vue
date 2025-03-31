@@ -1,15 +1,15 @@
 <template>
   <div class="login-page">
     <div class="login-form-container">
-      <el-text style="font-size: 39px; padding-bottom: 49px">登录</el-text>
+      <el-text style="font-size: 39px; padding-bottom: 49px">{{ t('user.login') }}</el-text>
       <div class="login-form">
         <el-form ref="loginFormRef" :model="loginForm" :rules="loginFormRules">
-          <el-text>用户名</el-text>
+          <el-text>{{ t('user.username') }}</el-text>
           <el-form-item prop="account">
             <el-input maxlength="36" v-model="loginForm.account" @keyup.enter="login" />
           </el-form-item>
 
-          <el-text>密码</el-text>
+          <el-text>{{ t('user.password') }}</el-text>
           <el-form-item prop="password">
             <el-input
               maxlength="36"
@@ -26,17 +26,20 @@
         type="primary"
         style="width: 100%; margin-top: 30px"
         round
-        >登录</el-button
+        >{{ t('user.login') }}</el-button
       >
     </div>
   </div>
 </template>
 <script lang="ts" setup>
 import apis from '@/common/apis'
-import forms from '@/common/forms'
 import util from '@/common/util'
 import type { FormInstance, FormRules } from 'element-plus'
 import { useRouter } from 'vue-router'
+import { useI18n } from 'vue-i18n'
+import useFormValidation from '@/common/forms/formValidator'
+const forms = useFormValidation()
+const { t } = useI18n()
 const router = useRouter()
 type LoginFormType = {
   account: string
@@ -45,8 +48,8 @@ type LoginFormType = {
 const loginFormRef = ref()
 const loginForm = ref<LoginFormType>({} as LoginFormType)
 const loginFormRules = reactive<FormRules<LoginFormType>>({
-  account: [{ validator: forms.checkString('用户名'), trigger: 'blur' }],
-  password: [{ validator: forms.checkString('密码'), trigger: 'blur' }]
+  account: [{ validator: forms.checkString(t('user.username')), trigger: 'blur' }],
+  password: [{ validator: forms.checkString(t('user.password')), trigger: 'blur' }]
 })
 const loginButtonLoading = ref(false)
 const login = () => {
@@ -57,8 +60,8 @@ const login = () => {
   ;(loginFormRef.value as FormInstance).validate((valid) => {
     if (valid) {
       apis.login(loginForm.value.account, loginForm.value.password).then((res) => {
-        util.resultHandler(res, '认证失败', () => {
-          util.showMessage('登录成功')
+        util.resultHandler(res, t('auth.authFailed'), () => {
+          util.showMessage(t('auth.loginSuccess'))
           router.push('/encoding')
         })
         loginButtonLoading.value = false
