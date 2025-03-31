@@ -266,7 +266,12 @@
       "targetIp": "目的IP",
       "targetPort": "目的端口",
       "sendLength": "发送长度",
-      "sendInterval": "发送间隔"
+      "sendInterval": "发送间隔",
+      "modeOptions": {
+        "unicast": "单播",
+        "multicast": "组播",
+        "broadcast": "广播"
+      }
     },
     "udpTs": {
       "label": "UDP TS",
@@ -284,8 +289,10 @@
       "streamName": "流名称",
       "userSize": "用户数",
       "keepAlive": "保活时间(ms)",
-      "streamNamePlaceholder": "[格式：/stream0,重启生效]",
-      "keepAlivePlaceholder": "[毫秒]"
+      "transModeOptions": {
+        "udp": "UDP",
+        "tcp": "TCP"
+      }
     },
     "rtmp": {
       "label": "RTMP",
@@ -302,17 +309,30 @@
       "authId": "SIP认证ID",
       "password": "SIP认证密码"
     },
-    "modeOptions": {
-      "unicast": "单播",
-      "multicast": "组播",
-      "broadcast": "广播"
-    },
-    "transModeOptions": {
-      "udp": "UDP",
-      "tcp": "TCP"
-    },
-    "saveButton": "保存"
+    "saveButton": "保存",
+    "validation": {
+      "localPort": "本机端口",
+      "targetIp": "目的IP",
+      "targetPort": "目的端口",
+      "sendLength": "发送长度",
+      "sendInterval": "发送间隔",
+      "servicePort": "服务端口",
+      "transportMode": "传输模式",
+      "streamName": "流名称",
+      "userCount": "用户数",
+      "keepAlive": "保活时间",
+      "pushUrl": "推流地址",
+      "sipServerIp": "SIP服务器地址",
+      "sipServerPort": "SIP服务器端口",
+      "sipServerId": "SIP服务器ID",
+      "registrationPeriod": "注册有效期",
+      "heartbeatInterval": "心跳周期",
+      "localSipPort": "本地SIP端口",
+      "sipAuthId": "SIP认证ID",
+      "sipPassword": "SIP认证密码"
+    }
   },
+
   "placeholders": {
     "model": "如:QP-125T",
     "serial": "001-0001",
