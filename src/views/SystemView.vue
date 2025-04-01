@@ -533,14 +533,20 @@
                             :label="`${t('system.roll')}${t('system.kp')}`"
                             prop="rollKp"
                           >
-                            <el-input placeholder="[0,500]" v-model="systemMaintenance.ptz.rollKp" />
+                            <el-input
+                              placeholder="[0,500]"
+                              v-model="systemMaintenance.ptz.rollKp"
+                            />
                           </el-form-item>
                           <el-form-item
                             type="number"
                             :label="`${t('system.roll')}${t('system.ki')}`"
                             prop="rollKi"
                           >
-                            <el-input placeholder="[0,50000]" v-model="systemMaintenance.ptz.rollKi" />
+                            <el-input
+                              placeholder="[0,50000]"
+                              v-model="systemMaintenance.ptz.rollKi"
+                            />
                           </el-form-item>
                           <el-form-item
                             :label="`${t('system.roll')}${t('system.fp')}`"
@@ -1146,8 +1152,8 @@ const confirmLogin = () => {
           }
         })
         .then((res) =>
-          util.resultHandler(res, t('system.login.authFailed'), () => {
-            util.showMessage(t('system.login.authSuccess'))
+          util.resultHandler(res, t('auth.authFailed'), () => {
+            util.showMessage(t('auth.loginSuccess'))
             showMaintenanceLogin.value = false
             showMaintenanceForm.value = true
             systemConfigModel.value = ['1']
