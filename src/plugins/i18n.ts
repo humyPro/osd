@@ -16,7 +16,7 @@ export async function setupI18n(app: App<Element>) {
   // 动态加载语言文件
   const messages = {
     en: await import('@/locales/en.json'),
-    zh: await import('@/locales/zh-CN.json')
+    'zh-CN': await import('@/locales/zh-CN.json')
   }
 
   const i18n = createI18n({

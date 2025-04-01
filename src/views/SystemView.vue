@@ -46,14 +46,14 @@
             <el-form-item :label="t('userCommunication.dataBits')" prop="uart.dataBit">
               <el-input
                 type="number"
-                :placeholder="t('placeholders.dataBits')"
+                placeholder="5/6/7/8"
                 v-model.number="userCommConfigForm.uart.dataBit"
               />
             </el-form-item>
             <el-form-item :label="t('userCommunication.stopBits')" prop="uart.stopBit">
               <el-input
                 type="number"
-                :placeholder="t('placeholders.stopBits')"
+                placeholder="1/1.5/2"
                 v-model.number="userCommConfigForm.uart.stopBit"
               />
             </el-form-item>
@@ -268,7 +268,7 @@
                       </el-form-item>
                       <el-form-item :label="t('system.serialNumber')" prop="productSn">
                         <el-input
-                          :placeholder="t('placeholders.serial')"
+                          placeholder="001-0001"
                           :disabled="systemMaintenance.product.lock === 'true'"
                           v-model="systemMaintenance.product.productSn"
                         />
@@ -299,37 +299,37 @@
                       <FormTitle :title="t('system.productConfig')"></FormTitle>
                       <el-form-item :label="t('system.tv1Model')" prop="tv1">
                         <el-input
-                          :placeholder="t('placeholders.number')"
+                            placeholder="0/1/2/3/4"
                           v-model="systemMaintenance.config.tv1"
                         />
                       </el-form-item>
                       <el-form-item :label="t('system.tv2Model')" prop="tv2">
                         <el-input
-                          :placeholder="t('placeholders.number')"
+                            placeholder="0/1/2/3/4"
                           v-model="systemMaintenance.config.tv2"
                         />
                       </el-form-item>
                       <el-form-item :label="t('system.ir1Model')" prop="ir1">
                         <el-input
-                          :placeholder="t('placeholders.number')"
+                            placeholder="0/1/2/3/4"
                           v-model="systemMaintenance.config.ir1"
                         />
                       </el-form-item>
                       <el-form-item :label="t('system.ir2Model')" prop="ir2">
                         <el-input
-                          :placeholder="t('placeholders.number')"
+                            placeholder="0/1/2/3/4"
                           v-model="systemMaintenance.config.ir2"
                         />
                       </el-form-item>
                       <el-form-item :label="t('system.laModel')" prop="la">
                         <el-input
-                          :placeholder="t('placeholders.number')"
+                            placeholder="0/1/2/3/4"
                           v-model="systemMaintenance.config.la"
                         />
                       </el-form-item>
                       <el-form-item :label="t('system.userProtocol')" prop="userProtocol">
                         <el-input
-                          :placeholder="t('placeholders.number')"
+                            placeholder="0/1/2/3/4"
                           v-model="systemMaintenance.config.userProtocol"
                         />
                       </el-form-item>
@@ -365,21 +365,21 @@
                         >
                           <el-form-item :label="t('system.azimuth')" prop="angleYaw">
                             <el-input
-                              :placeholder="t('placeholders.angle')"
+                              placeholder="[0,360]"
                               type="number"
                               v-model="angleZero.angleYaw"
                             />
                           </el-form-item>
                           <el-form-item :label="t('system.pitch')" prop="anglePitch">
                             <el-input
-                              :placeholder="t('placeholders.angle')"
+                              placeholder="[0,360]"
                               type="number"
                               v-model="angleZero.anglePitch"
                             />
                           </el-form-item>
                           <el-form-item :label="t('system.roll')" prop="angleRoll">
                             <el-input
-                              :placeholder="t('placeholders.angle')"
+                              placeholder="[0,360]"
                               type="number"
                               v-model="angleZero.angleRoll"
                             />
@@ -419,21 +419,21 @@
                       <FormTitle :title="t('system.installationError')"></FormTitle>
                       <el-form-item :label="t('system.azimuth')" prop="installYaw">
                         <el-input
-                          :placeholder="t('placeholders.error')"
+                          placeholder="[-5,5]"
                           type="number"
                           v-model="systemMaintenance.ptz.installZero.installYaw"
                         />
                       </el-form-item>
                       <el-form-item :label="t('system.pitch')" prop="installPitch">
                         <el-input
-                          :placeholder="t('placeholders.error')"
+                          placeholder="[-5,5]"
                           type="number"
                           v-model="systemMaintenance.ptz.installZero.installPitch"
                         />
                       </el-form-item>
                       <el-form-item :label="t('system.roll')" prop="installRoll">
                         <el-input
-                          :placeholder="t('placeholders.error')"
+                          placeholder="[-5,5]"
                           type="number"
                           v-model="systemMaintenance.ptz.installZero.installRoll"
                         />
@@ -460,21 +460,21 @@
                         >
                           <el-form-item :label="`${t('system.yaw')}${t('system.kp')}`" prop="yawKp">
                             <el-input
-                              :placeholder="t('placeholders.servoKp')"
+                              placeholder="[0,500]"
                               type="number"
                               v-model="systemMaintenance.ptz.yawKp"
                             />
                           </el-form-item>
                           <el-form-item :label="`${t('system.yaw')}${t('system.ki')}`" prop="yawKi">
                             <el-input
-                              :placeholder="t('placeholders.servoKi')"
+                              placeholder="[0,50000]"
                               type="number"
                               v-model="systemMaintenance.ptz.yawKi"
                             />
                           </el-form-item>
                           <el-form-item :label="`${t('system.yaw')}${t('system.fp')}`" prop="yawFp">
                             <el-input
-                              :placeholder="t('placeholders.servoFp')"
+                              placeholder="[0,1000]"
                               type="number"
                               v-model="systemMaintenance.ptz.yawFp"
                             />
@@ -501,7 +501,7 @@
                             prop="pitchKp"
                           >
                             <el-input
-                              :placeholder="t('placeholders.servoKp')"
+                              placeholder="[0,500]"
                               type="number"
                               v-model="systemMaintenance.ptz.pitchKp"
                             />
@@ -511,7 +511,7 @@
                             prop="pitchKi"
                           >
                             <el-input
-                              :placeholder="t('placeholders.servoKi')"
+                              placeholder="[0,50000]"
                               type="number"
                               v-model="systemMaintenance.ptz.pitchKi"
                             />
@@ -521,7 +521,7 @@
                             prop="pitchFp"
                           >
                             <el-input
-                              :placeholder="t('placeholders.servoFp')"
+                              placeholder="[0,1000]"
                               type="number"
                               v-model="systemMaintenance.ptz.pitchFp"
                             />
@@ -544,7 +544,7 @@
                           ref="systemYtRollRef"
                         >
                           <el-form-item
-                            :placeholder="t('placeholders.servoKp')"
+                            placeholder="[0,500]"
                             type="number"
                             :label="`${t('system.roll')}${t('system.kp')}`"
                             prop="rollKp"
@@ -552,7 +552,7 @@
                             <el-input v-model="systemMaintenance.ptz.rollKp" />
                           </el-form-item>
                           <el-form-item
-                            :placeholder="t('placeholders.servoKi')"
+                            placeholder="[0,50000]"
                             type="number"
                             :label="`${t('system.roll')}${t('system.ki')}`"
                             prop="rollKi"
@@ -564,7 +564,7 @@
                             prop="rollFp"
                           >
                             <el-input
-                              :placeholder="t('placeholders.servoFp')"
+                              placeholder="[0,1000]"
                               type="number"
                               v-model="systemMaintenance.ptz.rollFp"
                             />

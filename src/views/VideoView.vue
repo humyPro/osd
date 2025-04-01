@@ -29,18 +29,18 @@
                 <el-input
                   type="number"
                   v-model.number="video.udpH26x.h26xSrcPort"
-                  :placeholder="t('placeholders.number')"
+                  placeholder="[0-65535]"
                   :min="0"
                   :max="65535"
                 />
               </el-form-item>
               <el-form-item :label="t('video.udpH26x.targetIp')" prop="udpH26x.h26xDstIp">
-                <el-input :placeholder="t('placeholders.ip')" v-model.trim="video.udpH26x.h26xDstIp" />
+                <el-input placeholder="ip" v-model.trim="video.udpH26x.h26xDstIp" />
               </el-form-item>
               <el-form-item :label="t('video.udpH26x.targetPort')" prop="udpH26x.h26xDstPort">
                 <el-input
                   type="number"
-                  :placeholder="t('placeholders.number')"
+                  placeholder="[0-65535]"
                   v-model.number="video.udpH26x.h26xDstPort"
                 />
               </el-form-item>
@@ -67,17 +67,17 @@
                 <el-input
                   type="number"
                   v-model.number="video.udpTs.tsSrcPort"
-                  :placeholder="t('placeholders.number')"
+                  placeholder="[0-65535]"
                 />
               </el-form-item>
               <el-form-item :label="t('video.udpH26x.targetIp')" prop="udpTs.tsDstIp">
-                <el-input :placeholder="t('placeholders.ip')" v-model.trim="video.udpTs.tsDstIp" />
+                <el-input placeholder="ip" v-model.trim="video.udpTs.tsDstIp" />
               </el-form-item>
               <el-form-item :label="t('video.udpH26x.targetPort')" prop="udpTs.tsDstPort">
                 <el-input
                   type="number"
                   v-model.number="video.udpTs.tsDstPort"
-                  :placeholder="t('placeholders.number')"
+                  placeholder="[0-65535]"
                 />
               </el-form-item>
               <el-form-item :label="t('video.udpH26x.sendLength')" prop="udpTs.sendLength">
@@ -96,7 +96,7 @@
                 <el-input
                   type="number"
                   v-model.number="video.rtsp.rtspPort"
-                  :placeholder="t('placeholders.number')"
+                  placeholder="[0-65535]"
                 />
               </el-form-item>
               <el-form-item :label="t('video.rtsp.transMode')" prop="rtsp.transMode">
@@ -113,7 +113,7 @@
                 />
               </el-form-item>
               <el-form-item :label="t('video.rtsp.userSize')" prop="rtsp.userSize">
-                <el-input :placeholder="t('placeholders.number')" type="number" v-model.number="video.rtsp.userSize" />
+                <el-input placeholder="[1~5]" type="number" v-model.number="video.rtsp.userSize" />
               </el-form-item>
               <el-form-item :label="t('video.rtsp.keepAlive')" prop="rtsp.keepAlive">
                 <el-input
@@ -144,7 +144,7 @@
                 <el-input
                   type="number"
                   v-model.number="video.gb28181.gbServerPort"
-                  :placeholder="t('placeholders.number')"
+                  placeholder="[0-65535]"
                 />
               </el-form-item>
               <el-form-item :label="t('video.gb28181.serverId')" prop="gb28181.gbServerId">
@@ -160,7 +160,7 @@
                 <el-input
                   type="number"
                   v-model.number="video.gb28181.localSipPort"
-                  :placeholder="t('placeholders.number')"
+                  placeholder="[0-65535]"
                 />
               </el-form-item>
               <el-form-item :label="t('video.gb28181.authId')" prop="gb28181.gbAuthId">

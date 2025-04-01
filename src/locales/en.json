@@ -179,7 +179,8 @@
     "angleZero": "Angle Zero",
     "angleTypes": {
       "internal": "Internal Angle",
-      "external": "External Angle"
+      "external": "External Angle",
+      "mode": "Mode"
     },
     "azimuth": "Azimuth",
     "pitch": "Pitch",
@@ -266,6 +267,7 @@
       "streamName": "Stream Name",
       "userSize": "User Count",
       "keepAlive": "Keep Alive(ms)",
+      "streamNamePlaceholder": "[Format: /stream0, takes effect after restart]",
       "transModeOptions": {
         "udp": "UDP",
         "tcp": "TCP"
@@ -312,15 +314,7 @@
 
   "placeholders": {
     "model": "e.g. QP-125T",
-    "serial": "001-0001",
-    "number": "0/1/2/3/4",
-    "angle": "[0,360]",
-    "error": "[-5,5]",
-    "servoKp": "[0,500]",
-    "servoKi": "[0,50000]",
-    "servoFp": "[0,1000]",
-    "dataBits": "5/6/7/8",
-    "stopBits": "1/1.5/2"
+    "ms": "ms"
   },
   "unknown": "unknown",
   "error": {
