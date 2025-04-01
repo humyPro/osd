@@ -298,38 +298,23 @@
                     >
                       <FormTitle :title="t('system.productConfig')"></FormTitle>
                       <el-form-item :label="t('system.tv1Model')" prop="tv1">
-                        <el-input
-                            placeholder="0/1/2/3/4"
-                          v-model="systemMaintenance.config.tv1"
-                        />
+                        <el-input placeholder="0/1/2/3/4" v-model="systemMaintenance.config.tv1" />
                       </el-form-item>
                       <el-form-item :label="t('system.tv2Model')" prop="tv2">
-                        <el-input
-                            placeholder="0/1/2/3/4"
-                          v-model="systemMaintenance.config.tv2"
-                        />
+                        <el-input placeholder="0/1/2/3/4" v-model="systemMaintenance.config.tv2" />
                       </el-form-item>
                       <el-form-item :label="t('system.ir1Model')" prop="ir1">
-                        <el-input
-                            placeholder="0/1/2/3/4"
-                          v-model="systemMaintenance.config.ir1"
-                        />
+                        <el-input placeholder="0/1/2/3/4" v-model="systemMaintenance.config.ir1" />
                       </el-form-item>
                       <el-form-item :label="t('system.ir2Model')" prop="ir2">
-                        <el-input
-                            placeholder="0/1/2/3/4"
-                          v-model="systemMaintenance.config.ir2"
-                        />
+                        <el-input placeholder="0/1/2/3/4" v-model="systemMaintenance.config.ir2" />
                       </el-form-item>
                       <el-form-item :label="t('system.laModel')" prop="la">
-                        <el-input
-                            placeholder="0/1/2/3/4"
-                          v-model="systemMaintenance.config.la"
-                        />
+                        <el-input placeholder="0/1/2/3/4" v-model="systemMaintenance.config.la" />
                       </el-form-item>
                       <el-form-item :label="t('system.userProtocol')" prop="userProtocol">
                         <el-input
-                            placeholder="0/1/2/3/4"
+                          placeholder="0/1/2/3/4"
                           v-model="systemMaintenance.config.userProtocol"
                         />
                       </el-form-item>
@@ -632,7 +617,7 @@
                     class="custom-label-size"
                     :rules="systemMoterRule"
                     :model="systemMaintenance.ptz"
-                    label-width="80px"
+                    label-width="110px"
                     ref="systemMoterZero"
                   >
                     <el-tabs v-model="ptzMoterActiveName">
