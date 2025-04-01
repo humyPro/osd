@@ -32,35 +32,12 @@
     "formInvalid": "表单校验失败"
   },
   "gimbal": {
-    "title": "云台控制",
-    "buttons": {
-      "OFF": "OFF",
-      "HIDE": "HIDE",
-      "RES": "复位",
-      "RATF": "RATF",
-      "GIMF": "GIMF",
-      "EULF": "EULF",
-      "SCAN": "SCAN",
-      "GEO": "GEO",
-      "CEUL": "CEUL",
-      "CGEO": "CGEO",
-      "CGIM": "CGIM",
-      "DOWN": "DOWN",
-      "RGIM": "RGIM",
-      "TRA": "TRA",
-      "CTRA": "CTRA",
-      "ATRA": "ATRA"
-    }
+    "title": "云台控制"
   },
   "camera": {
     "title": "镜头控制",
     "device": {
-      "label": "设备选择",
-      "options": {
-        "TV1": "电视1",
-        "TV2": "电视2",
-        "IR": "红外"
-      }
+      "label": "设备选择"
     },
     "buttons": {
       "zoomIn": "视场+",
@@ -202,7 +179,8 @@
     "angleZero": "角度零位",
     "angleTypes": {
       "internal": "内角度",
-      "external": "外角度"
+      "external": "外角度",
+      "mode": "模式"
     },
     "azimuth": "方位",
     "pitch": "俯仰",
@@ -266,7 +244,12 @@
       "targetIp": "目的IP",
       "targetPort": "目的端口",
       "sendLength": "发送长度",
-      "sendInterval": "发送间隔"
+      "sendInterval": "发送间隔",
+      "modeOptions": {
+        "unicast": "单播",
+        "multicast": "组播",
+        "broadcast": "广播"
+      }
     },
     "udpTs": {
       "label": "UDP TS",
@@ -285,7 +268,10 @@
       "userSize": "用户数",
       "keepAlive": "保活时间(ms)",
       "streamNamePlaceholder": "[格式：/stream0,重启生效]",
-      "keepAlivePlaceholder": "[毫秒]"
+      "transModeOptions": {
+        "udp": "UDP",
+        "tcp": "TCP"
+      }
     },
     "rtmp": {
       "label": "RTMP",
@@ -302,28 +288,33 @@
       "authId": "SIP认证ID",
       "password": "SIP认证密码"
     },
-    "modeOptions": {
-      "unicast": "单播",
-      "multicast": "组播",
-      "broadcast": "广播"
-    },
-    "transModeOptions": {
-      "udp": "UDP",
-      "tcp": "TCP"
-    },
-    "saveButton": "保存"
+    "saveButton": "保存",
+    "validation": {
+      "localPort": "本机端口",
+      "targetIp": "目的IP",
+      "targetPort": "目的端口",
+      "sendLength": "发送长度",
+      "sendInterval": "发送间隔",
+      "servicePort": "服务端口",
+      "transportMode": "传输模式",
+      "streamName": "流名称",
+      "userCount": "用户数",
+      "keepAlive": "保活时间",
+      "pushUrl": "推流地址",
+      "sipServerIp": "SIP服务器地址",
+      "sipServerPort": "SIP服务器端口",
+      "sipServerId": "SIP服务器ID",
+      "registrationPeriod": "注册有效期",
+      "heartbeatInterval": "心跳周期",
+      "localSipPort": "本地SIP端口",
+      "sipAuthId": "SIP认证ID",
+      "sipPassword": "SIP认证密码"
+    }
   },
+
   "placeholders": {
     "model": "如:QP-125T",
-    "serial": "001-0001",
-    "number": "0/1/2/3/4",
-    "angle": "[0,360]",
-    "error": "[-5,5]",
-    "servoKp": "[0,500]",
-    "servoKi": "[0,50000]",
-    "servoFp": "[0,1000]",
-    "dataBits": "5/6/7/8",
-    "stopBits": "1/1.5/2"
+    "ms": "毫秒"
   },
   "unknown": "unknown",
   "error": {

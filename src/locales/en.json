@@ -179,7 +179,8 @@
     "angleZero": "Angle Zero",
     "angleTypes": {
       "internal": "Internal Angle",
-      "external": "External Angle"
+      "external": "External Angle",
+      "mode": "Mode"
     },
     "azimuth": "Azimuth",
     "pitch": "Pitch",
@@ -243,7 +244,12 @@
       "targetIp": "Target IP",
       "targetPort": "Target Port",
       "sendLength": "Send Length",
-      "sendInterval": "Send Interval"
+      "sendInterval": "Send Interval",
+      "modeOptions": {
+        "unicast": "Unicast",
+        "multicast": "Multicast",
+        "broadcast": "Broadcast"
+      }
     },
     "udpTs": {
       "label": "UDP TS",
@@ -261,8 +267,11 @@
       "streamName": "Stream Name",
       "userSize": "User Count",
       "keepAlive": "Keep Alive(ms)",
-      "streamNamePlaceholder": "[Format: /stream0, restart required]",
-      "keepAlivePlaceholder": "[milliseconds]"
+      "streamNamePlaceholder": "[Format: /stream0, takes effect after restart]",
+      "transModeOptions": {
+        "udp": "UDP",
+        "tcp": "TCP"
+      }
     },
     "rtmp": {
       "label": "RTMP",
@@ -279,28 +288,33 @@
       "authId": "SIP Auth ID",
       "password": "SIP Password"
     },
-    "modeOptions": {
-      "unicast": "Unicast",
-      "multicast": "Multicast",
-      "broadcast": "Broadcast"
-    },
-    "transModeOptions": {
-      "udp": "UDP",
-      "tcp": "TCP"
+    "validation": {
+      "localPort": "Local Port",
+      "targetIp": "Target IP",
+      "targetPort": "Target Port",
+      "sendLength": "Send Length",
+      "sendInterval": "Send Interval",
+      "servicePort": "Service Port",
+      "transportMode": "Transport Mode",
+      "streamName": "Stream Name",
+      "userCount": "User Count",
+      "keepAlive": "Keep Alive",
+      "pushUrl": "Push URL",
+      "sipServerIp": "SIP Server IP",
+      "sipServerPort": "SIP Server Port",
+      "sipServerId": "SIP Server ID",
+      "registrationPeriod": "Registration Period",
+      "heartbeatInterval": "Heartbeat Interval",
+      "localSipPort": "Local SIP Port",
+      "sipAuthId": "SIP Auth ID",
+      "sipPassword": "SIP Password"
     },
     "saveButton": "Save"
   },
+
   "placeholders": {
     "model": "e.g. QP-125T",
-    "serial": "001-0001",
-    "number": "0/1/2/3/4",
-    "angle": "[0,360]",
-    "error": "[-5,5]",
-    "servoKp": "[0,500]",
-    "servoKi": "[0,50000]",
-    "servoFp": "[0,1000]",
-    "dataBits": "5/6/7/8",
-    "stopBits": "1/1.5/2"
+    "ms": "ms"
   },
   "unknown": "unknown",
   "error": {

@@ -6,7 +6,7 @@
         <div class="form-box bordered">
           <div class="title" style="margin-bottom: 10px">
             <FormTitle
-              :title="t('encoding.channelTitle', { index: index + 1 })"
+              :title="t('encoding.channelTitle', { index: index })"
               text-type="primary"
             />
           </div>
